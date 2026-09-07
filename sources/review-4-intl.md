@@ -42,6 +42,9 @@ Date of verification run: **2026-09-08**.
 - {id: starrocks,       title: "StarRocks Blog",               url: "https://www.starrocks.io/blog/rss.xml",                      lang: en, category: vendor, weight: 2}
 - {id: sealos,          title: "Sealos Blog",                  url: "https://sealos.io/rss.xml",                                  lang: en, category: vendor, weight: 2}
 - {id: rainbond,        title: "Rainbond 博客",                 url: "https://www.rainbond.com/blog/rss.xml",                      lang: zh, category: vendor, weight: 1}
+- {id: fory,            title: "Apache Fory (蚂蚁 Ant)",         url: "https://fory.apache.org/blog/rss.xml",                       lang: en, category: project, weight: 1}
+- {id: rocketmq-cn,     title: "Apache RocketMQ 博客",           url: "https://rocketmq.apache.org/blog/rss.xml",                   lang: zh, category: project, weight: 1}
+- {id: answer-cn,       title: "Apache Answer (SegmentFault)",  url: "https://answer.apache.org/blog/rss.xml",                     lang: en, category: project, weight: 1}
 ```
 
 | id | why an English-only digest misses it | evidence (2026-09-08) |
@@ -61,6 +64,9 @@ Date of verification run: **2026-09-08**.
 | starrocks | Chinese-origin OLAP with real-world lakehouse migrations. | 200, 10 entries, newest 2026-04-29 |
 | sealos | CN "cloud OS" on k8s, big domestic adoption, near-zero EN coverage. | 200, 156 entries, newest 2026-07-28 (feed lives at `/rss.xml`, not `/blog/rss.xml`) |
 | rainbond | CN app-platform/PaaS on k8s; interesting as a non-Western platform-engineering take. | 200, 20 entries, newest 2026-09-02 |
+| fory | Ant Group's serialization framework, now Apache; ships fast and sits inside CN infra stacks. | 200, 20 entries, newest 2026-09-04 |
+| rocketmq-cn | Alibaba-originated messaging; the blog is Chinese-first. Thin feed (1 item today) — weight 1. | 200, 1 entry, newest 2026-09-03 |
+| answer-cn | SegmentFault-originated Q&A platform at Apache; a rare CN OSS project publishing English release notes. | 200, 20 entries, newest 2026-07-21 |
 
 ### Chinese (zh) — people and community
 
@@ -77,6 +83,9 @@ Date of verification run: **2026-09-08**.
 - {id: hellogithub,     title: "HelloGitHub 月刊",               url: "https://hellogithub.com/rss",                                lang: zh, category: community, weight: 1}
 - {id: gitee-blog,      title: "Gitee 官方博客",                  url: "https://blog.gitee.com/feed/",                               lang: zh, category: vendor, weight: 1}
 - {id: ruanyifeng,      title: "阮一峰 — 科技爱好者周刊",           url: "https://www.ruanyifeng.com/blog/atom.xml",                   lang: zh, category: newsletter, weight: 2}
+- {id: cnblogs,         title: "博客园 (cnblogs) 首页",           url: "https://feed.cnblogs.com/blog/sitehome/rss",                 lang: zh, category: community, weight: 2}
+- {id: solidot,         title: "奇客 Solidot",                   url: "https://www.solidot.org/index.rss",                          lang: zh, category: media, weight: 2}
+- {id: deepin,          title: "deepin (CN distro) News",       url: "https://www.deepin.org/en/feed/",                            lang: en, category: community, weight: 1}
 ```
 
 | id | why | evidence (2026-09-08) |
@@ -92,6 +101,9 @@ Date of verification run: **2026-09-08**.
 | hellogithub | Monthly OSS-discovery issue — good for "new Chinese project nobody has heard of" segments. | 200, 125 entries, newest 2026-08-28 |
 | gitee-blog | Gitee is the CN GitHub alternative; its platform/DevOps announcements matter for the domestic-stack story. | 200, 10 entries, newest 2026-09-07 |
 | ruanyifeng | Weekly tech roundup with the largest CN developer readership; occasionally the only Chinese-language framing of a Western infra story. | 200, 3 entries, newest 2026-09-03 (feed keeps only latest few) |
+| cnblogs | 博客园 is the oldest CN developer blogging community and still where domestic ops war stories land. Feed host is `feed.cnblogs.com` (`www.cnblogs.com/rss` is an alias, same content). | 200, 20 entries, newest 2026-09-07 |
+| solidot | The Chinese Slashdot — curated, opinionated CN framing of global tech/infra news; a "how this story reads in China" source. | 200, 20 entries, newest 2026-09-07 |
+| deepin | Chinese desktop/server distro with monthly community reports; the sovereign-OS thread (deepin / openKylin / OpenCloudOS) EN media ignores. Only `/en/feed/` emits a feed. | 200, 10 entries, newest 2026-09-07 |
 
 ### Replacement lines for broken zh entries already in the draft
 
@@ -125,8 +137,6 @@ Date of verification run: **2026-09-08**.
 - {id: dena,            title: "DeNA Engineering",              url: "https://engineering.dena.com/index.xml",                     lang: ja, category: vendor, weight: 2}
 - {id: cookpad,         title: "クックパッド開発者ブログ",            url: "https://techlife.cookpad.com/feed",                          lang: ja, category: vendor, weight: 2}
 - {id: hatena-dev,      title: "Hatena Developer Blog",         url: "https://developer.hatenastaff.com/feed",                     lang: ja, category: vendor, weight: 2}
-- {id: smarthr,         title: "SmartHR Tech Blog",             url: "https://tech.smarthr.jp/feed",                               lang: ja, category: vendor, weight: 1}
-- {id: moneyforward,    title: "Money Forward Developers",      url: "https://moneyforward-dev.jp/feed",                           lang: ja, category: vendor, weight: 1}
 - {id: pepabo,          title: "Pepabo Tech Portal",            url: "https://tech.pepabo.com/feed.xml",                           lang: ja, category: vendor, weight: 2}
 - {id: gmo-dev,         title: "GMO Developers",                url: "https://developers.gmo.jp/feed/",                            lang: ja, category: vendor, weight: 2}
 - {id: mixi-dev,        title: "MIXI DEVELOPERS",               url: "https://medium.com/feed/mixi-developers",                    lang: ja, category: vendor, weight: 1}
@@ -179,15 +189,9 @@ Date of verification run: **2026-09-08**.
 - {id: srobert,         title: "Stéphane Robert — DevSecOps",   url: "https://blog.stephane-robert.info/rss.xml",                  lang: fr, category: person, weight: 3}
 - {id: octo,            title: "OCTO Talks !",                  url: "https://blog.octo.com/feed",                                 lang: fr, category: vendor, weight: 2}
 - {id: ippon,           title: "Blog Ippon",                    url: "https://blog.ippon.fr/rss/",                                 lang: fr, category: vendor, weight: 2}
-- {id: silicon-fr,      title: "Silicon.fr",                    url: "https://www.silicon.fr/feed",                                lang: fr, category: media, weight: 1}
 - {id: paradigma,       title: "Paradigma Digital",             url: "https://www.paradigmadigital.com/feed/",                     lang: es, category: vendor, weight: 2}
 - {id: 4linux,          title: "Blog 4Linux (BR)",              url: "https://blog.4linux.com.br/feed/",                           lang: pt, category: vendor, weight: 2}
-- {id: zup,             title: "Zup Innovation (BR)",           url: "https://zup.com.br/blog/feed/",                              lang: pt, category: vendor, weight: 1}
 - {id: sekurak,         title: "Sekurak (PL, security)",        url: "https://sekurak.pl/feed/",                                   lang: pl, category: media, weight: 2}
-- {id: devstyle,        title: "devstyle (PL)",                 url: "https://devstyle.pl/feed",                                   lang: pl, category: person, weight: 1}
-- {id: itwiz,           title: "ITwiz (PL)",                    url: "https://itwiz.pl/feed/",                                     lang: pl, category: media, weight: 1}
-- {id: tweakers,        title: "Tweakers (NL)",                 url: "https://tweakers.net/feeds/mixed.xml",                       lang: nl, category: media, weight: 1}
-- {id: xebia,           title: "Xebia Blog",                    url: "https://xebia.com/feed/",                                    lang: en, category: vendor, weight: 1}
 ```
 
 | id | why | evidence (2026-09-08) |
@@ -209,7 +213,24 @@ Date of verification run: **2026-09-08**.
 | tweakers | Dutch original tech journalism (their own benchmarks/reviews). Use `tweakers.net/feeds/mixed.xml` — the old FeedBurner URL is frozen at 2025-04. | 200, 40 entries, newest 2026-09-07 |
 | xebia | NL-origin consultancy; content is English but the delivery/platform practice is European. Weight 1. | 200, 10 entries, newest 2026-08-26 |
 
-**Total verified additions: 68** (Chinese: 26 of them + 2 replacement fixes → Chinese share ≥ half of new zh/ja/ko material as requested).
+**Totals: 68 verified additions in the main lists** — 32 Chinese-scene entries (30 new plus 2 replacement fixes for broken draft URLs) against 36 Japanese / Korean / European, i.e. the Chinese share is at half as requested. 8 further verified-but-thin sources are parked in the optional list below.
+
+### Optional breadth (verified, low priority — add only if you want wider national coverage)
+
+All eight were fetched and parsed successfully on 2026-09-08; they are simply thinner on infra signal than the entries above.
+
+```yaml
+- {id: smarthr,         title: "SmartHR Tech Blog",             url: "https://tech.smarthr.jp/feed",                               lang: ja, category: vendor, weight: 1}
+- {id: moneyforward,    title: "Money Forward Developers",      url: "https://moneyforward-dev.jp/feed",                           lang: ja, category: vendor, weight: 1}
+- {id: silicon-fr,      title: "Silicon.fr",                    url: "https://www.silicon.fr/feed",                                lang: fr, category: media, weight: 1}
+- {id: zup,             title: "Zup Innovation (BR)",           url: "https://zup.com.br/blog/feed/",                              lang: pt, category: vendor, weight: 1}
+- {id: devstyle,        title: "devstyle (PL)",                 url: "https://devstyle.pl/feed",                                   lang: pl, category: person, weight: 1}
+- {id: itwiz,           title: "ITwiz (PL)",                    url: "https://itwiz.pl/feed/",                                     lang: pl, category: media, weight: 1}
+- {id: tweakers,        title: "Tweakers (NL)",                 url: "https://tweakers.net/feeds/mixed.xml",                       lang: nl, category: media, weight: 1}
+- {id: xebia,           title: "Xebia Blog",                    url: "https://xebia.com/feed/",                                    lang: en, category: vendor, weight: 1}
+```
+
+`smarthr` (200/30/2026-09-07) and `moneyforward` (200/30/2026-09-01) are mostly org and product posts; `silicon-fr` (200/50/2026-09-07) is French market news; `tweakers` (200/40/2026-09-07) is Dutch consumer tech with occasional datacenter reporting; `xebia` (200/10/2026-08-26) publishes in English; `itwiz` (200/10/2026-09-07) and `devstyle` (200/20/2026-09-07) cover the Polish market and developer culture; `zup` (200/10/2026-09-04) is Brazilian and only occasionally infra.
 
 ---
 

@@ -6,5 +6,6 @@ __pycache__/
 # Raw crawl output and the full-text cache: large, regenerable, not review material
 data/
 
-# Cross-week state lives on the runner between scheduled runs, not in git
-state/
+# state/ is deliberately NOT ignored: the scheduled runner is a fresh machine
+# every week, so cross-week de-duplication only works if emitted.sqlite and
+# feed_health.json travel with the repo.
