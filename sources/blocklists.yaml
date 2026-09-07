@@ -31,6 +31,14 @@ vendor_pr:
   - '\b(customer (story|success)|case study|testimonial)\b'
   - '^\s*press release\b'
   - '\b(award|awards) (winner|finalist)\b'
+  # Regional rollouts of an existing service: an availability notice, not news.
+  - '\b(is |are )?now available in .{0,60}\bregions?\b'
+  - '\bis now generally available in\b'
+  - '\bexpands? (to|into) .{0,40}\bregions?\b'
+  - '\bnew .{0,30}\b(local zone|availability zone|regions?) (is |are )?(now )?(open|available)\b'
+  # Routine distro round-ups: a daily list of package bumps, not a story.
+  - '^security updates for (monday|tuesday|wednesday|thursday|friday|saturday|sunday)\b'
+  - '^\[?(usn|dsa|rhsa)[- ]?\d+.*: .*(vulnerabilit|update)s?\s*$'
 pr_domains:
   - prnewswire.com
   - businesswire.com

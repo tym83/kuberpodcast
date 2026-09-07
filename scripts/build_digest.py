@@ -135,13 +135,21 @@ def main() -> int:
 
     # Off-topic gate runs after TOP is final.
     gate = scfg["top_gate"]
+    community_gate = scfg.get("community_top_gate", 0.35)
     on_topic = []
     for it in survivors:
-        # Judge relevance only where there is text to judge. An item from a
-        # high-authority curated feed whose body we never fetched gets the
-        # benefit of the doubt at a lower bar rather than a silent drop.
+        # Judge relevance only where there is text to judge. A curated,
+        # high-authority feed earns the benefit of the doubt when its body was
+        # never fetched; Hacker News and Reddit do not — they carry no curation
+        # prior, so a text-less thread there is judged on its title alone.
         has_text = it.get("words", 0) >= 120 or len(it.get("summary", "")) >= 200
-        effective_gate = gate if has_text else min(gate, 0.07)
+        curated = it["source_kind"] == "feed" and float(it.get("source_weight", 0)) >= 4
+        effective_gate = gate if (has_text or not curated) else min(gate, 0.07)
+        if it["source_kind"] in ("hn", "reddit", "lobsters", "devto"):
+            # Aggregators carry no curation prior and hand out large engagement
+            # scores to anything popular. A story arrives here on votes alone,
+            # so it has to be clearly on the show's beat, not merely adjacent.
+            effective_gate = max(effective_gate, community_gate)
         if it.get("lang", "en") != "en":
             # The topic vocabulary is English-biased by construction, which is the
             # very bias the protected non-English quota exists to counter. Judging
