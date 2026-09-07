@@ -264,7 +264,10 @@ def screen(item: dict, f: Filters, repo_cfg: dict, ed: dict) -> tuple[str | None
     # Routing flags used later by the classifier and the bonus terms.
     if f.security and f.security.search(text):
         flags["security"] = True
-    if f.incident and f.incident.search(text) and _incident_is_first_party(item):
+    # The marker has to be in the headline or the opening, or every post that
+    # mentions an outage in passing lands in the incidents section.
+    opening = f"{title}\n{body[:600]}"
+    if f.incident and f.incident.search(opening) and _incident_is_first_party(item):
         flags["incident"] = True
     if f.breaking and f.breaking.search(text):
         flags["breaking_change"] = True

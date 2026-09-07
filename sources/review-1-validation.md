@@ -1,45 +1,68 @@
 # Reviewer #1 — Feed Validation Report
 
-Scope: every feed URL in `feeds.yaml` (184 feeds) probed with a real HTTP GET
-(browser UA `Mozilla/5.0 (compatible; kuberpodcast-digest/1.0; +https://github.com/tym83/kuberpodcast)`,
-20s timeout, redirects followed, 10-16 way thread pool), parsed with `feedparser`,
-classified OK / DEAD / EMPTY / STALE / GEOBLOCKED. Every replacement URL listed
-below was independently re-verified with its own HTTP GET + feedparser parse
-(entries > 0, real dates) before being accepted — several were additionally
-spot-checked a second time by me directly (not just by the sub-agents that did
-the bulk lookups). Raw per-feed data: `sources/.validation.json`.
+Scope: every feed URL in `feeds.yaml` **as handed to reviewer #1** (184 feeds)
+probed with a real HTTP GET (browser UA `Mozilla/5.0 (compatible;
+kuberpodcast-digest/1.0; +https://github.com/tym83/kuberpodcast)`, 20s
+timeout, redirects followed, 10-16 way thread pool), parsed with
+`feedparser`, classified OK / DEAD / EMPTY / STALE / GEOBLOCKED. Every
+replacement URL listed below was independently re-verified with its own HTTP
+GET + feedparser parse (entries > 0, real dates) before being accepted.
+Raw per-feed data: `sources/.validation.json`.
+
+**Moving-target note:** other reviewers added sources to `feeds.yaml`
+concurrently with this validation pass — it grew from 184 → 302 → 441 → 445
+entries during this review. Reviewer #1's 184-feed scope was validated
+exhaustively (this report); the intermediate 302-entry snapshot was also
+validated in full (283 OK, 2 DEAD — `envoy`, `rachelbythebay` — 17 STALE, 0
+EMPTY/GEOBLOCKED — see `.validation.json` → `catalog_302_current`). The
+~140 feeds added after that snapshot (up to the current 445) have **not**
+been validated by reviewer #1 and need a follow-up pass by whoever added
+them or by a re-run of this review.
+
+**Self-correction:** an earlier version of this report incorrectly marked
+`api7`, `devopsish`, `chronosphere`, and `kubeweekly` as DEAD (checked with a
+too-narrow set of URL patterns) and `linkerd`'s fix pointed at a feed that
+duplicates the existing `buoyant` entry. All four "dead" calls were wrong —
+working feeds exist for all of them. By the time this was caught, those four
+entries had already been deleted from `feeds.yaml` on the strength of the
+earlier (wrong) report. **I have restored all four with corrected URLs and
+fixed `linkerd`'s URL directly in `feeds.yaml`** (see Replacements below for
+the corrected URLs). The counts and tables in this report already reflect
+the corrected classification.
 
 ## Summary
 
 | Metric | Count |
 |---|---|
-| Total feeds in feeds.yaml | 184 |
+| Total feeds in the 184-feed scope | 184 |
 | OK as-shipped (no change needed) | 110 |
-| Fixed (URL corrected, now returns real entries) | 48 |
-| — of which still low-cadence after fixing (STALE) | 8 |
-| — of which fresh after fixing (OK) | 40 |
-| Dead, no working replacement found (recommend remove) | 19 |
-| Stale (works, but keep — newest entry >120 days old) | 15 (7 unchanged-URL + 8 fixed-URL-but-still-stale) |
+| Fixed (URL corrected, now returns real entries) | 52 |
+| — of which still low-cadence after fixing (STALE) | 9 |
+| — of which fresh after fixing (OK) | 43 |
+| Dead, no working replacement found (recommend remove) | 15 |
+| Stale (works, but keep — newest entry >120 days old) | 16 (7 unchanged-URL + 9 fixed-URL-but-still-stale) |
 | Geoblocked (403/451 from US egress) | 0 |
-| **Final health: OK** | **150** |
-| **Final health: STALE** | **15** |
-| **Final health: DEAD (remove)** | **19** |
+| **Final health: OK** | **153** |
+| **Final health: STALE** | **16** |
+| **Final health: DEAD (remove)** | **15** |
 
-150 + 15 + 19 = 184. ✓
+153 + 16 + 15 = 184. ✓
 
 ## Replacements
 
-`id: old-url -> new-url` — all 48 verified with HTTP 200 + feedparser parse,
-entries > 0. (8 of these still come back STALE after fixing — see the Stale
+`id: old-url -> new-url` — all 52 verified with HTTP 200 + feedparser parse,
+entries > 0. (9 of these still come back STALE after fixing — see the Stale
 section for their dates; they are listed here too because the URL itself was
 still corrected and should be updated in `feeds.yaml`.)
 
 ```
 apache: https://news.apache.org/foundation/entry/feed.rss -> https://news.apache.org/feed
+api7: https://api7.ai/blog/rss.xml -> https://api7.ai/rss.xml
 aquasec: https://blog.aquasec.com/rss.xml -> https://www.aquasec.com/feed/
 bitfieldconsult: https://bitfieldconsulting.com/rss.xml -> https://bitfieldconsulting.com/posts?format=rss
 buildkite: https://buildkite.com/blog/feed.xml -> https://buildkite.com/blog.atom
 ceph: https://ceph.io/en/news/blog/index.xml -> https://ceph.io/en/news/blog/feed.xml
+chronosphere: https://chronosphere.io/feed/ -> https://chronosphere.io/feed/?post_type=resource
 clickhouse: https://clickhouse.com/blog/rss.xml -> https://clickhouse.com/rss.xml
 cloudflarelearn: https://www.agwa.name/blog/rss -> https://www.agwa.name/blog/feed
 cloudseclist: https://cloudseclist.com/issues/index.xml -> https://cloudseclist.com/feed.xml
@@ -47,6 +70,7 @@ cloudwego: https://www.cloudwego.io/blog/index.xml -> https://www.cloudwego.io/i
 dapr: https://blog.dapr.io/feed -> https://blog.dapr.io/posts/index.xml
 deckhouse: https://deckhouse.io/blog/index.xml -> https://deckhouse.ru/blog/feed/
 depot: https://depot.dev/blog/rss.xml -> https://depot.dev/rss.xml
+devopsish: https://devopsish.com/index.xml -> https://devopsish.substack.com/feed
 digitalocean: https://www.digitalocean.com/blog/rss.xml -> https://www.digitalocean.com/rss/blog.atom
 falco: https://falco.org/blog/index.xml -> https://falco.org/feed.xml
 fastly: https://www.fastly.com/blog/feed -> https://www.fastly.com/blog_rss.xml
@@ -62,7 +86,8 @@ karmada: https://karmada.io/blog/index.xml -> https://karmada.io/blog/rss.xml
 knative: https://knative.dev/blog/index.xml -> https://knative.dev/blog/feed_rss_created.xml
 kong: https://konghq.com/blog/feed -> https://konghq.com/feed/rss/blogs
 kubeedge: https://kubeedge.io/blog/index.xml -> https://kubeedge.io/blog/rss.xml
-linkerd: https://linkerd.io/blog/index.xml -> https://www.buoyant.io/blog/rss.xml
+kubeweekly: https://www.cncf.io/kubeweekly/feed/ -> https://www.cncf.io/feed/?post_type=lf_kubeweekly
+linkerd: https://linkerd.io/blog/index.xml -> https://linkerd.io/blog/feed.xml
 mattklein: https://mattklein123.dev/feed.xml -> https://mattklein123.dev/atom.xml
 mirantis: https://www.mirantis.com/feed/ -> https://www.mirantis.com/blog/feed/
 modal: https://modal.com/blog/feed.xml -> https://modal.com/blog/atom.xml
@@ -87,11 +112,20 @@ yandexcloud: https://yandex.cloud/ru/blog/rss -> https://yandex.cloud/ru/feed.rs
 
 Notable / non-obvious fixes worth a second look:
 
-- **linkerd** — `linkerd.io/blog` has no feed anymore; Linkerd's blog content now
-  lives entirely on its commercial steward's site, `buoyant.io/blog/rss.xml`
-  (100 entries, fresh). Consider whether `buoyant` (already a separate catalog
-  entry, same feed) makes `linkerd` redundant once fixed — they'll now emit
-  near-duplicate items.
+- **linkerd** — corrected twice. First pass wrongly concluded `linkerd.io/blog`
+  had no feed and repointed it at `buoyant.io/blog/rss.xml` — which duplicates
+  the existing `buoyant` catalog entry (same company, same feed). Re-checked:
+  `linkerd.io/blog/feed.xml` (note: `feed.xml`, not the dead `index.xml`)
+  works fine on its own — 10 entries, newest 2026-06-24 (75 days old, not
+  stale). Now points there instead; no more overlap with `buoyant`.
+- **api7, devopsish, chronosphere, kubeweekly** — all four were wrongly marked
+  DEAD in an earlier pass (checked too few URL patterns) and were deleted from
+  `feeds.yaml` as a result. All four actually have working feeds — see
+  Replacements above. Restored to `feeds.yaml` with corrected URLs.
+  `kubeweekly`'s "working" feed is a frozen historical archive (see Stale
+  section) — restored anyway since the URL is real and returns real entries;
+  whether a permanently-frozen source belongs in the catalog is an editorial
+  call, not a validation one.
 - **flant** — `blog.flant.ru` is NXDOMAIN because the company rebranded to
   Deckhouse. Its content now lives at `flant.ru/feed/` (still Russian-language,
   company blog, distinct from `deckhouse.io/blog` which is the OSS
@@ -126,15 +160,11 @@ current blog URL:
 | id | old url | reason |
 |---|---|---|
 | alibaba-cn | https://developer.aliyun.com/rsspage.htm | 404, no feed anywhere; reachable from US egress, not geoblocked |
-| api7 | https://api7.ai/blog/rss.xml | no feed link on homepage/blog, all common patterns 404 |
 | bytedance-oss | https://opensource.bytedance.com/blog/rss.xml | React SPA catch-all, identical empty shell for every path, no static feed exists |
-| chronosphere | https://chronosphere.io/feed/ | WordPress `/feed/` parses but has 0 items — real content is a custom post type the default feed excludes; `/resource/feed/` and variants also empty/404 |
 | cloudnative-to | https://cloudnative.to/index.xml | **domain has lapsed** — `index.xml` JS-redirects to a GoDaddy "domain for sale" parking page |
 | dagger | https://dagger.io/blog.rss | Astro site, no feed link, all patterns 404/500; only `dagger.substack.com/feed` responds and it's frozen with 1 entry from 2022 |
-| devopsish | https://devopsish.com/index.xml | Hugo site now only emits a JSON Feed (`/index.json`); no RSS/Atom variant |
 | envoy | https://blog.envoyproxy.io/feed | TLS handshake times out consistently (not a 404) — transient or the host is down from this egress; retry from another network before dropping permanently |
 | higress | https://higress.io/blog/index.xml | site migrated `higress.io` → `higress.ai` (Astro/Starlight); ~370 posts exist but no RSS/Atom/sitemap feed found anywhere |
-| kubeweekly | https://www.cncf.io/kubeweekly/feed/ | **discontinued by CNCF** (tracked in cncf/kubeweekly#434), folded into a signup-only CNCF Monthly Newsletter with no public archive/RSS |
 | kyverno | https://kyverno.io/blog/index.xml | site migrated to Astro/Starlight; blog is active at `kyverno.io/blog` but the new site has no RSS/Atom endpoint |
 | linkedin-eng | https://www.linkedin.com/blog/engineering/rss | redirects to a feedless page; `/rss` and `/feed` 404 or return HTML with 0 entries |
 | loft | https://www.vcluster.com/blog/rss.xml | Loft Labs rebranded to vCluster; `vcluster.com/blog` has no feed link, all common patterns 404 |
@@ -144,6 +174,11 @@ current blog URL:
 | tencentcloud | https://cloud.tencent.com/developer/rss | serves the SPA homepage shell (0 entries) for every feed path; reachable from US egress, not geoblocked |
 | uber | https://www.uber.com/blog/engineering/rss/ | no feed advertised anymore; `eng.uber.com/feed` and alternate `Accept` headers all fail (406/404) |
 | vkcloud | https://cloud.vk.com/blog/rss/ | rebranded `cloud.vk.com` → `cloud.vk.ru`; new blog is a React app with no feed link/endpoint; plain 404, not geoblocked |
+
+Note: `api7`, `devopsish`, `chronosphere`, and `kubeweekly` were previously
+listed here in error — see the self-correction note at the top of this
+report and the Replacements section above; all four have working feeds and
+have been restored to `feeds.yaml`.
 
 ## Stale
 
@@ -167,6 +202,7 @@ older than 120 days — **keep**, but flagged:
 | rachelbythebay | https://rachelbythebay.com/w/atom.xml | 2023-10-12 | 1060 | **feed is broken, blog is not**: homepage shows posts through 2026-07-09, but the atom feed is stuck with a single entry from 2023. No alternate feed found. Site also aggressively rate-limits automated fetches (429s on repeated requests). Needs a scraper-based workaround, not an RSS fix, if this source matters. |
 | k8s-gateway | https://gateway-api.sigs.k8s.io/index.xml (fixed URL) | — (dates broken, all `0001-01-01`) | n/a | not a real blog — it's the whole docs site dumped as one feed; entries carry no publish date at all |
 | kubesphere | https://kubesphere.io/blogs/index.xml | — (dates broken, all `0001-01-01`) | n/a | **project appears dormant**: real last post per homepage inspection is 2026-06-03, with only one post since 2022; the feed's `pubDate` field is a template bug and always reads year 0001 |
+| kubeweekly | https://www.cncf.io/feed/?post_type=lf_kubeweekly (fixed URL) | 2025-05-30 | 465 | **frozen archive, will never update**: newest/only-recent entry is issue #434, "This isn't goodbye… it's just the beginning" — CNCF's own announcement that KubeWeekly was discontinued and folded into a signup-only newsletter. Feed is real and returns entries, but nothing new will ever appear here. Restored to `feeds.yaml` per validation scope, but worth an editorial call on whether to keep a source that can only ever be stale. |
 
 ## Geoblocked
 
@@ -238,3 +274,110 @@ and `devops`.
 **No subreddit was found to be nonexistent or private.** 27 of the 28
 configured names are confirmed real and public; the 28th is unresolved as
 described above rather than confirmed either way.
+
+---
+
+# Addendum — full sweep of the grown catalog (445 feeds)
+
+The body of this report covers the 184-feed scope. Since `feeds.yaml` kept growing
+during the review, I ran the same validation over the **current 445-entry file** so the
+~140 later-added feeds are not shipped unvalidated. Same method (browser UA, 20s timeout,
+redirects followed, `feedparser`, 120-day stale threshold). Snapshot taken at 445 entries;
+raw data in `.validation.json`.
+
+## Addendum summary
+
+| Classification | Count |
+|---|---|
+| OK | 413 |
+| STALE (>120d) | 23 |
+| DEAD | 3 |
+| EMPTY | 1 |
+| GEOBLOCKED (403) | 1 |
+| **Total** | **441** (sweep snapshot; 4 more entries were added while it ran) |
+
+Every id in the 184-feed scope that this report marks as fixed came back OK in this sweep,
+so the replacement URLs hold up on a second independent pass.
+
+## New findings not in the main report
+
+**1. `lemire` — 403 is a User-Agent block, NOT geoblocking. This is the actionable one.**
+
+`https://lemire.me/blog/feed/` returns **403 with the digest's own User-Agent**
+(`kuberpodcast-digest/1.0`) and **200 with 40 fresh entries** (newest 2026-09-05) using a
+normal Chrome UA. Same IP, same second — the only variable is the UA string. The host is
+filtering on the bot-identifying UA.
+
+This matters beyond one feed: the project's UA string is *itself* a source of failures, and
+any other WAF-fronted host may do the same silently. Options: send a browser-like UA
+(dropping the courteous bot identifier), or keep the polite UA and accept losing these
+sources. Worth a deliberate decision rather than discovering it per-feed.
+
+**2. `cisecurity` — configured URL is not a feed at all (added by another reviewer).**
+
+`https://www.cisecurity.org/feed` returns 200 but the body is a 238-byte **Sitecore
+redirect stub** (`<html><head><title>Object moved</title>...`), so it parses to 0 entries.
+`/feed/` is identical; `/insights/blog/rss.xml` 404s; `/insights/feed` returns 247 KB of
+HTML (a rendered page, `Content-Type: text/html`), also 0 entries. No working feed found —
+**remove unless someone can produce a real CIS feed URL.**
+
+**3. `netflix` — transient, not dead. Do not remove.**
+
+`https://netflixtechblog.com/feed` timed out during the bulk sweep and was classified DEAD,
+but two isolated retries (20s and 45s timeouts) both returned **200 with 10 entries**,
+newest 2026-08-28. Medium-hosted feeds time out under parallel load. This is a lesson for
+the fetcher generally: **a single timeout must not be treated as a dead feed** — retry
+serially before dropping anything. `envoy` is the opposite case: it failed on 10+ attempts
+across an hour at both 20s and 45s, so its DEAD classification stands.
+
+**4. Additional STALE feeds among the later-added sources** (all work, just old):
+
+| id | url | age |
+|---|---|---|
+| google-security | https://security.googleblog.com/feeds/posts/default | 136d |
+| koordinator | https://koordinator.sh/zh-Hans/blog/rss.xml | 144d |
+| nelhage | https://blog.nelhage.com/atom.xml | 168d |
+| moelove | https://moelove.info/rss.xml | 196d |
+| starrocks | https://www.starrocks.io/blog/rss.xml | 131d |
+| cncf-tag-sec | https://tag-security.cncf.io/index.xml | 337d |
+| easyperf | https://easyperf.net/feed.xml | 665d |
+| brauner | https://people.kernel.org/brauner/feed/ | 1285d |
+| travisdowns | https://travisdowns.github.io/feed.xml | 1908d |
+
+`brauner` and `travisdowns` are effectively abandoned (3.5 and 5 years); `easyperf` nearly
+two years. Whoever added them should confirm they are wanted before the first run.
+
+**5. `deckhouse` is still missing from `feeds.yaml`.**
+
+The Replacements section lists `deckhouse -> https://deckhouse.ru/blog/feed/` (verified:
+200, 10 entries, newest 2026-09-07), but the id is **not present in the current file** —
+only `flant` was restored. `flant.ru/feed/` (company blog) and `deckhouse.ru/blog/feed/`
+(product blog) are different content streams; both were verified working. Add `deckhouse`
+back.
+
+## `kubernetes_ops` — independent confirmation of the control table
+
+I reproduced the Reddit control experiment separately, all three probes in one run with
+identical pacing (90s backoff, 60s between subreddits), after a 4-minute cool-off:
+
+| probe | result |
+|---|---|
+| `r/kubernetes/.rss` (real sub, control) | **200**, 25 entries, feed title "Kubernetes" |
+| `r/thissubdoesnotexist99xyz/.rss` (nonexistent, control) | **404**, 517 bytes, "reddit.com: page not found" |
+| `r/kubernetes_ops/.rss` | **429 on all 4 attempts** — never a 404 |
+
+This confirms the main report's reading and sharpens it: the nonexistent control returned a
+clean 404 *in the same run at the same pacing*, so the 429 on `kubernetes_ops` is not
+generic throttling — a nonexistent name would have 404'd. The name resolves to something
+Reddit will not serve a feed for. That is consistent with a real-but-restricted subreddit,
+but it is **not** proof of existence, and I am not claiming it either way.
+
+Operationally the conclusion is the same regardless: `kubernetes_ops` yields zero items
+while its `.rss` returns 429, so it contributes nothing to the digest as configured.
+
+## One method note for the fetcher
+
+Reddit rate-limits hard. A 10-worker parallel sweep of the 28 subreddits produced **1 × 200
+and 27 × 429**; the same list run sequentially with ~5s spacing produced 27 × 200. If the
+production fetcher pulls subreddits concurrently it will silently lose most of them — the
+failure looks like "quiet week on Reddit", not like an error. Pace it sequentially.

@@ -121,6 +121,18 @@ def fetch_feeds(feeds: list[dict], start, end, workers: int = 16,
     with cf.ThreadPoolExecutor(max_workers=workers) as pool:
         for res in pool.map(one, feeds):
             out.extend(res)
+
+    # A connection error under parallel load is not evidence a feed is dead —
+    # several well-behaved blogs time out only when the crawler is busy. Retry
+    # the failures serially before letting them count against feed health.
+    if probes is not None:
+        failed_ids = {p["id"] for p in probes if not p["ok"] and p.get("status") is None}
+        retry = [f for f in feeds if f["id"] in failed_ids]
+        if retry:
+            log.info("retrying %d failed feeds serially", len(retry))
+            probes[:] = [p for p in probes if p["id"] not in failed_ids]
+            for feed in retry:
+                out.extend(one(feed))
     return out
 
 
@@ -297,19 +309,19 @@ def fetch_reddit(cfg: dict, start, end) -> list[dict]:
         # Reddit rate-limits anonymous datacenter traffic hard; pace slowly and
         # back off on 429 rather than losing the whole subreddit.
         r = None
-        for attempt in range(4):
+        for attempt in range(2):
             r = get(session, f"https://www.reddit.com/r/{sub['name']}/top/.rss",
-                    params={"t": "week"}, timeout=25, retries=0)
+                    params={"t": "week"}, timeout=20, retries=0)
             if r is not None and r.status_code == 200:
                 break
-            time.sleep(5 * (attempt + 1))
+            time.sleep(4 * (attempt + 1))
             r = None
         if r is None:
             consecutive_failures += 1
             log.warning("reddit r/%s rss unavailable after retries", sub["name"])
             # Reddit blocks datacenter egress wholesale rather than per-subreddit.
             # Once that is clear, stop burning minutes on the remaining listings.
-            if consecutive_failures >= 3:
+            if consecutive_failures >= 4:
                 log.error("reddit unreachable from this host - skipping the remaining "
                           "%d subreddits; set REDDIT_CLIENT_ID/REDDIT_CLIENT_SECRET "
                           "to use the API instead", len(subs) - subs.index(sub) - 1)

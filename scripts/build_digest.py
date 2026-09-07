@@ -30,6 +30,10 @@ def main() -> int:
     ap.add_argument("--no-state", action="store_true",
                     help="skip the cross-week store (useful for the very first run)")
     ap.add_argument("--name", default=None)
+    ap.add_argument("--pin", default=None,
+                    help="render exactly the selection in this JSON (output of "
+                         "--selection-out), skipping scoring; use it to re-render "
+                         "a week after hand-editing the picks")
     args = ap.parse_args()
 
     logging.basicConfig(level=logging.INFO, format="%(levelname)s %(message)s")
@@ -41,6 +45,10 @@ def main() -> int:
     banned = compile_list(config.blocklists().get("comment_banned"))
     repo_policy = config.repo_policy()
 
+    pinned = None
+    if args.pin:
+        pinned = json.loads(pathlib.Path(args.pin).read_text(encoding="utf-8"))
+
     raw = json.loads(pathlib.Path(args.raw).read_text(encoding="utf-8"))
     start = datetime.fromisoformat(raw["window_start"])
     end = datetime.fromisoformat(raw["window_end"])
@@ -48,6 +56,9 @@ def main() -> int:
     items = raw["items"]
     curated = set(raw.get("curated_urls") or [])
     logging.info("loaded %d raw items, %d curated newsletter URLs", len(items), len(curated))
+
+    if pinned is not None:
+        return _render_pinned(pinned, raw, args, ed, banned, repo_policy, start, end)
 
     store = None if args.no_state else state.Store()
     if store:
@@ -135,13 +146,27 @@ def main() -> int:
 
     # Off-topic gate runs after TOP is final.
     gate = scfg["top_gate"]
+    community_gate = scfg.get("community_top_gate", 0.35)
     on_topic = []
     for it in survivors:
-        # Judge relevance only where there is text to judge. An item from a
-        # high-authority curated feed whose body we never fetched gets the
-        # benefit of the doubt at a lower bar rather than a silent drop.
+        # Judge relevance only where there is text to judge. A curated,
+        # high-authority feed earns the benefit of the doubt when its body was
+        # never fetched; Hacker News and Reddit do not — they carry no curation
+        # prior, so a text-less thread there is judged on its title alone.
         has_text = it.get("words", 0) >= 120 or len(it.get("summary", "")) >= 200
-        effective_gate = gate if has_text else min(gate, 0.07)
+        curated = it["source_kind"] == "feed" and float(it.get("source_weight", 0)) >= 4
+        effective_gate = gate if (has_text or not curated) else min(gate, 0.07)
+        if it["source_kind"] in ("hn", "reddit", "lobsters", "devto"):
+            # Aggregators carry no curation prior and hand out large engagement
+            # scores to anything popular. A story arrives here on votes alone,
+            # so it has to be clearly on the show's beat, not merely adjacent.
+            effective_gate = max(effective_gate, community_gate)
+        if it.get("lang", "en") != "en":
+            # The topic vocabulary is English-biased by construction, which is the
+            # very bias the protected non-English quota exists to counter. Judging
+            # a Chinese post by how many English keywords it contains would empty
+            # that bucket every week.
+            effective_gate = min(effective_gate, gate / 2)
         if it["components"]["TOP"] < effective_gate and it["source_kind"] != "release":
             rejected["off_topic"] += 1
             it["reject"] = "off_topic"
@@ -243,6 +268,81 @@ def main() -> int:
         store.close()
 
     render.update_index(outdir)
+    return 0
+
+
+def _render_pinned(pinned, raw, args, ed, banned, repo_policy, start, end):
+    """Re-render an already-made selection. Scoring is skipped entirely, so the
+    output is byte-stable for a given selection file plus comment set."""
+    from collections import Counter as _Counter
+
+    sections = [(s["title"], s["items"]) for s in pinned["sections"]]
+    selected = [i for _, g in sections for i in g]
+    for it in selected:
+        dt = it.get("published")
+        if isinstance(dt, str):
+            try:
+                it["_effective_dt"] = datetime.fromisoformat(dt)
+            except ValueError:
+                pass
+    logging.info("pinned selection: %d items across %d sections",
+                 len(selected), len(sections))
+
+    if args.comments:
+        overrides = json.loads(pathlib.Path(args.comments).read_text(encoding="utf-8"))
+        missing = []
+        for it in selected:
+            o = overrides.get(it["id"])
+            if o and o.get("what"):
+                it.update({k: o.get(k, it.get(k)) for k in
+                           ("what", "why", "tags", "angle", "gloss", "angle_line")})
+            else:
+                missing.append(it)
+        if missing:
+            logging.warning("%d pinned items have no supplied comment", len(missing))
+            if args.no_enrich:
+                for it in missing:
+                    enrich._fallback(it)
+            else:
+                enrich.enrich(missing, banned,
+                              angle_top=ed["output"]["podcast_angle_top"])
+    elif args.no_enrich:
+        for it in selected:
+            enrich._fallback(it)
+    else:
+        enrich.enrich(selected, banned, angle_top=ed["output"]["podcast_angle_top"])
+
+    flat = sorted(selected, key=lambda i: -i.get("final", i.get("score", 0)))
+    hq = next((s["quota"] for s in ed["sections"] if s["key"] == "headline"), 8)
+    for it in flat[:hq]:
+        it["headline"] = True
+
+    health = state.load_health()
+    meta = {
+        "start": start, "end": end,
+        "n_raw": len(raw["items"]), "n_unique": None,
+        "n_feeds": len(config.feeds()),
+        "n_feeds_alive": len(config.feeds()) - len(state.dead_feeds(health)),
+        "n_subreddits": len(config.community().get("reddit", {}).get("subreddits", [])),
+        "n_repos": len(repo_policy),
+        "rejected": {}, "langs": _Counter(i.get("lang", "en") for i in selected),
+        "dead_feeds": state.dead_feeds(health),
+    }
+    outdir = pathlib.Path(args.outdir)
+    outdir.mkdir(parents=True, exist_ok=True)
+    stem = args.name or end.date().isoformat()
+    (outdir / f"{stem}.md").write_text(render.render(sections, meta, ed), encoding="utf-8")
+    out_cfg = ed.get("output", {})
+    if out_cfg.get("short_digest"):
+        (outdir / f"{stem}-short.md").write_text(
+            render.render_short(sections, meta, out_cfg.get("short_count", 15)),
+            encoding="utf-8")
+    if not args.no_state:
+        store = state.Store()
+        store.record(selected, stem)
+        store.close()
+    render.update_index(outdir)
+    logging.info("wrote %s", outdir / f"{stem}.md")
     return 0
 
 

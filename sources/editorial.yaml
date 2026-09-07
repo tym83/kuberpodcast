@@ -17,6 +17,7 @@ scoring:
     ORIG: 12                 # primary source beats rewrite
     REC: 10                  # recency inside the window — deliberately small
   top_gate: 0.20             # below this the item is off-topic regardless of engagement
+  community_top_gate: 0.35   # HN/Reddit arrive on votes alone, so they must be clearly on-beat
   tier_scores: {a: 0.35, b: 0.18, c: 0.07}
   eng_floor: 0.15            # so quiet-but-excellent blogs are not zeroed out
   recency_floor: 0.40

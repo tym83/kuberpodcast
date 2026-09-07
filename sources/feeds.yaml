@@ -23,7 +23,7 @@ feeds:
 - {id: prometheus,      title: "Prometheus Blog",              url: "https://prometheus.io/blog/feed.xml",                        lang: en, category: project, weight: 4}
 - {id: istio,           title: "Istio Blog",                   url: "https://istio.io/latest/feed.xml",                     lang: en, category: project, weight: 4}
 - {id: envoy,           title: "Envoy Proxy Blog",             url: "https://blog.envoyproxy.io/feed",                            lang: en, category: project, weight: 4}
-- {id: linkerd,         title: "Linkerd Blog",                 url: "https://www.buoyant.io/blog/rss.xml",                          lang: en, category: project, weight: 3}
+- {id: linkerd,         title: "Linkerd Blog",                 url: "https://linkerd.io/blog/feed.xml",                          lang: en, category: project, weight: 3}
 - {id: cilium,          title: "Cilium Blog",                  url: "https://cilium.io/blog/rss.xml",                             lang: en, category: project, weight: 5}
 - {id: argo,            title: "Argo Project Blog",            url: "https://blog.argoproj.io/feed",                              lang: en, category: project, weight: 4}
 - {id: flux,            title: "Flux CD Blog",                 url: "https://fluxcd.io/blog/index.xml",                           lang: en, category: project, weight: 4}
@@ -70,6 +70,7 @@ feeds:
 - {id: datadog,         title: "Datadog Engineering",          url: "https://www.datadoghq.com/blog/engineering/index.xml",       lang: en, category: vendor, weight: 3}
 - {id: honeycomb,       title: "Honeycomb Blog",               url: "https://www.honeycomb.io/rss/blog.xml",                         lang: en, category: vendor, weight: 4}
 - {id: elastic,         title: "Elastic Blog",                 url: "https://www.elastic.co/blog/feed",                           lang: en, category: vendor, weight: 2}
+- {id: chronosphere,    title: "Chronosphere Blog",            url: "https://chronosphere.io/feed/?post_type=resource",           lang: en, category: vendor, weight: 2}
 - {id: github-blog,     title: "GitHub Blog — Engineering",    url: "https://github.blog/engineering/feed/",                      lang: en, category: vendor, weight: 4}
 - {id: gitlab,          title: "GitLab Blog",                  url: "https://about.gitlab.com/atom.xml",                          lang: en, category: vendor, weight: 3}
 - {id: docker,          title: "Docker Blog",                  url: "https://www.docker.com/blog/feed/",                          lang: en, category: vendor, weight: 3}
@@ -89,6 +90,7 @@ feeds:
 - {id: tetrate,         title: "Tetrate Blog",                 url: "https://tetrate.io/rss.xml",                                   lang: en, category: vendor, weight: 2}
 - {id: kong,            title: "Kong Blog",                    url: "https://konghq.com/feed/rss/blogs",                               lang: en, category: vendor, weight: 2}
 - {id: traefik,         title: "Traefik Labs Blog",            url: "https://traefik.io/rss.xml",                              lang: en, category: vendor, weight: 2}
+- {id: api7,            title: "API7 / Apache APISIX Blog",    url: "https://api7.ai/rss.xml",                                    lang: en, category: vendor, weight: 2}
 - {id: percona,         title: "Percona Blog",                 url: "https://www.percona.com/blog/feed/",                         lang: en, category: vendor, weight: 3}
 - {id: clickhouse,      title: "ClickHouse Blog",              url: "https://clickhouse.com/rss.xml",                        lang: en, category: vendor, weight: 3}
 - {id: neon,            title: "Neon Blog",                    url: "https://neon.tech/blog/rss.xml",                             lang: en, category: vendor, weight: 3}
@@ -134,8 +136,10 @@ feeds:
 - {id: golem,           title: "Golem.de",                     url: "https://rss.golem.de/rss.php?feed=RSS2.0",                   lang: de, category: media, weight: 1}
 
 # ── Newsletters / weeklies ───────────────────────────────────────────
+- {id: kubeweekly,      title: "KubeWeekly (CNCF, discontinued)", url: "https://www.cncf.io/feed/?post_type=lf_kubeweekly",      lang: en, category: newsletter, weight: 1}
 - {id: lwkd,            title: "Last Week in Kubernetes Dev",  url: "https://lwkd.info/feed.xml",                                 lang: en, category: newsletter, weight: 5}
 - {id: sreweekly,       title: "SRE Weekly",                   url: "https://sreweekly.com/feed/",                                lang: en, category: newsletter, weight: 3}
+- {id: devopsish,       title: "DevOps'ish",                   url: "https://devopsish.substack.com/feed",                        lang: en, category: newsletter, weight: 4}
 - {id: lastweekinaws,   title: "Last Week in AWS",             url: "https://www.lastweekinaws.com/feed/",                        lang: en, category: newsletter, weight: 3}
 - {id: cloudseclist,    title: "CloudSecList",                 url: "https://cloudseclist.com/feed.xml",                  lang: en, category: newsletter, weight: 3}
 - {id: k8s-podcast,     title: "Kubernetes Podcast from Google", url: "https://kubernetespodcast.com/feeds/audio.xml",            lang: en, category: newsletter, weight: 3}
@@ -173,6 +177,7 @@ feeds:
 - {id: opennet,         title: "OpenNET",                      url: "https://www.opennet.ru/opennews/opennews_all_utf.rss",       lang: ru, category: media, weight: 3}
 - {id: selectel,        title: "Selectel Blog",                url: "https://selectel.ru/blog/feed/",                             lang: ru, category: vendor, weight: 3}
 
+- {id: deckhouse,       title: "Deckhouse — блог",               url: "https://deckhouse.ru/blog/feed/",                                  lang: ru, category: project,   weight: 4}
 - {id: flant,           title: "Флант — блог",                   url: "https://flant.ru/rss",                                             lang: ru, category: vendor,    weight: 5}
 - {id: flant-habr,      title: "Флант — Habr",                   url: "https://habr.com/ru/rss/companies/flant/articles/",                lang: ru, category: vendor,    weight: 5}
 - {id: deckhouse-rel,   title: "Deckhouse — релизы",             url: "https://github.com/deckhouse/deckhouse/releases.atom",             lang: ru, category: project,   weight: 4}

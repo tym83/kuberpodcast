@@ -64,9 +64,10 @@ incidents:
 # should essentially never occupy a slot.
 newsletter_mining:
   sources:
-    # KubeWeekly was discontinued by the CNCF (cncf/kubeweekly#434) and
-    # DevOps'ish now emits only a JSON Feed, so neither is mined any more.
+    # KubeWeekly is not mined: the CNCF discontinued it (cncf/kubeweekly#434)
+    # and its feed has not moved since 2025-05.
     - {id: lwkd,         url: "https://lwkd.info/feed.xml"}
+    - {id: devopsish,    url: "https://devopsish.substack.com/feed"}
     - {id: sreweekly,    url: "https://sreweekly.com/feed/"}
     - {id: cloudseclist, url: "https://cloudseclist.com/feed.xml"}
     - {id: lastweekinaws, url: "https://www.lastweekinaws.com/feed/"}

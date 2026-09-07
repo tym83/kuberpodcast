@@ -1,0 +1,3087 @@
+{
+ "linuxfoundation": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 0,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "opentelemetry": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 1,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "finops": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 0,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "oci": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 0,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "apache": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 4,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "prometheus": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 0,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "cncf": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 7,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "eclipse": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 2,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "openssf": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 2,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "k8s-blog": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 4,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "k8s-contrib": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 0,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "openinfra": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 0,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "linkerd": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 1,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "cdf": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 0,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "cilium": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 0,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "kubevirt": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 0,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "argo": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 0,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "knative": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 0,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "backstage": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 0,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "lfedge": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 0,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "flux": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 0,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "dapr": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 0,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "opa": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 0,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "openbao": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 0,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "opentofu": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 1,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "vllm": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 3,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "talos": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 0,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "falco": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 0,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "k8s-gateway": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 0,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "crossplane": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 0,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "cozystack": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 0,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "kubeedge": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 0,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "aws-news": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 2,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "cloudflare": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 2,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "hetzner": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 1,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "scaleway": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 0,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "oxide": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 0,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "fly": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 1,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "digitalocean": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 0,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "coreweave": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 60,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "redhat-openshift": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 4,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "istio": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 0,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "gcp-blog": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 14,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "azure-updates": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 13,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "aws-containers": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 2,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "suse": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 6,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "redhat-blog": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 10,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "canonical": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 2,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "datadog": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 1,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "honeycomb": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 3,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "grafana": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 0,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "elastic": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 8,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "hashicorp": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 3,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "gitlab": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 2,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "aquasec": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 0,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "chainguard": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 3,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "github-blog": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 1,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "tailscale": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 0,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "aws-compute": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 1,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "docker": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 3,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "wiz": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 2,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "sysdig": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 3,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "spacelift": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 1,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "equinix": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 3,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "earthly": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 0,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "solo": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 2,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "snyk": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 0,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "pulumi": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 0,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "depot": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 0,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "buildkite": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 0,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "kong": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 3,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "aws-oss": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 0,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "tetrate": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 0,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "percona": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 2,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "timescale": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 1,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "buoyant": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 1,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "clickhouse": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 11,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "temporal": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 5,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "modal": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 2,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "fastly": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 4,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "ceph": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 0,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "spectrocloud": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 0,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "traefik": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 0,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "render": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 1,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "planetscale": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 1,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "neon": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 3,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "azure-blog": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 4,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "giantswarm": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 1,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "aws-arch": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 2,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "nutanix": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 2,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "nvidia-dev": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 8,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "platform9": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 1,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "stripe": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 0,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "vercel": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 12,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "harness": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 2,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "spotify": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 1,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "discord": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 0,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "meta": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 2,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "shopify": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 1,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "dropbox": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 0,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "canva": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 0,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "slack-eng": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 0,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "figma": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 2,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "phoronix": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 32,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "lwn": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 15,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "booking": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 0,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "tns": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 26,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "infoq-cloud": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 15,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "heise-open": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 60,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "golem": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 40,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "railway": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 1,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "changelog": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 0,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "mirantis": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 0,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "lwkd": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 1,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "cloudseclist": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 1,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "zalando": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 1,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "register-cloud": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 4,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "sreweekly": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 1,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "lastweekinaws": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 0,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "allthingsdist": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 0,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "jvns": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 0,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "iximiuz": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 7,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "simonwillison": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 21,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "gunnarmorling": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 1,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "pragmaticeng": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 2,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "netflix": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 0,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "brendangregg": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 0,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "jepsen": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 0,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "charity": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 0,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "danluu": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 1,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "learnk8s": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 0,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "opennet": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 30,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "bitfieldconsult": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 0,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "habr-devops": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 40,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "justingarrison": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 0,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "aphyr": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 0,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "marcbrooker": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 0,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "cloudflarelearn": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 0,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "habr-k8s": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 12,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "selectel": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 10,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "flant": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 5,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "k8s-podcast": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 1,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "habr-cloud": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 14,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "mattklein": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 0,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "deckhouse-rel": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 1,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "slurm": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 2,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "habr-sysadm": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 40,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "deckhouse-virt": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 5,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "habr-nix": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 1,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "habr-infosec": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 40,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "flant-habr": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 2,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "slurm-habr": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 2,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "yandexcloud": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 2,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "vkcloud": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 1,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "habr-virt": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 2,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "habr-itinfra": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 28,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "habr-gpgpu": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 0,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "habr-distsys": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 5,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "habr-net": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 17,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "habr-storages": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 3,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "habr-pgsql": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 11,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "habr-oss": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 39,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "habr-cloudcomp": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 7,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "habr-devcloud": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 0,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "habr-hosting": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 2,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "habr-micro": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 3,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "habr-dbadmin": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 17,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "habr-nginx": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 6,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "habr-backup": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 3,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "habr-srvopt": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 2,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "habr-career": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 27,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "selectel-habr": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 9,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "orionsoft": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 0,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "yadro": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 2,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "mws": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 0,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "mts": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 14,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "cloudru": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 4,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "timeweb": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 5,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "hostkey": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 1,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "rtdc": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 0,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "ispsystem": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 0,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "h3llo": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 1,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "envoy": {
+  "consecutive_failures": 1,
+  "last_status": null,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 0
+ },
+ "chislitel": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 1,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "basis": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 1,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "itsumma": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 1,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "vk-habr": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 2,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "astralinux": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 1,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "redsoft": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 0,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "cloud4y": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 4,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "k2tech": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 0,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "croc": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 0,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "beelinecloud": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 0,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "ruvds": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 18,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "postgrespro": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 0,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "ozontech": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 0,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "securelist-ru": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 1,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "avito": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 1,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "servernews": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 10,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "cnews": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 60,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "tbank": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 3,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "2gis": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 0,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "yt-flant": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 4,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "hh": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 0,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "yt-slurm": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 2,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "skbkontur": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 0,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "yt-highload": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 0,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "yt-deflope": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 0,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "x5tech": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 0,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "yt-selectel": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 6,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "lamoda": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 0,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "cloudwego": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 0,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "yt-avitotech": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 5,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "pingcap": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 2,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "sberbank": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 5,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "kubesphere": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 0,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "ontico": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 3,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "karmada": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 0,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "arenadata": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 2,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "apisix-cn": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 0,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "infoq-cn": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 20,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "openkruise": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 0,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "kubevela": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 0,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "rachelbythebay": {
+  "consecutive_failures": 1,
+  "last_status": null,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 0
+ },
+ "doris-cn": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 1,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "dragonfly-cn": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 0,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "koordinator": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 0,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "tantor": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 1,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "seatunnel-cn": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 0,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "databend": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 1,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "postgrespro-habr": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 2,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "greptime": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 0,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "sealos": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 0,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "starrocks": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 0,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "volcano": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 0,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "pt": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 3,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "hami": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 0,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "oschina": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 50,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "jimmysong": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 0,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "moelove": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 0,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "atbug": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 2,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "kaspersky-habr": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 1,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "arthurchiao": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 0,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "v2ex-tech": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 40,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "colobu": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 0,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "ruanyifeng": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 1,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "zenn-k8s": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 10,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "habr-news": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 40,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "publickey": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 12,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "qiita-k8s": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 4,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "bestblogs-cn": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 60,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "zenn-sre": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 13,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "rainbond": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 1,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "otus": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 19,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "hellogithub": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 0,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "iij": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 0,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "hatena-k8s": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 1,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "tonybai": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 8,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "sakura-knowledge": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 0,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "qiita-tf": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 4,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "nttcom-eng": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 2,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "gitee-blog": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 2,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "dena": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 0,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "mixi-dev": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 0,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "moneyforward": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 2,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "smarthr": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 7,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "cookpad": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 1,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "zozo": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 4,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "hatena-dev": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 1,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "heise-dev": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 17,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "linux-magazin": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 15,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "lycorp-en": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 0,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "daangn": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 0,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "socar": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 0,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "netways": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 0,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "srobert": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 0,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "octo": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 2,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "woowahan": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 1,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "gmo-dev": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 2,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "silicon-fr": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 23,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "linuxfr": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 7,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "sekurak": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 7,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "paradigma": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 3,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "ippon": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 2,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "tweakers": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 40,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "devstyle": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 1,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "hatena-it": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 30,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "pepabo": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 1,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "toss": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 4,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "sreake": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 3,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "zup": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 2,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "itwiz": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 10,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "inovex": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 0,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "xebia": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 0,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "4linux": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 3,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "linegoogle": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 1,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "cybozu": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 7,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "letsencrypt": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 0,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "ripe-labs": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 4,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "cisa-advisories": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 20,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "apnic": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 6,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "ietf-blog": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 1,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "mercari": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 0,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "spdx": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 0,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "bytecodealliance": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 0,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "osi": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 0,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "cyberagent": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 5,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "lf-events": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 0,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "ccc": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 1,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "conservancy": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 0,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "cisecurity": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 1,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "lfaidata": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 2,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "cncf-tag-sec": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 0,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "naverd2": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 3,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "ocp": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 1,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "csa": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 1,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "planet-kernel": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 0,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "lethain": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 0,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "allspaw": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 0,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "brauner": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 0,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "lfnetworking": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 0,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "lorinh": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 1,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "muratbuffalo": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 1,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "kakao": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 1,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "adrianco": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 1,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "smalldatum": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 0,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "bgrant": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 0,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "cks": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 0,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "ariadne": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 1,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "jackvanlightly": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 0,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "filippo": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 0,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "berthub": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 2,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "drewdevault": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 0,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "xeiaso": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 2,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "davetf": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 0,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "matduggan": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 0,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "nickjanetakis": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 1,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "nelhage": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 0,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "ipspace": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 4,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "confluent": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 0,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "vickiboykis": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 1,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "majorhayden": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 0,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "alexellis": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 0,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "easyperf": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 0,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "eatonphil": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 1,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "lemire": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 2,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "travisdowns": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 0,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "antirez": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 0,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "redpanda": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 1,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "warpstream": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 60,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "supabase": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 0,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "tigerbeetle": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 0,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "dbos": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 0,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "questdb": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 1,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "crunchydata": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 1,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "scylladb": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 0,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "amd-rocm": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 2,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "tigris": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 1,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "backblaze": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 2,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "materialize": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 0,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "proxmox-forum": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 20,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "dd-seclabs": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 0,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "storagereview": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 22,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "qemu": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 0,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "collabora": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 0,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "mongodb": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 0,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "socketdev": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 4,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "unit42": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 2,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "vmware-vcf": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 7,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "trailofbits": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 0,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "veeam": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 3,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "endorlabs": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 19,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "portswigger": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 0,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "opennebula": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 1,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "groundcover": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 0,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "jfrog": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 6,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "rootly": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 2,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "castai": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 0,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "circleci": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 1,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "container-sol": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 0,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "dynatrace": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 1,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "rhel": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 0,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "newrelic": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 4,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "sentry": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 1,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "prismacloud": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 1,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "google-security": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 0,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "vantage": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 2,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "namespace": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 1,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "huggingface": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 7,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "togetherai": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 0,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "yelp": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 0,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "llmd": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 0,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "airbnb": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 0,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "lyft": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 0,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "aws-whatsnew": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 58,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "projectzero": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 0,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "pytorch": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 4,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "gitguardian": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 3,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "aws-net": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 3,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "pinterest": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 1,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "aks-releases": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 1,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "ovhcloud": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 1,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "ferd": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 0,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "aws-storage": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 3,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "nextplatform": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 4,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "gcp-devs": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 3,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "gcp-relnotes": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 7,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "ms-opensource": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 0,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "dcd": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 20,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "aws-security": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 5,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "servethehome": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 6,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "devopsdotcom": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 10,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "cloudnativenow": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 3,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "aws-devops": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 3,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "blocksandfiles": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 12,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "runtime": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 0,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "yt-cncf": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 4,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "itnext": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 10,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "consoledev": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 6,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "sedaily": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 2,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "yt-k8s-community": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 15,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "tldrsec": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 0,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "cloudcast": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 3,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "aws-database": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 6,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "platformeng-org": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 2,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "yt-lf": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 3,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "gke-relnotes": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 0,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "rocketmq-cn": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 1,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "answer-cn": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 0,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "yt-devopstoolkit": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 4,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "fory": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 1,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "aws-hpc": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 0,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "oxidefriends": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 1,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "yt-kubesimplify": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 4,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "cnblogs": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 20,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "deepin": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 4,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "packetpushers": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 8,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "yt-platformeng": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 1,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "solidot": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 20,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "yt-ato": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 6,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ },
+ "gcp-systems": {
+  "consecutive_failures": 0,
+  "last_status": 200,
+  "last_attempt": "2026-09-07T20:00:02.078582+00:00",
+  "last_items": 0,
+  "last_success": "2026-09-07T20:00:02.078582+00:00"
+ }
+}
