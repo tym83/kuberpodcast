@@ -43,6 +43,8 @@ def main() -> int:
         items += collect.fetch_lobsters(comm.get("lobsters", {}), start, end)
     if "devto" not in skip:
         items += collect.fetch_devto(comm.get("devto", {}), start, end)
+    if "juejin" not in skip:
+        items += collect.fetch_juejin(comm.get("juejin", {}), start, end)
     if "releases" not in skip:
         items += collect.fetch_releases(config.releases(), start, end)
 

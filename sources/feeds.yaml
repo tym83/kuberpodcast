@@ -38,7 +38,7 @@ feeds:
 - {id: openbao,         title: "OpenBao Blog",                 url: "https://openbao.org/blog/rss.xml",                         lang: en, category: project, weight: 3}
 - {id: k8s-gateway,     title: "Kubernetes Gateway API",       url: "https://gateway-api.sigs.k8s.io/index.xml",       lang: en, category: project, weight: 3}
 - {id: talos,           title: "Talos Linux / Sidero Blog",    url: "https://www.siderolabs.com/feed",                       lang: en, category: project, weight: 3}
-- {id: kubeedge,        title: "KubeEdge Blog",                url: "https://kubeedge.io/blog/rss.xml",                         lang: en, category: project, weight: 2}
+- {id: kubeedge,        title: "KubeEdge Blog",                url: "https://kubeedge.io/blog/rss.xml",                           lang: en, category: project, weight: 2}
 - {id: vllm,            title: "vLLM Blog",                    url: "https://vllm.ai/blog/rss.xml",                              lang: en, category: project, weight: 4}
 - {id: ray,             title: "Anyscale / Ray Blog",          url: "https://www.anyscale.com/rss.xml",                      lang: en, category: project, weight: 3}
 - {id: cozystack,       title: "Cozystack Blog",               url: "https://cozystack.io/blog/index.xml",                        lang: en, category: project, weight: 4}
@@ -254,17 +254,84 @@ feeds:
 - {id: yt-avitotech,    title: "AvitoTech — YouTube",            url: "https://www.youtube.com/feeds/videos.xml?channel_id=UCO2w0cpl1wxygHjQH6eEfEg", lang: ru, category: vendor,    weight: 2}
 
 # ── Chinese-language ─────────────────────────────────────────────────
-- {id: cloudwego,       title: "CloudWeGo (ByteDance)",        url: "https://www.cloudwego.io/index.xml",                    lang: zh, category: vendor, weight: 4}
+- {id: cloudwego,       title: "CloudWeGo (ByteDance)",        url: "https://www.cloudwego.io/index.xml",                         lang: zh, category: vendor, weight: 3}
 - {id: kubesphere,      title: "KubeSphere Blog",              url: "https://kubesphere.io/blogs/index.xml",                      lang: zh, category: project, weight: 3}
 - {id: pingcap,         title: "PingCAP / TiDB Blog",          url: "https://www.pingcap.com/blog/feed/",                         lang: zh, category: vendor, weight: 3}
-- {id: karmada,         title: "Karmada Blog",                 url: "https://karmada.io/blog/rss.xml",                          lang: zh, category: project, weight: 2}
+- {id: karmada,         title: "Karmada 博客 (华为)",             url: "https://karmada.io/zh/blog/rss.xml",                         lang: zh, category: project, weight: 3}
 - {id: infoq-cn,        title: "InfoQ 中国",                    url: "https://www.infoq.cn/feed",                                  lang: zh, category: media, weight: 3}
 - {id: oschina,         title: "开源中国 (OSChina)",            url: "https://www.oschina.net/news/rss",                           lang: zh, category: media, weight: 2}
+
+- {id: dragonfly-cn,    title: "Dragonfly (阿里/CNCF)",          url: "https://d7y.io/blog/rss.xml",                                lang: en, category: project, weight: 2}
+- {id: openkruise,      title: "OpenKruise 博客",               url: "https://openkruise.io/zh/blog/rss.xml",                      lang: zh, category: project, weight: 2}
+- {id: kubevela,        title: "KubeVela Blog",                url: "https://kubevela.io/blog/rss.xml",                           lang: en, category: project, weight: 2}
+- {id: koordinator,     title: "Koordinator 博客 (阿里)",         url: "https://koordinator.sh/zh-Hans/blog/rss.xml",                lang: zh, category: project, weight: 2}
+- {id: apisix-cn,       title: "Apache APISIX 中文博客",         url: "https://apisix.apache.org/zh/blog/rss.xml",                  lang: zh, category: project, weight: 2}
+- {id: doris-cn,        title: "Apache Doris 博客",             url: "https://doris.apache.org/zh-CN/blog/rss.xml",                lang: zh, category: project, weight: 2}
+- {id: seatunnel-cn,    title: "Apache SeaTunnel 博客",         url: "https://seatunnel.apache.org/zh-CN/blog/rss.xml",            lang: zh, category: project, weight: 1}
+- {id: volcano,         title: "Volcano (华为, batch/AI)",      url: "https://volcano.sh/blog/rss.xml",                            lang: en, category: project, weight: 3}
+- {id: hami,            title: "HAMi (GPU sharing)",           url: "https://project-hami.io/blog/rss.xml",                       lang: en, category: project, weight: 3}
+- {id: greptime,        title: "GreptimeDB Blog",              url: "https://greptime.com/blogs/rss.xml",                         lang: en, category: vendor, weight: 2}
+- {id: databend,        title: "Databend Blog",                url: "https://www.databend.com/blog/rss.xml",                      lang: en, category: vendor, weight: 2}
+- {id: starrocks,       title: "StarRocks Blog",               url: "https://www.starrocks.io/blog/rss.xml",                      lang: en, category: vendor, weight: 2}
+- {id: sealos,          title: "Sealos Blog",                  url: "https://sealos.io/rss.xml",                                  lang: en, category: vendor, weight: 2}
+- {id: rainbond,        title: "Rainbond 博客",                 url: "https://www.rainbond.com/blog/rss.xml",                      lang: zh, category: vendor, weight: 1}
+- {id: jimmysong,       title: "Jimmy Song (云原生社区创始人)",     url: "https://jimmysong.io/blog/index.xml",                        lang: zh, category: person, weight: 3}
+- {id: atbug,           title: "Addo Zhang (乱世浮生)",           url: "https://atbug.com/index.xml",                                lang: zh, category: person, weight: 3}
+- {id: tonybai,         title: "TonyBai (Go / 云原生)",           url: "https://tonybai.com/feed/",                                  lang: zh, category: person, weight: 2}
+- {id: arthurchiao,     title: "ArthurChiao (eBPF/Cilium 深度)",  url: "https://arthurchiao.art/feed.xml",                           lang: zh, category: person, weight: 3}
+- {id: colobu,          title: "鸟窝 (Colobu)",                  url: "https://colobu.com/atom.xml",                                lang: zh, category: person, weight: 2}
+- {id: moelove,         title: "MoeLove — K8S 生态周报 (张晋涛)",   url: "https://moelove.info/rss.xml",                               lang: zh, category: person, weight: 3}
+- {id: bestblogs-cn,    title: "BestBlogs.dev — 软件编程",        url: "https://www.bestblogs.dev/feeds/rss?category=programming",   lang: zh, category: community, weight: 2}
+- {id: v2ex-tech,       title: "V2EX — 技术节点",                 url: "https://www.v2ex.com/feed/tab/tech.xml",                     lang: zh, category: community, weight: 2}
+- {id: hellogithub,     title: "HelloGitHub 月刊",               url: "https://hellogithub.com/rss",                                lang: zh, category: community, weight: 1}
+- {id: gitee-blog,      title: "Gitee 官方博客",                  url: "https://blog.gitee.com/feed/",                               lang: zh, category: vendor, weight: 1}
+- {id: ruanyifeng,      title: "阮一峰 — 科技爱好者周刊",           url: "https://www.ruanyifeng.com/blog/atom.xml",                   lang: zh, category: newsletter, weight: 2}
+- {id: publickey,       title: "Publickey (新野淳一)",            url: "https://www.publickey1.jp/atom.xml",                         lang: ja, category: media, weight: 4}
+- {id: zenn-k8s,        title: "Zenn — Kubernetes",             url: "https://zenn.dev/topics/kubernetes/feed",                    lang: ja, category: community, weight: 3}
+- {id: zenn-sre,        title: "Zenn — SRE",                    url: "https://zenn.dev/topics/sre/feed",                           lang: ja, category: community, weight: 3}
+- {id: qiita-k8s,       title: "Qiita — kubernetes タグ",        url: "https://qiita.com/tags/kubernetes/feed",                     lang: ja, category: community, weight: 2}
+- {id: qiita-tf,        title: "Qiita — terraform タグ",         url: "https://qiita.com/tags/terraform/feed",                      lang: ja, category: community, weight: 2}
+- {id: hatena-k8s,      title: "はてブ — kubernetes 検索",         url: "https://b.hatena.ne.jp/q/kubernetes?mode=rss",              lang: ja, category: community, weight: 2}
+- {id: sreake,          title: "3-shake Sreake (SRE/k8s)",      url: "https://sreake.com/feed/",                                   lang: ja, category: vendor, weight: 3}
+- {id: iij,             title: "IIJ Engineers Blog",            url: "https://eng-blog.iij.ad.jp/feed",                            lang: ja, category: vendor, weight: 3}
+- {id: sakura-knowledge,title: "さくらのナレッジ",                  url: "https://knowledge.sakura.ad.jp/feed/",                       lang: ja, category: vendor, weight: 2}
+- {id: nttcom-eng,      title: "NTT docomo Business Engineers", url: "https://engineers.ntt.com/feed",                             lang: ja, category: vendor, weight: 3}
+- {id: zozo,            title: "ZOZO TECH BLOG",                url: "https://techblog.zozo.com/feed",                             lang: ja, category: vendor, weight: 2}
+- {id: dena,            title: "DeNA Engineering",              url: "https://engineering.dena.com/index.xml",                     lang: ja, category: vendor, weight: 2}
+- {id: cookpad,         title: "クックパッド開発者ブログ",            url: "https://techlife.cookpad.com/feed",                          lang: ja, category: vendor, weight: 2}
+- {id: hatena-dev,      title: "Hatena Developer Blog",         url: "https://developer.hatenastaff.com/feed",                     lang: ja, category: vendor, weight: 2}
+- {id: smarthr,         title: "SmartHR Tech Blog",             url: "https://tech.smarthr.jp/feed",                               lang: ja, category: vendor, weight: 1}
+- {id: moneyforward,    title: "Money Forward Developers",      url: "https://moneyforward-dev.jp/feed",                           lang: ja, category: vendor, weight: 1}
+- {id: pepabo,          title: "Pepabo Tech Portal",            url: "https://tech.pepabo.com/feed.xml",                           lang: ja, category: vendor, weight: 2}
+- {id: gmo-dev,         title: "GMO Developers",                url: "https://developers.gmo.jp/feed/",                            lang: ja, category: vendor, weight: 2}
+- {id: mixi-dev,        title: "MIXI DEVELOPERS",               url: "https://medium.com/feed/mixi-developers",                    lang: ja, category: vendor, weight: 1}
+- {id: lycorp-en,       title: "LY Corporation Tech (EN)",      url: "https://techblog.lycorp.co.jp/en/feed/index.xml",            lang: en, category: vendor, weight: 2}
+- {id: toss,            title: "토스 테크 (Toss Tech)",           url: "https://toss.tech/rss.xml",                                  lang: ko, category: vendor, weight: 3}
+- {id: woowahan,        title: "우아한형제들 기술블로그",            url: "https://techblog.woowahan.com/feed/",                        lang: ko, category: vendor, weight: 3}
+- {id: daangn,          title: "당근 (Karrot) 기술 블로그",         url: "https://medium.com/feed/daangn",                             lang: ko, category: vendor, weight: 2}
+- {id: socar,           title: "쏘카 테크 블로그",                  url: "https://tech.socar.kr/rss.xml",                              lang: ko, category: vendor, weight: 2}
+- {id: heise-dev,       title: "heise developer",               url: "https://www.heise.de/developer/feed.xml",                    lang: de, category: media, weight: 3}
+- {id: linux-magazin,   title: "Linux-Magazin (DE)",            url: "https://www.linux-magazin.de/feed/",                         lang: de, category: media, weight: 2}
+- {id: netways,         title: "NETWAYS Blog (Icinga/Foreman)", url: "https://blog.netways.de/feed/",                              lang: de, category: vendor, weight: 2}
+- {id: inovex,          title: "inovex Blog",                   url: "https://www.inovex.de/blog/feed/",                           lang: de, category: vendor, weight: 2}
+- {id: linuxfr,         title: "LinuxFr.org — dépêches",        url: "https://linuxfr.org/news.atom",                              lang: fr, category: community, weight: 2}
+- {id: srobert,         title: "Stéphane Robert — DevSecOps",   url: "https://blog.stephane-robert.info/rss.xml",                  lang: fr, category: person, weight: 3}
+- {id: octo,            title: "OCTO Talks !",                  url: "https://blog.octo.com/feed",                                 lang: fr, category: vendor, weight: 2}
+- {id: ippon,           title: "Blog Ippon",                    url: "https://blog.ippon.fr/rss/",                                 lang: fr, category: vendor, weight: 2}
+- {id: silicon-fr,      title: "Silicon.fr",                    url: "https://www.silicon.fr/feed",                                lang: fr, category: media, weight: 1}
+- {id: paradigma,       title: "Paradigma Digital",             url: "https://www.paradigmadigital.com/feed/",                     lang: es, category: vendor, weight: 2}
+- {id: 4linux,          title: "Blog 4Linux (BR)",              url: "https://blog.4linux.com.br/feed/",                           lang: pt, category: vendor, weight: 2}
+- {id: zup,             title: "Zup Innovation (BR)",           url: "https://zup.com.br/blog/feed/",                              lang: pt, category: vendor, weight: 1}
+- {id: sekurak,         title: "Sekurak (PL, security)",        url: "https://sekurak.pl/feed/",                                   lang: pl, category: media, weight: 2}
+- {id: devstyle,        title: "devstyle (PL)",                 url: "https://devstyle.pl/feed",                                   lang: pl, category: person, weight: 1}
+- {id: itwiz,           title: "ITwiz (PL)",                    url: "https://itwiz.pl/feed/",                                     lang: pl, category: media, weight: 1}
+- {id: tweakers,        title: "Tweakers (NL)",                 url: "https://tweakers.net/feeds/mixed.xml",                       lang: nl, category: media, weight: 1}
+- {id: xebia,           title: "Xebia Blog",                    url: "https://xebia.com/feed/",                                    lang: en, category: vendor, weight: 1}
 
 # ── Japanese / Korean ────────────────────────────────────────────────
 - {id: hatena-it,       title: "はてなブックマーク IT",          url: "https://b.hatena.ne.jp/hotentry/it.rss",                     lang: ja, category: community, weight: 3}
 - {id: cybozu,          title: "Cybozu Inside Out",            url: "https://blog.cybozu.io/feed",                                lang: ja, category: vendor, weight: 2}
-- {id: mercari,         title: "Mercari Engineering",          url: "https://engineering.mercari.com/en/blog/feed.xml",           lang: ja, category: vendor, weight: 3}
+- {id: mercari,         title: "メルカリエンジニアリング",            url: "https://engineering.mercari.com/blog/feed.xml",              lang: ja, category: vendor, weight: 3}
 - {id: cyberagent,      title: "CyberAgent Developers",        url: "https://developers.cyberagent.co.jp/blog/feed/",             lang: ja, category: vendor, weight: 2}
 - {id: linegoogle,      title: "LY Corporation Tech Blog",     url: "https://techblog.lycorp.co.jp/ja/feed/index.xml",            lang: ja, category: vendor, weight: 2}
 - {id: kakao,           title: "Kakao Tech",                   url: "https://tech.kakao.com/feed/",                               lang: ko, category: vendor, weight: 2}

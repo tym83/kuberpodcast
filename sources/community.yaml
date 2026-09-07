@@ -79,3 +79,19 @@ devto:
 
 stackoverflow_blog:
   url: "https://stackoverflow.blog/feed/"
+
+# Juejin (掘金) has no RSS, but its content API is open and unauthenticated.
+# This is the only automatable route to the Chinese "技术团队" accounts —
+# ByteDance and Alibaba moved to WeChat 公众号, which needs a paid bridge.
+juejin:
+  api: "https://api.juejin.cn/content_api/v1/article/query_list"
+  limit: 20
+  accounts:
+    - {user_id: "3509296845313741", title: "美团技术团队",   weight: 4}
+    - {user_id: "3456520257538830", title: "腾讯云开发者",   weight: 4}
+    - {user_id: "2634854380340008", title: "京东云开发者",   weight: 3}
+    - {user_id: "993614243303053",  title: "vivo互联网技术", weight: 3}
+    - {user_id: "2392954206960247", title: "得物技术",       weight: 3}
+    - {user_id: "4186596000416094", title: "百度Geek说",     weight: 3}
+    - {user_id: "3736571181793721", title: "快手技术",       weight: 2}
+    - {user_id: "4265760847567016", title: "网易云音乐技术团队", weight: 2}

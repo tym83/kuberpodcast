@@ -555,3 +555,71 @@ def fetch_releases(groups: dict, start, end, workers: int = 12) -> list[dict]:
     log.info("github releases %d in window (from %d repos, %d shipped)",
              len(out), len(tasks), len(shipped))
     return out
+
+
+# ── Juejin (掘金) ────────────────────────────────────────────────────────────
+
+def fetch_juejin(cfg: dict, start, end) -> list[dict]:
+    """Chinese big-tech engineering accounts. No RSS exists; the content API is
+    open, so this is the only automatable route to that material."""
+    accounts = cfg.get("accounts", [])
+    if not accounts:
+        return []
+    api = cfg.get("api", "https://api.juejin.cn/content_api/v1/article/query_list")
+    limit = cfg.get("limit", 20)
+    session = new_session(browser_ua=True)
+    session.headers["Content-Type"] = "application/json"
+    out: list[dict] = []
+
+    for acc in accounts:
+        try:
+            r = session.post(api, json={"user_id": acc["user_id"], "sort_type": 2,
+                                        "cursor": "0", "limit": limit}, timeout=25)
+        except Exception as exc:  # noqa: BLE001
+            log.warning("juejin %s failed: %s", acc["title"], exc)
+            continue
+        if r.status_code != 200:
+            log.warning("juejin %s HTTP %s", acc["title"], r.status_code)
+            continue
+        try:
+            payload = r.json()
+        except ValueError:
+            log.warning("juejin %s returned non-JSON", acc["title"])
+            continue
+        if payload.get("err_no"):
+            log.warning("juejin %s err_no=%s", acc["title"], payload.get("err_no"))
+            continue
+
+        count = 0
+        for row in payload.get("data") or []:
+            info = row.get("article_info") or {}
+            try:
+                pub = to_utc(datetime.fromtimestamp(int(info.get("ctime", 0)),
+                                                    tz=timezone.utc))
+            except (TypeError, ValueError):
+                continue
+            if not (start <= pub <= end):
+                continue
+            article_id = info.get("article_id")
+            if not article_id:
+                continue
+            count += 1
+            out.append(_mk(
+                title=strip_html(info.get("title", ""), 300),
+                url=f"https://juejin.cn/post/{article_id}",
+                source_id=f"juejin/{acc['user_id']}",
+                source_title=acc["title"],
+                source_kind="feed",
+                category="vendor",
+                lang="zh",
+                source_weight=acc.get("weight", 3),
+                published=pub.isoformat(),
+                summary=strip_html(info.get("brief_content", ""), 2000),
+                engagement={"juejin_digg": info.get("digg_count"),
+                            "juejin_comments": info.get("comment_count"),
+                            "juejin_views": info.get("view_count")},
+            ))
+        log.info("juejin %-18s %2d items in window", acc["title"], count)
+        time.sleep(0.5)
+    log.info("juejin %d articles", len(out))
+    return out

@@ -9,8 +9,10 @@ from datetime import datetime
 log = logging.getLogger("digestbot.render")
 
 LANG_LABEL = {"en": "EN", "ru": "RU", "zh": "ZH", "ja": "JA", "ko": "KO",
-              "de": "DE", "fr": "FR", "es": "ES", "pt": "PT"}
-NEEDS_GLOSS = {"zh", "ja", "ko", "de", "fr", "es", "pt"}
+              "de": "DE", "fr": "FR", "es": "ES", "pt": "PT", "pl": "PL",
+              "nl": "NL", "it": "IT", "tr": "TR"}
+# Every non-English, non-Russian title gets a Russian gloss line.
+NEEDS_GLOSS = set(LANG_LABEL) - {"en", "ru"}
 
 KIND_LABEL = {"feed": "blog", "release": "release", "hn": "discussion",
               "reddit": "discussion", "lobsters": "discussion", "devto": "blog"}
