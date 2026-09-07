@@ -1,0 +1,81 @@
+# Non-RSS community sources: Reddit, Hacker News, Lobsters, forums.
+reddit:
+  # Reddit .rss endpoints are used (JSON API blocks datacenter egress).
+  # window: "week" top listing; min_score filters noise.
+  subreddits:
+    - {name: kubernetes,          weight: 5, min_score: 15}
+    - {name: devops,              weight: 4, min_score: 40}
+    - {name: sre,                 weight: 4, min_score: 15}
+    - {name: platform_engineering,weight: 4, min_score: 10}
+    - {name: kubernetes_ops,      weight: 3, min_score: 5}
+    - {name: docker,              weight: 3, min_score: 20}
+    - {name: terraform,           weight: 3, min_score: 15}
+    - {name: aws,                 weight: 3, min_score: 60}
+    - {name: AZURE,               weight: 2, min_score: 30}
+    - {name: googlecloud,         weight: 2, min_score: 25}
+    - {name: openshift,           weight: 3, min_score: 8}
+    - {name: selfhosted,          weight: 2, min_score: 150}
+    - {name: homelab,             weight: 2, min_score: 200}
+    - {name: sysadmin,            weight: 2, min_score: 150}
+    - {name: networking,          weight: 2, min_score: 100}
+    - {name: linux,               weight: 2, min_score: 300}
+    - {name: linuxadmin,          weight: 2, min_score: 40}
+    - {name: ExperiencedDevs,     weight: 2, min_score: 300}
+    - {name: dataengineering,     weight: 2, min_score: 120}
+    - {name: LocalLLaMA,          weight: 2, min_score: 400}
+    - {name: rust,                weight: 1, min_score: 400}
+    - {name: golang,              weight: 2, min_score: 200}
+    - {name: postgres,            weight: 2, min_score: 60}
+    - {name: ceph,                weight: 2, min_score: 8}
+    - {name: opensource,          weight: 2, min_score: 150}
+    - {name: Proxmox,             weight: 2, min_score: 150}
+    - {name: netsec,              weight: 2, min_score: 100}
+    - {name: devopsish,           weight: 1, min_score: 3}
+
+hackernews:
+  # Algolia API. front_page = stories above min_points in the window.
+  min_points: 60
+  min_comments: 15
+  front_page_min_points: 150
+  queries:
+    - kubernetes
+    - "cloud native"
+    - devops
+    - "platform engineering"
+    - terraform
+    - opentofu
+    - "site reliability"
+    - observability
+    - opentelemetry
+    - ebpf
+    - containers
+    - docker
+    - "service mesh"
+    - postgres
+    - etcd
+    - "distributed systems"
+    - "on-call"
+    - "incident postmortem"
+    - "cloud cost"
+    - "bare metal"
+    - "GPU cluster"
+    - "inference serving"
+    - wasm
+    - nixos
+    - systemd
+    - "linux kernel"
+    - "supply chain security"
+    - sbom
+    - "self-hosted"
+    - "data center"
+
+lobsters:
+  tags: [devops, distributed, linux, networking, security, virtualization, performance, containers]
+  min_score: 10
+
+devto:
+  tags: [kubernetes, devops, platformengineering, sre, aws, terraform, observability]
+  min_reactions: 40
+
+stackoverflow_blog:
+  url: "https://stackoverflow.blog/feed/"

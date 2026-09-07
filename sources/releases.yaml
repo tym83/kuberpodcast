@@ -1,0 +1,95 @@
+# GitHub repos polled for releases published inside the digest window.
+# tier: 1 = headline-worthy on any release; 2 = only minor+ or notable;
+#       3 = only when release notes look substantial.
+repos:
+  core_kubernetes:
+    tier: 1
+    list: [kubernetes/kubernetes, kubernetes/kubectl, kubernetes-sigs/cluster-api,
+           kubernetes-sigs/gateway-api, kubernetes/autoscaler, kubernetes-sigs/kueue,
+           kubernetes-sigs/karpenter, kubernetes-sigs/descheduler, kubernetes-sigs/kind,
+           kubernetes/minikube, kubernetes-sigs/kustomize, kubernetes-sigs/metrics-server,
+           kubernetes/ingress-nginx, kubernetes-sigs/kubespray]
+  runtime:
+    tier: 1
+    list: [containerd/containerd, opencontainers/runc, cri-o/cri-o, containers/podman,
+           containers/buildah, moby/moby, docker/compose, moby/buildkit, opencontainers/image-spec,
+           youki-dev/youki, kata-containers/kata-containers, firecracker-microvm/firecracker,
+           cloud-hypervisor/cloud-hypervisor, containers/krunvm, google/gvisor]
+  distros:
+    tier: 1
+    list: [k3s-io/k3s, k0sproject/k0s, siderolabs/talos, harvester/harvester, rancher/rancher,
+           okd-project/okd, kubesphere/kubesphere, cozystack/cozystack, deckhouse/deckhouse,
+           kairos-io/kairos, canonical/microk8s, replicatedhq/kots, loft-sh/vcluster]
+  networking:
+    tier: 1
+    list: [cilium/cilium, cilium/tetragon, projectcalico/calico, istio/istio, envoyproxy/envoy,
+           envoyproxy/gateway, linkerd/linkerd2, kubeovn/kube-ovn, flannel-io/flannel,
+           metallb/metallb, k8snetworkplumbingwg/multus-cni, traefik/traefik, apache/apisix,
+           Kong/kong, haproxy/haproxy, nginx/nginx, coredns/coredns, submariner-io/submariner]
+  gitops_cd:
+    tier: 1
+    list: [argoproj/argo-cd, argoproj/argo-workflows, argoproj/argo-rollouts, fluxcd/flux2,
+           helm/helm, crossplane/crossplane, kubevela/kubevela, backstage/backstage,
+           jenkins-x/jx, tektoncd/pipeline, keptn/keptn, spinnaker/spinnaker]
+  observability:
+    tier: 1
+    list: [prometheus/prometheus, prometheus/alertmanager, thanos-io/thanos, grafana/grafana,
+           grafana/loki, grafana/tempo, grafana/mimir, grafana/beyla, grafana/pyroscope,
+           open-telemetry/opentelemetry-collector, open-telemetry/opentelemetry-operator,
+           jaegertracing/jaeger, VictoriaMetrics/VictoriaMetrics, vectordotdev/vector,
+           fluent/fluent-bit, fluent/fluentd, netdata/netdata, SigNoz/signoz,
+           parca-dev/parca, openobserve/openobserve, coroot/coroot]
+  security:
+    tier: 1
+    list: [kyverno/kyverno, open-policy-agent/gatekeeper, open-policy-agent/opa,
+           falcosecurity/falco, aquasecurity/trivy, anchore/grype, sigstore/cosign,
+           sigstore/policy-controller, external-secrets/external-secrets, cert-manager/cert-manager,
+           bitnami-labs/sealed-secrets, openbao/openbao, hashicorp/vault, kubescape/kubescape,
+           controlplaneio/kubectl-who-can, aquasecurity/kube-bench, in-toto/in-toto,
+           slsa-framework/slsa, ossf/scorecard, chainguard-dev/melange, chainguard-dev/apko]
+  storage_data:
+    tier: 1
+    list: [rook/rook, longhorn/longhorn, ceph/ceph, minio/minio, openebs/openebs,
+           kubernetes-csi/external-provisioner, vmware-tanzu/velero, kanisterio/kanister,
+           cloudnative-pg/cloudnative-pg, zalando/postgres-operator, percona/percona-server-mongodb-operator,
+           strimzi/strimzi-kafka-operator, apache/kafka, valkey-io/valkey, redis/redis,
+           ClickHouse/ClickHouse, pingcap/tidb, vitessio/vitess, apache/pulsar, nats-io/nats-server,
+           etcd-io/etcd, garethgeorge/backrest, restic/restic]
+  virtualization:
+    tier: 1
+    list: [kubevirt/kubevirt, kubevirt/containerized-data-importer, openstack/nova,
+           proxmox/pve-manager, oVirt/ovirt-engine, virtink/virtink, cloudstack/cloudstack]
+  iac_platform:
+    tier: 1
+    list: [hashicorp/terraform, opentofu/opentofu, pulumi/pulumi, hashicorp/packer,
+           hashicorp/nomad, hashicorp/consul, ansible/ansible, saltstack/salt,
+           terragrunt-io/terragrunt, terraform-docs/terraform-docs, aquasecurity/tfsec,
+           bridgecrewio/checkov, infracost/infracost, spacelift-io/spacectl]
+  devtools:
+    tier: 2
+    list: [derailed/k9s, kubernetes-sigs/headlamp, ahmetb/kubectx, stern/stern,
+           kubernetes-sigs/krew, alexellis/arkade, GoogleContainerTools/skaffold,
+           tilt-dev/tilt, loft-sh/devpod, telepresenceio/telepresence, kubeshark/kubeshark,
+           robusta-dev/holmesgpt, zegl/kube-score, FairwindsOps/polaris, yannh/kubeconform,
+           kubernetes-sigs/kubebuilder, operator-framework/operator-sdk, kubernetes-sigs/kubespray,
+           datreeio/datree, dagger/dagger, earthly/earthly, jetify-com/devbox, cli/cli]
+  ai_infra:
+    tier: 1
+    list: [vllm-project/vllm, sgl-project/sglang, ray-project/ray, kubeflow/kubeflow,
+           kserve/kserve, NVIDIA/gpu-operator, NVIDIA/k8s-device-plugin, kubernetes-sigs/dra-example-driver,
+           volcano-sh/volcano, kubeflow/training-operator, ollama/ollama, ggml-org/llama.cpp,
+           triton-inference-server/server, InftyAI/llmaz, substratusai/kubeai,
+           run-ai/genv, huggingface/text-generation-inference]
+  serverless_edge:
+    tier: 2
+    list: [knative/serving, knative/eventing, dapr/dapr, openfaas/faas, nuclio/nuclio,
+           kedacore/keda, kubeedge/kubeedge, openyurtio/openyurt, akri-io/akri,
+           fermyon/spin, bytecodealliance/wasmtime, WasmEdge/WasmEdge, containerd/runwasi]
+  registry_supplychain:
+    tier: 2
+    list: [goharbor/harbor, project-zot/zot, distribution/distribution, google/go-containerregistry,
+           dragonflyoss/dragonfly, spegel-org/spegel, oras-project/oras, regclient/regclient]
+  linux_base:
+    tier: 2
+    list: [systemd/systemd, util-linux/util-linux, torvalds/linux, iovisor/bcc, bpftrace/bpftrace,
+           libbpf/libbpf, NixOS/nixpkgs, coreos/butane, canonical/lxd, incus-project/incus]

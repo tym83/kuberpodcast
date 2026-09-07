@@ -1,0 +1,172 @@
+"""Shared helpers: HTTP session, URL canonicalisation, text and language utilities."""
+from __future__ import annotations
+
+import hashlib
+import logging
+import re
+import time
+from datetime import datetime, timedelta, timezone
+from urllib.parse import parse_qsl, urlencode, urlparse, urlunparse
+
+import requests
+
+log = logging.getLogger("digestbot")
+
+USER_AGENT = (
+    "kuberpodcast-digest/1.0 (+https://github.com/tym83/kuberpodcast) "
+    "python-requests"
+)
+BROWSER_UA = (
+    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 "
+    "(KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36"
+)
+
+# Query parameters that never change the identity of a document.
+TRACKING_PARAMS = re.compile(
+    r"^(utm_\w+|ref|ref_src|ref_url|referrer|source|src|fbclid|gclid|dclid|msclkid|"
+    r"mc_cid|mc_eid|igshid|spm|share_\w+|from|__twitter_impression|at_medium|"
+    r"at_campaign|cmp|campaign_id|s_cid|sc_channel|sc_campaign|sc_content|sc_geo|"
+    r"sc_country|sc_outcome|trk|trkCampaign|li_fat_id|_hsenc|_hsmi|hss_channel|"
+    r"amp|output_type|guccounter|guce_referrer\w*)$",
+    re.I,
+)
+
+_WS = re.compile(r"\s+")
+_TAG = re.compile(r"<[^>]+>")
+_ENTITY = re.compile(r"&(#\d+|#x[0-9a-fA-F]+|[a-zA-Z]+);")
+
+
+def new_session(browser_ua: bool = False) -> requests.Session:
+    s = requests.Session()
+    s.headers.update(
+        {
+            "User-Agent": BROWSER_UA if browser_ua else USER_AGENT,
+            "Accept": "application/rss+xml, application/atom+xml, application/xml, "
+            "text/xml, application/json;q=0.9, text/html;q=0.8, */*;q=0.5",
+            "Accept-Language": "en,ru;q=0.9,zh;q=0.8,ja;q=0.7,*;q=0.5",
+        }
+    )
+    return s
+
+
+def get(session: requests.Session, url: str, *, timeout: int = 25, retries: int = 2,
+        **kwargs) -> requests.Response | None:
+    """GET with bounded retries. Returns None instead of raising."""
+    for attempt in range(retries + 1):
+        try:
+            r = session.get(url, timeout=timeout, allow_redirects=True, **kwargs)
+            if r.status_code == 429 and attempt < retries:
+                time.sleep(3 * (attempt + 1))
+                continue
+            return r
+        except requests.RequestException as exc:
+            if attempt >= retries:
+                log.debug("GET failed %s: %s", url, exc)
+                return None
+            time.sleep(1.5 * (attempt + 1))
+    return None
+
+
+def canonical_url(url: str) -> str:
+    """Normalise a URL so the same document from different surfaces collapses."""
+    if not url:
+        return ""
+    url = url.strip()
+    if url.startswith("//"):
+        url = "https:" + url
+    try:
+        p = urlparse(url)
+    except ValueError:
+        return url
+    if p.scheme not in ("http", "https"):
+        return url
+
+    host = (p.hostname or "").lower()
+    for prefix in ("www.", "m.", "mobile.", "amp."):
+        if host.startswith(prefix):
+            host = host[len(prefix) :]
+    # Language subdomains that serve the same article.
+    host = re.sub(r"^(en|zh|ja|ko|ru)\.(medium\.com)$", r"\2", host)
+
+    path = p.path or "/"
+    path = re.sub(r"/amp/?$", "/", path)
+    if len(path) > 1:
+        path = path.rstrip("/")
+    if not path:
+        path = "/"
+
+    query = [
+        (k, v)
+        for k, v in parse_qsl(p.query, keep_blank_values=False)
+        if not TRACKING_PARAMS.match(k)
+    ]
+    query.sort()
+
+    return urlunparse(("https", host, path, "", urlencode(query), ""))
+
+
+def domain_of(url: str) -> str:
+    host = (urlparse(url).hostname or "").lower()
+    return host[4:] if host.startswith("www.") else host
+
+
+def strip_html(text: str, limit: int = 1200) -> str:
+    if not text:
+        return ""
+    text = re.sub(r"(?is)<(script|style)[^>]*>.*?</\1>", " ", text)
+    text = _TAG.sub(" ", text)
+    text = text.replace("&nbsp;", " ").replace("&amp;", "&")
+    text = text.replace("&lt;", "<").replace("&gt;", ">").replace("&quot;", '"')
+    text = text.replace("&#39;", "'").replace("&mdash;", "—").replace("&ndash;", "–")
+    text = _ENTITY.sub(" ", text)
+    text = _WS.sub(" ", text).strip()
+    return text[:limit]
+
+
+def item_id(canonical: str) -> str:
+    return hashlib.sha1(canonical.encode("utf-8", "replace")).hexdigest()[:16]
+
+
+CYRILLIC = re.compile(r"[Ѐ-ӿ]")
+HAN = re.compile(r"[一-鿿]")
+KANA = re.compile(r"[぀-ヿ]")
+HANGUL = re.compile(r"[가-힯]")
+
+
+def detect_lang(text: str, default: str = "en") -> str:
+    """Script-based language guess. Cheap and good enough for routing/quotas."""
+    if not text:
+        return default
+    sample = text[:600]
+    if HANGUL.search(sample):
+        return "ko"
+    if KANA.search(sample):
+        return "ja"
+    if HAN.search(sample):
+        return "zh"
+    if len(CYRILLIC.findall(sample)) >= 4:
+        return "ru"
+    return default
+
+
+def to_utc(dt: datetime | None) -> datetime | None:
+    if dt is None:
+        return None
+    if dt.tzinfo is None:
+        return dt.replace(tzinfo=timezone.utc)
+    return dt.astimezone(timezone.utc)
+
+
+def parse_struct_time(st) -> datetime | None:
+    if not st:
+        return None
+    try:
+        return datetime(*st[:6], tzinfo=timezone.utc)
+    except (TypeError, ValueError):
+        return None
+
+
+def window_bounds(days: int = 7, end: datetime | None = None
+                  ) -> tuple[datetime, datetime]:
+    end = to_utc(end or datetime.now(timezone.utc))
+    return end - timedelta(days=days), end
