@@ -297,19 +297,19 @@ def fetch_reddit(cfg: dict, start, end) -> list[dict]:
         # Reddit rate-limits anonymous datacenter traffic hard; pace slowly and
         # back off on 429 rather than losing the whole subreddit.
         r = None
-        for attempt in range(4):
+        for attempt in range(2):
             r = get(session, f"https://www.reddit.com/r/{sub['name']}/top/.rss",
-                    params={"t": "week"}, timeout=25, retries=0)
+                    params={"t": "week"}, timeout=20, retries=0)
             if r is not None and r.status_code == 200:
                 break
-            time.sleep(5 * (attempt + 1))
+            time.sleep(4 * (attempt + 1))
             r = None
         if r is None:
             consecutive_failures += 1
             log.warning("reddit r/%s rss unavailable after retries", sub["name"])
             # Reddit blocks datacenter egress wholesale rather than per-subreddit.
             # Once that is clear, stop burning minutes on the remaining listings.
-            if consecutive_failures >= 3:
+            if consecutive_failures >= 4:
                 log.error("reddit unreachable from this host - skipping the remaining "
                           "%d subreddits; set REDDIT_CLIENT_ID/REDDIT_CLIENT_SECRET "
                           "to use the API instead", len(subs) - subs.index(sub) - 1)
