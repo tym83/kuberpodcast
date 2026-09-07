@@ -1,0 +1,203 @@
+# Noise filters. Every rule carries a reason code that ends up in the rejected log.
+# Regexes are Python, applied with re.IGNORECASE | re.UNICODE.
+
+# ── seo_listicle ─────────────────────────────────────────────────────────────
+seo_listicle:
+  - '^\s*(the\s+)?(top|best)\s+\d{1,3}\b'
+  - '\b(top|best)\s+\d{1,3}\s+\w+.{0,60}\b20\d\d\b'
+  - '\b\d{1,3}\s+(best|top|essential|must[- ](know|have|read)|awesome|amazing|powerful)\b'
+  - '\b(ultimate|complete|definitive|comprehensive)\s+(guide|tutorial|handbook|checklist)\b'
+  - "\\b(a\\s+)?(beginner|newbie|noob|dummies)('?s)?\\s+(guide|intro|introduction)\\b"
+  - '\bfor\s+(beginners|dummies|newbies)\b'
+  - '\b(getting started|step[- ]by[- ]step|from scratch|zero to hero|crash course|cheat[- ]?sheet)\b'
+  - '\b(what|why|how)\s+is\s+\w+\s*\??$'
+  - '\b(kubernetes|docker|devops|terraform|linux|ansible)\s+(101|basics|fundamentals|tutorial)\b'
+  - '\b(day|week)\s?[-–]?\s?\d{1,3}\s+of\b'
+  - '\b\d{2,3}\s?days?\s+of\s+\w+'
+  - '\b(explained (simply|in \d+ minutes)|in\s+\d+\s+minutes|tl;?dr guide)\b'
+  - '\b(everything|all) you need to know\b'
+  - '\b(vs\.?|versus)\b.{0,30}\bwhich (one )?(should you|to) (choose|use|pick)\b'
+
+# ── vendor_pr ────────────────────────────────────────────────────────────────
+vendor_pr:
+  - '\b(named|recognized|positioned) (a|as) .{0,40}\b(leader|visionary|challenger)\b'
+  - '\b(magic quadrant|forrester wave|gartner peer insights|idc marketscape)\b'
+  - '\b(webinar|register (now|today)|save your seat|reserve your spot|book a demo|free trial)\b'
+  - '\b(sign up (today|now)|join us (live|for a)|watch on[- ]demand)\b'
+  - '\b(sponsor(ed|ship)?|call for (papers|proposals|speakers)|cfp (is )?(open|closes))\b'
+  - '\b(early[- ]bird|tickets? (are )?(now )?(on sale|available)|diamond sponsor)\b'
+  - '\bnow available (on|in) the (aws|azure|google cloud|gcp) marketplace\b'
+  - '\b(achieves|earns|receives)\b.{0,30}\b(soc ?2|iso ?27001|fedramp|hipaa|pci ?dss)\b'
+  - '\b(customer (story|success)|case study|testimonial)\b'
+  - '^\s*press release\b'
+  - '\b(award|awards) (winner|finalist)\b'
+pr_domains:
+  - prnewswire.com
+  - businesswire.com
+  - globenewswire.com
+  - einpresswire.com
+  - accesswire.com
+  - newswire.com
+  - prweb.com
+  - openpr.com
+
+# ── beginner ─────────────────────────────────────────────────────────────────
+beginner_body:
+  - '\bin this (article|tutorial|post),? (you|we) will learn\b'
+  - '\bprerequisites?:\s*(basic|a basic|some) (knowledge|understanding|familiarity)\b'
+  - "\\bif you('re| are) new to\\b"
+  - "\\bbefore we (dive in|begin|start),? let('s| us) (understand|define) what\\b"
+  - '\bwhat (is|are) (a )?(pod|container|namespace|deployment|service)s?\?'
+# Feeds that are pedagogical by design and must skip the concept-density check.
+beginner_exempt_sources: [iximiuz, learnk8s, jvns, k8s-blog, k8s-contrib]
+
+# ── ai_slop ──────────────────────────────────────────────────────────────────
+ai_slop_phrases:
+  - "in today's fast-paced"
+  - "ever-evolving landscape"
+  - "ever-changing landscape"
+  - "delve into"
+  - "it's important to note that"
+  - "it's worth noting that"
+  - "game-changer"
+  - "game changer"
+  - "unlock the power"
+  - "harness the power"
+  - "in the world of"
+  - "revolutioniz"
+  - "seamlessly integrat"
+  - "robust and scalable"
+  - "cutting-edge solution"
+  - "leverage the power"
+  - "navigate the complexities"
+  - "in conclusion,"
+  - "let's dive in"
+  - "buckle up"
+  - "the landscape of"
+  - "paradigm shift"
+  - "at the end of the day,"
+  - "tapestry of"
+  - "stands as a testament"
+  - "plays a crucial role"
+  - "a myriad of"
+# Surfaces where two slop phrases are already enough to drop.
+ai_slop_strict_domains:
+  - dev.to
+  - hashnode.dev
+  - dzone.com
+  - geeksforgeeks.org
+  - simplilearn.com
+  - k21academy.com
+  - edureka.co
+  - tutorialspoint.com
+  - javatpoint.com
+  - medium.com
+
+# ── reddit_help / reddit_selfpost ────────────────────────────────────────────
+reddit_drop_flair: [help, question, support, troubleshooting, career, hiring, meme,
+                    humor, humour, rant, shitpost, survey, poll, showoff, "homelab pics"]
+reddit_drop_title:
+  - '^\s*(help|question|q|advice|support)\b\s*[:!,\-–]'
+  - '\bhow (do|can|would|should) (i|we|you)\b'
+  - "\\bwhy (is|are|does|do|won't|can't) (my|our|this|the)\\b"
+  - '\bis (this|it|that) (normal|expected|a bug)\b'
+  - '\bneed (help|advice|guidance|opinions?)\b'
+  - '\bany(one|body) (else )?(know|have|using|tried|experienced|seeing)\b'
+  - '\b(what|which) (is|are) the best\b.*\?'
+  - '\brecommend(ation)?s?\b.*\?\s*$'
+  - '\b(cka|ckad|cks|kcna|certification|exam|resume|cv|interview|salary|compensation)\b'
+  - '\b(job (hunt|search)|hiring|laid off|layoff|career (advice|change|path))\b'
+  - '\b(rate my|roast my|my first|just finished my)\b'
+  - '\bhomelab (tour|update|build)\b'
+reddit_image_hosts: [i.redd.it, imgur.com, i.imgur.com, v.redd.it, preview.redd.it]
+
+# ── job_post ─────────────────────────────────────────────────────────────────
+job_post:
+  - "\\bwe(\\'| a)re hiring\\b"
+  - '\bnow hiring\b'
+  - '\bjob (opening|opportunity|posting|alert)\b'
+  - '\b(apply now|join our team|open (roles?|positions?)|career opportunities)\b'
+  - '^ask hn:\s*who (is hiring|wants to be hired)'
+  - '^\s*\[hiring\]'
+  - '^\s*\[for hire\]'
+  - '\b(usd|eur|\$)\s?\d{2,3}[kк]\b.{0,20}\b(salary|comp|per year)\b'
+
+# ── repost / recycled ────────────────────────────────────────────────────────
+recycled:
+  - '\b(revisit(ed|ing)|from the archives|reader favou?rites|most[- ]read)\b'
+  - '\b(year in review|20\d\d in review|best of 20\d\d)\b'
+
+# ── paywall / not_an_article ─────────────────────────────────────────────────
+paywall_domains: [wsj.com, bloomberg.com, ft.com, theinformation.com, businessinsider.com,
+                  nytimes.com, economist.com, seekingalpha.com, forbes.com]
+paywall_body:
+  - '\bmember[- ]only story\b'
+  - '\bsubscribe to (read|continue)\b'
+  - '\bcreate a free account to (read|continue)\b'
+  - '\bthis article is for subscribers\b'
+not_an_article:
+  - '(?<!/releases)/(tag|tags|category|categories|topics?|author|search)/'
+  - '/page/\d+/?$'
+  - '/(events?|webinars?|training|courses?|pricing|about|careers?|jobs?)(/|$)'
+
+# ── topic tiers (TOP relevance) ──────────────────────────────────────────────
+tier_a: [kubernetes, k8s, kubelet, kube-apiserver, apiserver, etcd, containerd, cri-o, runc,
+         kubevirt, cilium, ebpf, calico, istio, envoy, linkerd, "gateway api", "service mesh",
+         cni, csi, "argo cd", argocd, flux, helm, crossplane, operator, crd, controller,
+         "control plane", terraform, opentofu, pulumi, prometheus, opentelemetry, otel,
+         grafana, loki, victoriametrics, karpenter, "cluster api", "cluster-api", talos, k3s,
+         k0s, openshift, rancher, harvester, "bare metal", "bare-metal", scheduler, kubeadm,
+         "device plugin", "topology manager", cgroup, cgroups, "admission webhook", kyverno,
+         gatekeeper, sigstore, cosign, slsa, sbom, "supply chain", postmortem, "root cause",
+         outage, "incident review", multi-tenant, multi-tenancy, kubectl, "node pool",
+         kubernetes-сигнал, кубернетес, "оркестрация контейнеров"]
+tier_b: [postgres, postgresql, cloudnative-pg, kafka, clickhouse, valkey, redis, ceph, rook,
+         longhorn, minio, velero, restic, nats, vitess, tidb, "linux kernel", systemd,
+         io_uring, nvme, rdma, wasm, wasmtime, firecracker, gvisor, kata, kvm, qemu, proxmox,
+         openstack, finops, "cost optimization", "capacity planning", "chaos engineering",
+         "load balanc", bgp, vxlan, srv6, dpdk, "sr-iov", nixos, "immutable os", gpu, cuda,
+         nvlink, infiniband, vllm, sglang, kserve, ray, inference, "kv cache", "model serving",
+         "batch scheduling", harbor, registry, "object storage", raft, consensus, "s3"]
+tier_c: [observability, sre, "platform engineering", devops, "developer experience", "ci/cd",
+         "on-call", sla, slo, "error budget", microservices, "distributed systems", benchmark,
+         latency, throughput, migration, "open source", governance, license, "infrastructure"]
+
+# ── routing vocabularies ─────────────────────────────────────────────────────
+ai_terms: [gpu, cuda, nvlink, nvidia, vllm, sglang, kserve, kubeflow, ray, inference,
+           "kv cache", "model serving", mig, dra, "device plugin", llm, "training cluster",
+           tpu, triton, "gpu operator", "batch scheduling", volcano, "ai infrastructure",
+           tensorrt, "h100", "b200", "gb200", "gpu cluster"]
+ecosystem_terms: ['\brelicens', '\bbsl\b', 'business source', '\bsspl\b', 'elastic license',
+                  '\bacquir', 'acquisition', '\bfork(ed|ing)? of\b', 'to sunset',
+                  'end of life', '\beol\b', 'shutting down', '\braises \$', '\bfunding round',
+                  'series [a-e]\b', 'graduat(ed|ion)', 'incubat(ing|ion)', 'sandbox project',
+                  'archiv(ed|ing) the project', 'joins the cncf', 'donated to the',
+                  'steering committee', 'maintainer(s)? (step|leav|resign)', 'layoffs?',
+                  'licence change', 'license change', 'trademark']
+incident_terms: ['post[- ]?mortem', 'incident report', 'root cause', '\brca\b', 'outage',
+                 'degraded (service|performance)', 'service disruption',
+                 'we (had|experienced) an? (outage|incident)', 'разбор (инцидента|аварии)',
+                 'постмортем', 'incident review', 'what happened on \d']
+security_terms: ['CVE-\d{4}-\d{4,}', 'GHSA-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{4}',
+                 'security advisory', 'security release', 'privilege escalation',
+                 'remote code execution', '\brce\b', 'container escape', 'supply[- ]chain attack',
+                 'malicious (package|dependency)', 'typosquat', 'уязвимост', 'эксплойт']
+breaking_terms: ['breaking change', 'action required', 'backwards[- ]incompatible',
+                 'no longer supported', 'removed in this release', 'migration required',
+                 'deprecat(ed|ion) notice', 'end of support']
+benchmark_terms: ['\bp99\b', '\bp95\b', 'throughput of', 'requests? per second', '\brps\b',
+                  'benchmark', 'latency dropped', 'speedup of', '\bqps\b', 'we measured']
+
+# Comment lint: regenerate a comment that contains any of these.
+comment_banned:
+  - 'важн(ый|ая|ое|ые)\b'
+  - 'интересн(ый|ая|ое|ые)\b'
+  - 'значительн'
+  - 'революционн'
+  - 'меняет правила игры'
+  - 'нельзя пропустить'
+  - 'must-have'
+  - 'в современном мире'
+  - 'как известно'
+  - 'в этой статье'
+  - 'автор рассказывает'

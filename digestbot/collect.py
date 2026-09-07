@@ -271,14 +271,21 @@ def fetch_reddit(cfg: dict, start, end) -> list[dict]:
     # Fallback: public .rss listings. Ordered by score but scores are not exposed,
     # so rank inside the weekly top listing is used as the engagement proxy.
     log.warning("REDDIT_CLIENT_ID/SECRET not set - using public .rss fallback")
+    reddit_delay = float(os.getenv("REDDIT_RSS_DELAY", "6"))
     session = new_session(browser_ua=True)
     for sub in subs:
-        r = get(session, f"https://www.reddit.com/r/{sub['name']}/top.rss",
-                params={"t": "week"}, timeout=25, retries=2)
-        if r is None or r.status_code != 200:
-            log.warning("reddit r/%s rss HTTP %s", sub["name"],
-                        r.status_code if r else "ERR")
-            time.sleep(2.0)
+        # Reddit rate-limits anonymous datacenter traffic hard; pace slowly and
+        # back off on 429 rather than losing the whole subreddit.
+        r = None
+        for attempt in range(4):
+            r = get(session, f"https://www.reddit.com/r/{sub['name']}/top/.rss",
+                    params={"t": "week"}, timeout=25, retries=0)
+            if r is not None and r.status_code == 200:
+                break
+            time.sleep(5 * (attempt + 1))
+            r = None
+        if r is None:
+            log.warning("reddit r/%s rss unavailable after retries", sub["name"])
             continue
         parsed = feedparser.parse(r.content)
         for rank, e in enumerate(parsed.entries[:40]):
@@ -309,7 +316,7 @@ def fetch_reddit(cfg: dict, start, end) -> list[dict]:
                                   "score": None, "comments": None}],
                 )
             )
-        time.sleep(2.0)
+        time.sleep(reddit_delay)
     log.info("reddit (rss) %d posts", len(out))
     return out
 

@@ -1,0 +1,157 @@
+# Editorial policy for the weekly digest.
+# Implements sources/review-5-editorial.md: section quotas, the scoring formula,
+# diversity caps and the freshness rules.
+
+window_days: 7
+target_total: 100
+admit_threshold: 45.0        # final score below this is never emitted, even to fill a quota
+pad_when_short: false        # a quiet week produces fewer than 100 items, never filler
+
+# ── Scoring ──────────────────────────────────────────────────────────────────
+scoring:
+  weights:                   # components are normalised to [0,1]; base is [0,100]
+    TOP: 26                  # relevance to the show's beat — the only thing nothing compensates
+    SRC: 20                  # curated source authority
+    ENG: 18                  # community engagement (real, but gameable and anglo-biased)
+    FORM: 14                 # depth proxy: length, code blocks, tables
+    ORIG: 12                 # primary source beats rewrite
+    REC: 10                  # recency inside the window — deliberately small
+  top_gate: 0.20             # below this the item is off-topic regardless of engagement
+  tier_scores: {a: 0.35, b: 0.18, c: 0.07}
+  eng_floor: 0.15            # so quiet-but-excellent blogs are not zeroed out
+  recency_floor: 0.40
+  late_arrival_rec: 0.45
+
+  orig_scores:
+    primary: 1.00
+    analysis: 0.70
+    coverage: 0.40
+    aggregate: 0.10
+
+  bonus:
+    per_extra_surface: 3.5
+    max_surface: 8
+    newsletter_link: 6       # a human curator already picked it
+    security: 5
+    incident: 5
+    breaking_change: 4
+    benchmark_numbers: 3
+    cap: 14
+
+  penalty:
+    vendor_pitch: 20
+    paywalled: 25
+    slop_two_hits: 15
+    devto_low_reactions: 12
+    question_title: 10
+    no_byline_vendor: 10
+    repeat_cluster: 30
+
+  cluster:
+    title_jaccard: 0.55
+    version_blind_jaccard: 0.70
+    entity_window_hours: 96
+    decay: 0.45              # nth member of a cluster keeps 0.45**n of its score
+    max_emitted: 2
+  diversity:
+    entity_cap: 4
+    entity_mult: {1: 1.0, 2: 1.0, 3: 0.70, 4: 0.45}
+    domain_cap: 4
+    domain_cap_overrides: {kubernetes.io: 6, cncf.io: 6, github.com: 12}
+    domain_mult_after: 0.60
+    author_cap: 3
+
+# ── Freshness ────────────────────────────────────────────────────────────────
+freshness:
+  late_arrival_days: 10
+  late_arrival_max: 5
+  cold_start_quarantine_days: 14
+  old_link_days: 30          # an old article resurfacing needs the discussion to be the story
+  old_link_min_comments: 100
+  old_link_max: 3
+  future_clamp_hours: 6
+  future_drop_days: 7
+  cross_week_dedup_weeks: 8
+
+# ── Sections. Quotas sum to target_total. ────────────────────────────────────
+# `headline` is filled by promotion after everything else and consumes no slots.
+# Classifier precedence is the order given in `classify_order`.
+classify_order: [incidents, security, releases, nonenglish, ai_infra, ecosystem,
+                 watchlist, longform, community, deep]
+
+spill_order: [deep, releases, community, nonenglish, ai_infra, ecosystem]
+no_spill_into: [incidents, security, watchlist, headline]
+
+sections:
+  - key: headline
+    title: "Главное недели"
+    quota: 8
+    min: 5
+    promotion: true          # references the top items; they keep their home section
+
+  - key: releases
+    title: "Релизы, которые важны"
+    quota: 18
+    min: 10
+
+  - key: deep
+    title: "Глубокие технические тексты"
+    quota: 16
+    min: 10
+
+  - key: nonenglish
+    title: "Не на английском"
+    quota: 12
+    min: 8
+    protected: true          # filled before the English pool, never crowded out
+    sub_quotas: {ru: 5, zh: 4, ja: 1, ko: 1, de: 1}
+
+  - key: community
+    title: "Дискуссии"
+    quota: 10
+    min: 5
+
+  - key: security
+    title: "Безопасность и supply chain"
+    quota: 8
+    min: 3
+
+  - key: ai_infra
+    title: "AI-инфраструктура"
+    quota: 8
+    min: 3
+
+  - key: ecosystem
+    title: "Экосистема, деньги и управление"
+    quota: 7
+    min: 2
+
+  - key: incidents
+    title: "Инциденты и постмортемы"
+    quota: 5
+    min: 0
+
+  - key: watchlist
+    title: "Слабые сигналы"
+    quota: 5
+    min: 2
+    inverted_engagement: true   # the least-discussed genuinely novel items surface here
+    require_orig: primary
+    min_top: 0.35
+
+  - key: longform
+    title: "Длинное чтение и доклады"
+    quota: 3
+    min: 0
+    min_words: 4000
+
+# ── Output ───────────────────────────────────────────────────────────────────
+output:
+  short_digest: true         # digest/<date>-short.md, 15 items for show notes
+  short_count: 15
+  rejected_log: true         # digest/<date>-rejected.md, near-misses and top hard-drops
+  rejected_near_miss: 50
+  rejected_hard_drops: 20
+  podcast_angle_top: 20      # "подкаст-угол" line on the top N entries
+  comment_min_chars: 180
+  comment_max_chars: 460

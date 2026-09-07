@@ -1,0 +1,97 @@
+# Structured, non-blog sources. Review #5 §7.1-7.3: the `security` and `incidents`
+# sections have reserved quota that no RSS feed in feeds.yaml reliably fills, and
+# the newsletters are worth more as link mines than as digest entries.
+
+# ── Security advisories ──────────────────────────────────────────────────────
+security:
+  # Kubernetes' own machine-readable CVE feed.
+  k8s_cve_json: "https://kubernetes.io/docs/reference/issues-security/official-cve-feed/index.json"
+  feeds:
+    - {id: k8s-announce,   title: "kubernetes-announce",        url: "https://groups.google.com/forum/feed/kubernetes-announce/msgs/rss.xml?num=50", weight: 5}
+    - {id: k8s-security,   title: "kubernetes-security-announce", url: "https://groups.google.com/forum/feed/kubernetes-security-announce/msgs/rss.xml?num=50", weight: 5}
+    - {id: oss-security,   title: "oss-security (openwall)",    url: "https://www.openwall.com/lists/oss-security/rss.xml", weight: 4}
+    - {id: debian-dsa,     title: "Debian Security Advisories", url: "https://www.debian.org/security/dsa", weight: 3}
+    - {id: ubuntu-usn,     title: "Ubuntu Security Notices",    url: "https://ubuntu.com/security/notices/rss.xml", weight: 3}
+    - {id: cisa-kev,       title: "CISA Known Exploited Vulns", url: "https://www.cisa.gov/cybersecurity-advisories/all.xml", weight: 3}
+    - {id: github-advis,   title: "GitHub Security Advisories", url: "https://github.com/advisories.atom", weight: 3}
+  # Repos polled through the GitHub REST security-advisories endpoint. Kept small
+  # on purpose: one request per repo per run.
+  advisory_repos:
+    - kubernetes/kubernetes
+    - containerd/containerd
+    - cilium/cilium
+    - istio/istio
+    - envoyproxy/envoy
+    - argoproj/argo-cd
+    - helm/helm
+    - etcd-io/etcd
+    - opencontainers/runc
+    - moby/moby
+    - grafana/grafana
+    - prometheus/prometheus
+    - hashicorp/vault
+    - traefik/traefik
+    - goharbor/harbor
+    - rancher/rancher
+    - kubevirt/kubevirt
+    - fluxcd/flux2
+    - open-telemetry/opentelemetry-collector
+    - vllm-project/vllm
+
+# ── Incidents and status pages ───────────────────────────────────────────────
+# Statuspage-backed pages expose /history.atom; the rest are hand-picked feeds.
+incidents:
+  feeds:
+    - {id: st-cloudflare,  title: "Cloudflare Status",     url: "https://www.cloudflarestatus.com/history.atom",  weight: 4}
+    - {id: st-github,      title: "GitHub Status",         url: "https://www.githubstatus.com/history.atom",      weight: 4}
+    - {id: st-digitalocean,title: "DigitalOcean Status",   url: "https://status.digitalocean.com/history.atom",   weight: 3}
+    - {id: st-fastly,      title: "Fastly Status",         url: "https://status.fastly.com/history.atom",         weight: 3}
+    - {id: st-datadog,     title: "Datadog Status",        url: "https://status.datadoghq.com/history.atom",      weight: 3}
+    - {id: st-hashicorp,   title: "HashiCorp Status",      url: "https://status.hashicorp.com/history.atom",      weight: 2}
+    - {id: st-atlassian,   title: "Atlassian Status",      url: "https://status.atlassian.com/history.atom",      weight: 2}
+    - {id: st-npm,         title: "npm Status",            url: "https://status.npmjs.org/history.atom",          weight: 2}
+    - {id: st-docker,      title: "Docker Hub Status",     url: "https://status.docker.com/history.atom",         weight: 3}
+    - {id: aws-health,     title: "AWS Service Health",    url: "https://status.aws.amazon.com/rss/all.rss",      weight: 4}
+    - {id: gcp-incidents,  title: "Google Cloud Incidents", url: "https://status.cloud.google.com/en/feed.atom",  weight: 4}
+    - {id: azure-status,   title: "Azure Status History",  url: "https://azurestatuscdn.azureedge.net/en-us/status/feed/", weight: 3}
+  # Status pages are noisy: only entries that read like a real incident are kept.
+  min_body_chars: 240
+
+# ── Newsletters mined for outbound links ─────────────────────────────────────
+# These are human-curated link lists. A link appearing in one is a strong
+# precision signal (+6). The newsletter issues themselves score ORIG=0.10 and
+# should essentially never occupy a slot.
+newsletter_mining:
+  sources:
+    - {id: kubeweekly,   url: "https://www.cncf.io/kubeweekly/feed/"}
+    - {id: lwkd,         url: "https://lwkd.info/feed.xml"}
+    - {id: devopsish,    url: "https://devopsish.com/index.xml"}
+    - {id: sreweekly,    url: "https://sreweekly.com/feed/"}
+    - {id: cloudseclist, url: "https://cloudseclist.com/issues/index.xml"}
+    - {id: lastweekinaws, url: "https://www.lastweekinaws.com/feed/"}
+  # Domains never counted as a curated pick (self-links, trackers, social).
+  ignore_domains:
+    - cncf.io
+    - lwkd.info
+    - devopsish.com
+    - sreweekly.com
+    - cloudseclist.com
+    - lastweekinaws.com
+    - twitter.com
+    - x.com
+    - linkedin.com
+    - youtube.com
+    - substack.com
+    - eventbrite.com
+    - list-manage.com
+    - mailchi.mp
+
+# ── CNCF governance and project lifecycle ────────────────────────────────────
+# Graduations, archivals, licence changes and maintainer churn live in the TOC
+# repo, not in any blog feed.
+governance:
+  github_issue_feeds:
+    - {id: cncf-toc, repo: "cncf/toc", title: "CNCF TOC", weight: 4}
+    - {id: k8s-keps, repo: "kubernetes/enhancements", title: "Kubernetes KEPs", weight: 4}
+  # Merged-PR polling window matches the digest window.
+  max_items: 40

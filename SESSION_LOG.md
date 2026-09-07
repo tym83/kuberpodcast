@@ -30,3 +30,24 @@
 
 ### 19:25 — движок
 `digestbot/util.py` (HTTP-сессия, канонизация URL, определение языка, окно дат), `digestbot/collect.py` (RSS, HN Algolia, Reddit OAuth+RSS, Lobsters, dev.to, GitHub Releases).
+
+### 19:55 — редакционное ревью (тиммейт №5) принято
+Получена спецификация `sources/review-5-editorial.md` (1167 строк). Ключевое:
+- 11 секций с квотами на 100 (headline 8 — по промоушену, не отдельными слотами; releases 18; deep 16; nonenglish 12 с подквотами ru5/zh4/ja1/ko1/de1 — заполняется ПЕРВОЙ и защищена от вытеснения)
+- формула `base = 26*TOP + 20*SRC + 18*ENG + 14*FORM + 12*ORIG + 10*REC`, порог допуска 45
+- жёсткий topic-gate `TOP < 0.20` → off_topic
+- `tier:` в releases.yaml инертен (12 из 14 групп tier 1) → заменить на per-repo `min_bump`
+- нет ни одного источника, который надёжно даёт CVE и постмортемы, хотя под них зарезервировано 13 слотов
+- ньюслеттеры надо майнить на исходящие ссылки, а не публиковать как записи
+
+### 20:10 — движок под спецификацию
+Написаны: `digestbot/filters.py` (все reason codes), `score.py` (формула, кластеризация, классификатор секций, отбор по квотам), `freshness.py` (цепочка разрешения дат, late arrivals, old-link для HN/Reddit), `text.py` (trafilatura + дисковый кэш), `state.py` (sqlite emitted + feed health), `signals.py` (CVE-фиды, GitHub advisories, статус-страницы, майнинг ньюслеттеров, CNCF TOC / KEP).
+Конфиги: `sources/editorial.yaml`, `sources/blocklists.yaml`, `sources/signals.yaml`.
+
+### 20:30 — пайплайн собран и прогнан
+`collect_raw.py` → `build_digest.py` отрабатывает end-to-end на пробных данных.
+Найдено и починено:
+- URL релизов `…/releases/tag/v1.19.0` попадал под regex листингов → все 55 релизов отбрасывались как `not_an_article`
+- дата-теги вида `release-20260831.0` не ловились
+- в markdown подставлялся сырой URL с utm-метками вместо канонического
+Остаётся мало кандидатов (24 из 100) — потому что 54 фида мертвы и Reddit не отдаёт данные.

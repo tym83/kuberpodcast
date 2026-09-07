@@ -1,0 +1,104 @@
+name: Weekly digest
+
+on:
+  schedule:
+    # Monday 06:00 UTC = 09:00 MSK. Covers the preceding 7 days.
+    - cron: "0 6 * * 1"
+  workflow_dispatch:
+    inputs:
+      days:
+        description: "Window size in days"
+        default: "7"
+      end:
+        description: "Window end (ISO date, empty = now)"
+        default: ""
+      limit:
+        description: "Number of links in the digest"
+        default: "100"
+      dry_run:
+        description: "Build but do not commit"
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: weekly-digest
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Collect sources
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REDDIT_CLIENT_ID: ${{ secrets.REDDIT_CLIENT_ID }}
+          REDDIT_CLIENT_SECRET: ${{ secrets.REDDIT_CLIENT_SECRET }}
+        run: |
+          python scripts/collect_raw.py \
+            --days "${{ inputs.days || '7' }}" \
+            ${{ inputs.end && format('--end {0}', inputs.end) || '' }} \
+            --out data/raw.json
+
+      - name: Build digest
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: |
+          python scripts/build_digest.py \
+            --raw data/raw.json \
+            --limit "${{ inputs.limit || '100' }}" \
+            --outdir digest
+
+      - name: Upload run artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: digest-run
+          path: |
+            digest/*.md
+            data/*.json
+          retention-days: 30
+
+      - name: Commit and merge
+        if: ${{ !inputs.dry_run }}
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          if [ -z "$(git status --porcelain digest)" ]; then
+            echo "No new digest produced - nothing to commit."
+            exit 0
+          fi
+          FILE=$(git status --porcelain digest | awk '{print $NF}' | head -1)
+          DATE=$(basename "$FILE" .md)
+          BRANCH="digest/$DATE-${GITHUB_RUN_ID}"
+
+          git config user.name  "kuberpodcast-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git checkout -b "$BRANCH"
+          git add digest
+          git commit --signoff -m "chore(digest): weekly digest $DATE" \
+                                -m "Automated run of the weekly collector over the preceding 7 days."
+          git push origin "$BRANCH"
+
+          PR_URL=$(gh pr create \
+            --base main --head "$BRANCH" \
+            --title "chore(digest): weekly digest $DATE" \
+            --body "Automated weekly digest for \`$DATE\`, produced by \`.github/workflows/weekly-digest.yml\`.")
+
+          # Merged straight away: the digest is append-only and reviewed after the fact.
+          gh pr merge "$PR_URL" --squash --delete-branch \
+            || gh pr merge "$PR_URL" --squash --delete-branch --admin
