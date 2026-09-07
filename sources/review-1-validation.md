@@ -274,3 +274,110 @@ and `devops`.
 **No subreddit was found to be nonexistent or private.** 27 of the 28
 configured names are confirmed real and public; the 28th is unresolved as
 described above rather than confirmed either way.
+
+---
+
+# Addendum — full sweep of the grown catalog (445 feeds)
+
+The body of this report covers the 184-feed scope. Since `feeds.yaml` kept growing
+during the review, I ran the same validation over the **current 445-entry file** so the
+~140 later-added feeds are not shipped unvalidated. Same method (browser UA, 20s timeout,
+redirects followed, `feedparser`, 120-day stale threshold). Snapshot taken at 445 entries;
+raw data in `.validation.json`.
+
+## Addendum summary
+
+| Classification | Count |
+|---|---|
+| OK | 413 |
+| STALE (>120d) | 23 |
+| DEAD | 3 |
+| EMPTY | 1 |
+| GEOBLOCKED (403) | 1 |
+| **Total** | **441** (sweep snapshot; 4 more entries were added while it ran) |
+
+Every id in the 184-feed scope that this report marks as fixed came back OK in this sweep,
+so the replacement URLs hold up on a second independent pass.
+
+## New findings not in the main report
+
+**1. `lemire` — 403 is a User-Agent block, NOT geoblocking. This is the actionable one.**
+
+`https://lemire.me/blog/feed/` returns **403 with the digest's own User-Agent**
+(`kuberpodcast-digest/1.0`) and **200 with 40 fresh entries** (newest 2026-09-05) using a
+normal Chrome UA. Same IP, same second — the only variable is the UA string. The host is
+filtering on the bot-identifying UA.
+
+This matters beyond one feed: the project's UA string is *itself* a source of failures, and
+any other WAF-fronted host may do the same silently. Options: send a browser-like UA
+(dropping the courteous bot identifier), or keep the polite UA and accept losing these
+sources. Worth a deliberate decision rather than discovering it per-feed.
+
+**2. `cisecurity` — configured URL is not a feed at all (added by another reviewer).**
+
+`https://www.cisecurity.org/feed` returns 200 but the body is a 238-byte **Sitecore
+redirect stub** (`<html><head><title>Object moved</title>...`), so it parses to 0 entries.
+`/feed/` is identical; `/insights/blog/rss.xml` 404s; `/insights/feed` returns 247 KB of
+HTML (a rendered page, `Content-Type: text/html`), also 0 entries. No working feed found —
+**remove unless someone can produce a real CIS feed URL.**
+
+**3. `netflix` — transient, not dead. Do not remove.**
+
+`https://netflixtechblog.com/feed` timed out during the bulk sweep and was classified DEAD,
+but two isolated retries (20s and 45s timeouts) both returned **200 with 10 entries**,
+newest 2026-08-28. Medium-hosted feeds time out under parallel load. This is a lesson for
+the fetcher generally: **a single timeout must not be treated as a dead feed** — retry
+serially before dropping anything. `envoy` is the opposite case: it failed on 10+ attempts
+across an hour at both 20s and 45s, so its DEAD classification stands.
+
+**4. Additional STALE feeds among the later-added sources** (all work, just old):
+
+| id | url | age |
+|---|---|---|
+| google-security | https://security.googleblog.com/feeds/posts/default | 136d |
+| koordinator | https://koordinator.sh/zh-Hans/blog/rss.xml | 144d |
+| nelhage | https://blog.nelhage.com/atom.xml | 168d |
+| moelove | https://moelove.info/rss.xml | 196d |
+| starrocks | https://www.starrocks.io/blog/rss.xml | 131d |
+| cncf-tag-sec | https://tag-security.cncf.io/index.xml | 337d |
+| easyperf | https://easyperf.net/feed.xml | 665d |
+| brauner | https://people.kernel.org/brauner/feed/ | 1285d |
+| travisdowns | https://travisdowns.github.io/feed.xml | 1908d |
+
+`brauner` and `travisdowns` are effectively abandoned (3.5 and 5 years); `easyperf` nearly
+two years. Whoever added them should confirm they are wanted before the first run.
+
+**5. `deckhouse` is still missing from `feeds.yaml`.**
+
+The Replacements section lists `deckhouse -> https://deckhouse.ru/blog/feed/` (verified:
+200, 10 entries, newest 2026-09-07), but the id is **not present in the current file** —
+only `flant` was restored. `flant.ru/feed/` (company blog) and `deckhouse.ru/blog/feed/`
+(product blog) are different content streams; both were verified working. Add `deckhouse`
+back.
+
+## `kubernetes_ops` — independent confirmation of the control table
+
+I reproduced the Reddit control experiment separately, all three probes in one run with
+identical pacing (90s backoff, 60s between subreddits), after a 4-minute cool-off:
+
+| probe | result |
+|---|---|
+| `r/kubernetes/.rss` (real sub, control) | **200**, 25 entries, feed title "Kubernetes" |
+| `r/thissubdoesnotexist99xyz/.rss` (nonexistent, control) | **404**, 517 bytes, "reddit.com: page not found" |
+| `r/kubernetes_ops/.rss` | **429 on all 4 attempts** — never a 404 |
+
+This confirms the main report's reading and sharpens it: the nonexistent control returned a
+clean 404 *in the same run at the same pacing*, so the 429 on `kubernetes_ops` is not
+generic throttling — a nonexistent name would have 404'd. The name resolves to something
+Reddit will not serve a feed for. That is consistent with a real-but-restricted subreddit,
+but it is **not** proof of existence, and I am not claiming it either way.
+
+Operationally the conclusion is the same regardless: `kubernetes_ops` yields zero items
+while its `.rss` returns 429, so it contributes nothing to the digest as configured.
+
+## One method note for the fetcher
+
+Reddit rate-limits hard. A 10-worker parallel sweep of the 28 subreddits produced **1 × 200
+and 27 × 429**; the same list run sequentially with ~5s spacing produced 27 × 200. If the
+production fetcher pulls subreddits concurrently it will silently lose most of them — the
+failure looks like "quiet week on Reddit", not like an error. Pace it sequentially.

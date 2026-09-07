@@ -121,6 +121,18 @@ def fetch_feeds(feeds: list[dict], start, end, workers: int = 16,
     with cf.ThreadPoolExecutor(max_workers=workers) as pool:
         for res in pool.map(one, feeds):
             out.extend(res)
+
+    # A connection error under parallel load is not evidence a feed is dead —
+    # several well-behaved blogs time out only when the crawler is busy. Retry
+    # the failures serially before letting them count against feed health.
+    if probes is not None:
+        failed_ids = {p["id"] for p in probes if not p["ok"] and p.get("status") is None}
+        retry = [f for f in feeds if f["id"] in failed_ids]
+        if retry:
+            log.info("retrying %d failed feeds serially", len(retry))
+            probes[:] = [p for p in probes if p["id"] not in failed_ids]
+            for feed in retry:
+                out.extend(one(feed))
     return out
 
 

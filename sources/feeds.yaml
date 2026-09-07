@@ -177,6 +177,7 @@ feeds:
 - {id: opennet,         title: "OpenNET",                      url: "https://www.opennet.ru/opennews/opennews_all_utf.rss",       lang: ru, category: media, weight: 3}
 - {id: selectel,        title: "Selectel Blog",                url: "https://selectel.ru/blog/feed/",                             lang: ru, category: vendor, weight: 3}
 
+- {id: deckhouse,       title: "Deckhouse — блог",               url: "https://deckhouse.ru/blog/feed/",                                  lang: ru, category: project,   weight: 4}
 - {id: flant,           title: "Флант — блог",                   url: "https://flant.ru/rss",                                             lang: ru, category: vendor,    weight: 5}
 - {id: flant-habr,      title: "Флант — Habr",                   url: "https://habr.com/ru/rss/companies/flant/articles/",                lang: ru, category: vendor,    weight: 5}
 - {id: deckhouse-rel,   title: "Deckhouse — релизы",             url: "https://github.com/deckhouse/deckhouse/releases.atom",             lang: ru, category: project,   weight: 4}
