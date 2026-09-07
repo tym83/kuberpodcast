@@ -1,0 +1,10 @@
+# Virtualenv and Python artefacts
+.venv/
+__pycache__/
+*.pyc
+
+# Raw crawl output and the full-text cache: large, regenerable, not review material
+data/
+
+# Cross-week state lives on the runner between scheduled runs, not in git
+state/
