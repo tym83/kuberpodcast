@@ -305,6 +305,7 @@ def fetch_reddit(cfg: dict, start, end) -> list[dict]:
     reddit_delay = float(os.getenv("REDDIT_RSS_DELAY", "6"))
     session = new_session(browser_ua=True)
     consecutive_failures = 0
+    total_failures = 0
     for sub in subs:
         # Reddit rate-limits anonymous datacenter traffic hard; pace slowly and
         # back off on 429 rather than losing the whole subreddit.
@@ -318,10 +319,11 @@ def fetch_reddit(cfg: dict, start, end) -> list[dict]:
             r = None
         if r is None:
             consecutive_failures += 1
+            total_failures += 1
             log.warning("reddit r/%s rss unavailable after retries", sub["name"])
             # Reddit blocks datacenter egress wholesale rather than per-subreddit.
             # Once that is clear, stop burning minutes on the remaining listings.
-            if consecutive_failures >= 4:
+            if consecutive_failures >= 4 or total_failures >= 10:
                 log.error("reddit unreachable from this host - skipping the remaining "
                           "%d subreddits; set REDDIT_CLIENT_ID/REDDIT_CLIENT_SECRET "
                           "to use the API instead", len(subs) - subs.index(sub) - 1)
