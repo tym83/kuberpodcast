@@ -476,6 +476,10 @@ def fetch_releases(groups: dict, start, end, workers: int = 12) -> list[dict]:
         r = get(session, f"https://api.github.com/repos/{repo}/releases",
                 params={"per_page": 10}, timeout=25, retries=1)
         if r is None or r.status_code != 200:
+            if r is not None and r.status_code == 403:
+                # Unauthenticated runs exhaust the REST quota after ~70 repos.
+                # The Atom endpoint has no such limit and carries the same data.
+                return _releases_via_atom(session, cfg, start, end)
             if r is not None and r.status_code not in (404,):
                 log.debug("releases %s HTTP %s", repo, r.status_code)
             return []
@@ -623,3 +627,47 @@ def fetch_juejin(cfg: dict, start, end) -> list[dict]:
         time.sleep(0.5)
     log.info("juejin %d articles", len(out))
     return out
+
+
+def _releases_via_atom(session, cfg: dict, start, end) -> list[dict]:
+    """Zero-auth fallback used when the REST API rate-limits."""
+    import feedparser as _fp
+
+    repo = cfg["repo"]
+    r = get(session, f"https://github.com/{repo}/releases.atom", timeout=25, retries=1)
+    if r is None or r.status_code != 200:
+        return []
+    parsed = _fp.parse(r.content)
+    items = []
+    for e in parsed.entries[:10]:
+        pub = parse_struct_time(getattr(e, "updated_parsed", None)
+                                or getattr(e, "published_parsed", None))
+        if pub is None or not (start <= pub <= end):
+            continue
+        link = getattr(e, "link", "")
+        tag = link.rsplit("/", 1)[-1] if link else ""
+        body = strip_html(getattr(e, "content", [{}])[0].get("value", "")
+                          if getattr(e, "content", None) else
+                          getattr(e, "summary", ""), 4000)
+        items.append(_mk(
+            title=f"{repo} {tag}",
+            url=link,
+            source_id=f"gh/{repo}",
+            source_title=repo,
+            source_kind="release",
+            category="release",
+            lang="en",
+            source_weight={"patch": 4, "minor": 3, "major": 3}.get(
+                cfg.get("min_bump", "minor"), 3),
+            published=pub.isoformat(),
+            summary=body,
+            release={"repo": repo, "group": cfg["group"],
+                     "min_bump": cfg.get("min_bump", "minor"),
+                     "previous_tag": None, "tag": tag,
+                     "name": getattr(e, "title", tag),
+                     "prerelease": bool(re.search(r"(rc|alpha|beta)", tag, re.I)),
+                     "body_len": len(body), "assets": 0, "via": "atom"},
+        ))
+    if items:
+        log.info("releases %s via atom fallback: %d", repo, len(items))
+    return items

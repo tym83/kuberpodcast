@@ -10,6 +10,16 @@ repos:
     min_bump: patch
     rc: true
     list:
+      - {repo: kubernetes-sigs/external-dns}
+      - {repo: kubernetes-sigs/secrets-store-csi-driver}
+      - {repo: kubernetes-sigs/node-feature-discovery}
+      - {repo: kubernetes-sigs/scheduler-plugins}
+      - {repo: kubernetes-sigs/jobset}
+      - {repo: kubernetes-sigs/lws}
+      - {repo: kubernetes-sigs/kwok}
+      - {repo: kubernetes-sigs/cri-tools}
+      - {repo: kubernetes-sigs/gateway-api-inference-extension}
+      - {repo: kubernetes-sigs/kro}
       - {repo: kubernetes/kubernetes, min_bump: 'patch', rc: true}
       - {repo: kubernetes/kubectl, mirror_of: 'kubernetes/kubernetes'}
       - {repo: kubernetes-sigs/cluster-api}
@@ -28,6 +38,11 @@ repos:
     min_bump: patch
     rc: false
     list:
+      - {repo: containerd/nerdctl}
+      - {repo: containers/crun}
+      - {repo: lima-vm/lima}
+      - {repo: rancher-sandbox/rancher-desktop}
+      - {repo: nestybox/sysbox}
       - {repo: containerd/containerd}
       - {repo: opencontainers/runc}
       - {repo: cri-o/cri-o}
@@ -47,6 +62,13 @@ repos:
     min_bump: minor
     rc: true
     list:
+      - {repo: rancher/rke2}
+      - {repo: gardener/gardener}
+      - {repo: kubermatic/kubermatic}
+      - {repo: siderolabs/omni}
+      - {repo: labring/sealos}
+      - {repo: eksctl-io/eksctl}
+      - {repo: flatcar/scripts}
       - {repo: k3s-io/k3s}
       - {repo: k0sproject/k0s}
       - {repo: siderolabs/talos, min_bump: 'minor'}
@@ -64,6 +86,14 @@ repos:
     min_bump: minor
     rc: true
     list:
+      - {repo: tailscale/tailscale}
+      - {repo: netbirdio/netbird}
+      - {repo: kube-vip/kube-vip}
+      - {repo: cilium/ebpf}
+      - {repo: spidernet-io/spiderpool}
+      - {repo: frrouting/frr}
+      - {repo: osrg/gobgp}
+      - {repo: cloudflare/pingora}
       - {repo: cilium/cilium, min_bump: 'patch', rc: true}
       - {repo: cilium/tetragon}
       - {repo: projectcalico/calico}
@@ -86,6 +116,17 @@ repos:
     min_bump: minor
     rc: false
     list:
+      - {repo: fluxcd/flagger}
+      - {repo: argoproj/argo-events}
+      - {repo: helmfile/helmfile}
+      - {repo: carvel-dev/kapp}
+      - {repo: stefanprodan/timoni}
+      - {repo: werf/werf}
+      - {repo: radius-project/radius}
+      - {repo: devtron-labs/devtron}
+      - {repo: woodpecker-ci/woodpecker}
+      - {repo: concourse/concourse}
+      - {repo: jenkinsci/jenkins}
       - {repo: argoproj/argo-cd}
       - {repo: argoproj/argo-workflows}
       - {repo: argoproj/argo-rollouts}
@@ -102,6 +143,16 @@ repos:
     min_bump: minor
     rc: false
     list:
+      - {repo: grafana/alloy}
+      - {repo: grafana/k6}
+      - {repo: prometheus-operator/prometheus-operator}
+      - {repo: prometheus/node_exporter}
+      - {repo: kubernetes/kube-state-metrics}
+      - {repo: open-telemetry/opentelemetry-ebpf-profiler}
+      - {repo: perses/perses}
+      - {repo: k8sgpt-ai/k8sgpt}
+      - {repo: greptimeteam/greptimedb}
+      - {repo: influxdata/influxdb}
       - {repo: prometheus/prometheus}
       - {repo: prometheus/alertmanager}
       - {repo: thanos-io/thanos}
@@ -127,6 +178,22 @@ repos:
     min_bump: patch
     rc: false
     list:
+      - {repo: sigstore/rekor}
+      - {repo: sigstore/fulcio}
+      - {repo: anchore/syft}
+      - {repo: aquasecurity/tracee}
+      - {repo: spiffe/spire}
+      - {repo: getsops/sops}
+      - {repo: FiloSottile/age}
+      - {repo: guacsec/guac}
+      - {repo: gitleaks/gitleaks}
+      - {repo: trufflesecurity/trufflehog}
+      - {repo: kubernetes-sigs/security-profiles-operator}
+      - {repo: inspektor-gadget/inspektor-gadget}
+      - {repo: notaryproject/notation}
+      - {repo: kubearmor/KubeArmor}
+      - {repo: stackrox/stackrox}
+      - {repo: stackrox/kube-linter}
       - {repo: kyverno/kyverno}
       - {repo: open-policy-agent/gatekeeper}
       - {repo: open-policy-agent/opa}
@@ -152,6 +219,22 @@ repos:
     min_bump: minor
     rc: false
     list:
+      - {repo: juicedata/juicefs}
+      - {repo: seaweedfs/seaweedfs}
+      - {repo: cubefs/cubefs}
+      - {repo: topolvm/topolvm}
+      - {repo: piraeusdatastore/piraeus-operator}
+      - {repo: openzfs/zfs}
+      - {repo: postgres/postgres}
+      - {repo: elastic/elasticsearch}
+      - {repo: opensearch-project/OpenSearch}
+      - {repo: apecloud/kubeblocks}
+      - {repo: dragonflydb/dragonfly}
+      - {repo: milvus-io/milvus}
+      - {repo: qdrant/qdrant}
+      - {repo: apache/iceberg}
+      - {repo: duckdb/duckdb}
+      - {repo: rclone/rclone}
       - {repo: rook/rook}
       - {repo: longhorn/longhorn}
       - {repo: ceph/ceph, changelog_url: 'https://docs.ceph.com/en/latest/releases/'}
@@ -179,6 +262,10 @@ repos:
     min_bump: minor
     rc: true
     list:
+      - {repo: qemu/qemu}
+      - {repo: libvirt/libvirt}
+      - {repo: xen-project/xen}
+      - {repo: OpenNebula/one}
       - {repo: kubevirt/kubevirt}
       - {repo: kubevirt/containerized-data-importer}
       - {repo: openstack/nova, changelog_url: 'https://docs.openstack.org/releasenotes/nova/'}
@@ -190,6 +277,10 @@ repos:
     min_bump: minor
     rc: false
     list:
+      - {repo: runatlantis/atlantis}
+      - {repo: aws/aws-cdk}
+      - {repo: cue-lang/cue}
+      - {repo: kcl-lang/kcl}
       - {repo: hashicorp/terraform, min_bump: 'patch'}
       - {repo: opentofu/opentofu, min_bump: 'patch'}
       - {repo: pulumi/pulumi}
@@ -208,6 +299,11 @@ repos:
     min_bump: major
     rc: false
     list:
+      - {repo: GoogleCloudPlatform/kubectl-ai}
+      - {repo: kagent-dev/kagent}
+      - {repo: chaos-mesh/chaos-mesh}
+      - {repo: litmuschaos/litmus}
+      - {repo: FairwindsOps/pluto}
       - {repo: derailed/k9s, min_bump: 'major'}
       - {repo: kubernetes-sigs/headlamp}
       - {repo: ahmetb/kubectx}
@@ -234,6 +330,16 @@ repos:
     min_bump: minor
     rc: false
     list:
+      - {repo: ai-dynamo/dynamo}
+      - {repo: vllm-project/aibrix}
+      - {repo: vllm-project/production-stack}
+      - {repo: llm-d/llm-d}
+      - {repo: skypilot-org/skypilot}
+      - {repo: NVIDIA/nvidia-container-toolkit}
+      - {repo: kubernetes-sigs/dra-driver-nvidia-gpu}
+      - {repo: ROCm/k8s-device-plugin}
+      - {repo: bentoml/BentoML}
+      - {repo: kubeflow/katib}
       - {repo: vllm-project/vllm, min_bump: 'patch'}
       - {repo: sgl-project/sglang}
       - {repo: ray-project/ray}
@@ -255,6 +361,8 @@ repos:
     min_bump: minor
     rc: false
     list:
+      - {repo: wasmCloud/wasmCloud}
+      - {repo: spinframework/spin-operator}
       - {repo: knative/serving}
       - {repo: knative/eventing}
       - {repo: dapr/dapr}
@@ -284,6 +392,7 @@ repos:
     min_bump: major
     rc: false
     list:
+      - {repo: openssh/openssh-portable}
       - {repo: systemd/systemd}
       - {repo: util-linux/util-linux}
       - {repo: torvalds/linux, changelog_url: 'https://kernelnewbies.org/LinuxChanges'}

@@ -4,6 +4,7 @@ from __future__ import annotations
 import hashlib
 import logging
 import re
+import threading
 import time
 from datetime import datetime, timedelta, timezone
 from urllib.parse import parse_qsl, urlencode, urlparse, urlunparse
@@ -11,6 +12,22 @@ from urllib.parse import parse_qsl, urlencode, urlparse, urlunparse
 import requests
 
 log = logging.getLogger("digestbot")
+
+# Some hosts (rachelbythebay.com, among others) return 429 as soon as two
+# requests arrive at once. Serialising per host costs nothing across a
+# many-host crawl and stops those sources vanishing silently.
+_HOST_LOCKS: dict[str, threading.Lock] = {}
+_LOCKS_GUARD = threading.Lock()
+_HOST_MIN_INTERVAL = 0.4
+_LAST_HIT: dict[str, float] = {}
+
+
+def _host_lock(host: str) -> threading.Lock:
+    with _LOCKS_GUARD:
+        lock = _HOST_LOCKS.get(host)
+        if lock is None:
+            lock = _HOST_LOCKS[host] = threading.Lock()
+        return lock
 
 USER_AGENT = (
     "kuberpodcast-digest/1.0 (+https://github.com/tym83/kuberpodcast) "
@@ -51,7 +68,20 @@ def new_session(browser_ua: bool = False) -> requests.Session:
 
 def get(session: requests.Session, url: str, *, timeout: int = 25, retries: int = 2,
         **kwargs) -> requests.Response | None:
-    """GET with bounded retries. Returns None instead of raising."""
+    """GET with bounded retries and per-host serialisation. Returns None, never raises."""
+    host = (urlparse(url).hostname or "").lower()
+    with _host_lock(host):
+        gap = _HOST_MIN_INTERVAL - (time.monotonic() - _LAST_HIT.get(host, 0.0))
+        if gap > 0:
+            time.sleep(gap)
+        try:
+            return _get(session, url, timeout=timeout, retries=retries, **kwargs)
+        finally:
+            _LAST_HIT[host] = time.monotonic()
+
+
+def _get(session: requests.Session, url: str, *, timeout: int, retries: int,
+         **kwargs) -> requests.Response | None:
     for attempt in range(retries + 1):
         try:
             r = session.get(url, timeout=timeout, allow_redirects=True, **kwargs)

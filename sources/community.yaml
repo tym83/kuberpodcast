@@ -68,6 +68,16 @@ hackernews:
     - sbom
     - "self-hosted"
     - "data center"
+    - vmware
+    - broadcom
+    - "gpu cluster"
+    - "inference serving"
+    - "kv cache"
+    - kubevirt
+    - "virtual machine"
+    - proxmox
+    - "object storage"
+    - "control plane"
 
 lobsters:
   tags: [devops, distributed, linux, networking, security, virtualization, performance, containers]

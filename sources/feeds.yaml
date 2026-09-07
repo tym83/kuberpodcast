@@ -40,7 +40,6 @@ feeds:
 - {id: talos,           title: "Talos Linux / Sidero Blog",    url: "https://www.siderolabs.com/feed",                       lang: en, category: project, weight: 3}
 - {id: kubeedge,        title: "KubeEdge Blog",                url: "https://kubeedge.io/blog/rss.xml",                           lang: en, category: project, weight: 2}
 - {id: vllm,            title: "vLLM Blog",                    url: "https://vllm.ai/blog/rss.xml",                              lang: en, category: project, weight: 4}
-- {id: ray,             title: "Anyscale / Ray Blog",          url: "https://www.anyscale.com/rss.xml",                      lang: en, category: project, weight: 3}
 - {id: cozystack,       title: "Cozystack Blog",               url: "https://cozystack.io/blog/index.xml",                        lang: en, category: project, weight: 4}
 
 # ── Cloud providers ──────────────────────────────────────────────────
@@ -128,10 +127,10 @@ feeds:
 - {id: tns,             title: "The New Stack",                url: "https://thenewstack.io/feed/",                               lang: en, category: media, weight: 4}
 - {id: infoq-cloud,     title: "InfoQ — Cloud & DevOps",       url: "https://feed.infoq.com/",                                    lang: en, category: media, weight: 3}
 - {id: lwn,             title: "LWN.net",                      url: "https://lwn.net/headlines/newrss",                           lang: en, category: media, weight: 4}
-- {id: register-cloud,  title: "The Register — Software",      url: "https://www.theregister.com/software/headlines.atom",        lang: en, category: media, weight: 2}
+- {id: register-cloud,  title: "The Register — Software",      url: "https://www.theregister.com/on_prem/headlines.atom",        lang: en, category: media, weight: 2}
 - {id: phoronix,        title: "Phoronix",                     url: "https://www.phoronix.com/rss.php",                           lang: en, category: media, weight: 2}
 - {id: changelog,       title: "Changelog News",               url: "https://changelog.com/news/feed",                            lang: en, category: media, weight: 2}
-- {id: heise-open,      title: "heise online — Open Source",   url: "https://www.heise.de/rss/heise-atom.xml",                    lang: de, category: media, weight: 2}
+- {id: heise-open,      title: "heise online — Open Source",   url: "https://www.heise.de/rss/heise-atom.xml",                    lang: de, category: media, weight: 1}
 - {id: golem,           title: "Golem.de",                     url: "https://rss.golem.de/rss.php?feed=RSS2.0",                   lang: de, category: media, weight: 1}
 
 # ── Newsletters / weeklies ───────────────────────────────────────────
@@ -336,3 +335,146 @@ feeds:
 - {id: linegoogle,      title: "LY Corporation Tech Blog",     url: "https://techblog.lycorp.co.jp/ja/feed/index.xml",            lang: ja, category: vendor, weight: 2}
 - {id: kakao,           title: "Kakao Tech",                   url: "https://tech.kakao.com/feed/",                               lang: ko, category: vendor, weight: 2}
 - {id: naverd2,         title: "NAVER D2",                     url: "https://d2.naver.com/d2.atom",                               lang: ko, category: vendor, weight: 2}
+
+# ── Added by review-2-english.md (all URLs verified live) ────────────
+- {id: letsencrypt,     title: "Let's Encrypt / ISRG",           url: "https://letsencrypt.org/feed.xml",                          lang: en, category: foundation, weight: 4}
+- {id: ietf-blog,       title: "IETF Blog",                       url: "https://www.ietf.org/blog/feed/",                           lang: en, category: foundation, weight: 3}
+- {id: apnic,           title: "APNIC Blog",                      url: "https://blog.apnic.net/feed/",                              lang: en, category: foundation, weight: 4}
+- {id: ripe-labs,       title: "RIPE Labs",                       url: "https://labs.ripe.net/rss/",                                lang: en, category: foundation, weight: 3}
+- {id: cisa-advisories, title: "CISA Advisories",                 url: "https://www.cisa.gov/cybersecurity-advisories/all.xml",     lang: en, category: foundation, weight: 3}
+- {id: ccc,             title: "Confidential Computing Consortium", url: "https://confidentialcomputing.io/feed/",                  lang: en, category: foundation, weight: 3}
+- {id: spdx,            title: "SPDX (SBOM standard)",            url: "https://spdx.dev/feed/",                                    lang: en, category: foundation, weight: 2}
+- {id: bytecodealliance,title: "Bytecode Alliance",               url: "https://bytecodealliance.org/feed.xml",                     lang: en, category: foundation, weight: 3}
+- {id: ocp,             title: "Open Compute Project",            url: "https://www.opencompute.org/blog/rss",                      lang: en, category: foundation, weight: 3}
+- {id: lfnetworking,    title: "LF Networking",                   url: "https://www.lfnetworking.org/feed/",                        lang: en, category: foundation, weight: 2}
+- {id: lfaidata,        title: "LF AI & Data",                    url: "https://lfaidata.foundation/feed/",                         lang: en, category: foundation, weight: 3}
+- {id: osi,             title: "Open Source Initiative",          url: "https://opensource.org/feed",                               lang: en, category: foundation, weight: 2}
+- {id: conservancy,     title: "Software Freedom Conservancy",    url: "https://sfconservancy.org/feeds/news/",                     lang: en, category: foundation, weight: 2}
+- {id: csa,             title: "Cloud Security Alliance",         url: "https://cloudsecurityalliance.org/blog/feed",               lang: en, category: foundation, weight: 2}
+- {id: cisecurity,      title: "CIS (Benchmarks)",                url: "https://www.cisecurity.org/feed",                           lang: en, category: foundation, weight: 2}
+- {id: lf-events,       title: "Linux Foundation Events (CFP/schedules)", url: "https://events.linuxfoundation.org/feed/",          lang: en, category: foundation, weight: 3}
+- {id: planet-kernel,   title: "Planet Kernel (kernel devs)",     url: "https://planet.kernel.org/rss20.xml",                       lang: en, category: foundation, weight: 3}
+- {id: cncf-tag-sec,    title: "CNCF TAG Security",               url: "https://tag-security.cncf.io/index.xml",                    lang: en, category: foundation, weight: 3}
+- {id: cks,             title: "Chris Siebenmann (utcc)",         url: "https://utcc.utoronto.ca/~cks/space/blog/?atom",            lang: en, category: person, weight: 4}
+- {id: brauner,         title: "Christian Brauner (kernel/containers)", url: "https://people.kernel.org/brauner/feed/",             lang: en, category: person, weight: 4}
+- {id: ariadne,         title: "Ariadne Conill",                  url: "https://ariadne.space/feed/",                               lang: en, category: person, weight: 3}
+- {id: lorinh,          title: "Lorin Hochstein (Surfing Complexity)", url: "https://surfingcomplexity.blog/feed/",                 lang: en, category: person, weight: 4}
+- {id: allspaw,         title: "John Allspaw / Adaptive Capacity Labs", url: "https://adaptivecapacitylabs.com/blog/feed/",         lang: en, category: person, weight: 4}
+- {id: ferd,            title: "Fred Hebert (ferd.ca)",           url: "https://ferd.ca/feed.rss",                                  lang: en, category: person, weight: 4}
+- {id: lethain,         title: "Will Larson (Irrational Exuberance)", url: "https://lethain.com/feeds/",                            lang: en, category: person, weight: 3}
+- {id: eatonphil,       title: "Phil Eaton",                      url: "https://notes.eatonphil.com/rss.xml",                       lang: en, category: person, weight: 4}
+- {id: muratbuffalo,    title: "Murat Demirbaş (Metadata)",       url: "https://muratbuffalo.blogspot.com/feeds/posts/default",     lang: en, category: person, weight: 4}
+- {id: smalldatum,      title: "Mark Callaghan (Small Datum)",    url: "https://smalldatum.blogspot.com/feeds/posts/default",       lang: en, category: person, weight: 3}
+- {id: jackvanlightly,  title: "Jack Vanlightly",                 url: "https://jack-vanlightly.com/blog?format=rss",               lang: en, category: person, weight: 4}
+- {id: bgrant,          title: "Brian Grant (Kubernetes co-founder)", url: "https://medium.com/feed/@bgrant0607",                   lang: en, category: person, weight: 4}
+- {id: adrianco,        title: "Adrian Cockcroft",                url: "https://adrianco.medium.com/feed",                          lang: en, category: person, weight: 3}
+- {id: ipspace,         title: "Ivan Pepelnjak (ipSpace)",        url: "https://blog.ipspace.net/index.xml",                        lang: en, category: person, weight: 4}
+- {id: berthub,         title: "Bert Hubert",                     url: "https://berthub.eu/articles/index.xml",                     lang: en, category: person, weight: 3}
+- {id: filippo,         title: "Filippo Valsorda",                url: "https://words.filippo.io/rss/",                             lang: en, category: person, weight: 4}
+- {id: xeiaso,          title: "Xe Iaso",                         url: "https://xeiaso.net/blog.rss",                               lang: en, category: person, weight: 3}
+- {id: lemire,          title: "Daniel Lemire",                   url: "https://lemire.me/blog/feed/",                              lang: en, category: person, weight: 3}
+- {id: drewdevault,     title: "Drew DeVault",                    url: "https://drewdevault.com/blog/index.xml",                    lang: en, category: person, weight: 2}
+- {id: davetf,          title: "David Anderson (Tailscale)",      url: "https://blog.dave.tf/index.xml",                            lang: en, category: person, weight: 3}
+- {id: matduggan,       title: "Mathew Duggan",                   url: "https://matduggan.com/rss/",                                lang: en, category: person, weight: 3}
+- {id: nickjanetakis,   title: "Nick Janetakis",                  url: "https://nickjanetakis.com/atom.xml",                        lang: en, category: person, weight: 2}
+- {id: vickiboykis,     title: "Vicki Boykis",                    url: "https://vickiboykis.com/index.xml",                         lang: en, category: person, weight: 3}
+- {id: antirez,         title: "Salvatore Sanfilippo (antirez)",  url: "https://antirez.com/rss",                                   lang: en, category: person, weight: 3}
+- {id: majorhayden,     title: "Major Hayden",                    url: "https://major.io/index.xml",                                lang: en, category: person, weight: 2}
+- {id: nelhage,         title: "Nelson Elhage",                   url: "https://blog.nelhage.com/atom.xml",                         lang: en, category: person, weight: 3}
+- {id: alexellis,       title: "Alex Ellis (OpenFaaS)",           url: "https://blog.alexellis.io/rss/",                            lang: en, category: person, weight: 3}
+- {id: travisdowns,     title: "Travis Downs (performance)",      url: "https://travisdowns.github.io/feed.xml",                    lang: en, category: person, weight: 2}
+- {id: easyperf,        title: "Denis Bakhvalov (Easyperf)",      url: "https://easyperf.net/feed.xml",                             lang: en, category: person, weight: 2}
+- {id: confluent,       title: "Confluent Blog",                  url: "https://www.confluent.io/rss.xml",                          lang: en, category: vendor, weight: 3}
+- {id: warpstream,      title: "WarpStream Blog",                 url: "https://www.warpstream.com/blog/rss.xml",                   lang: en, category: vendor, weight: 3}
+- {id: redpanda,        title: "Redpanda Blog",                   url: "https://www.redpanda.com/blog/rss.xml",                     lang: en, category: vendor, weight: 3}
+- {id: scylladb,        title: "ScyllaDB Blog",                   url: "https://www.scylladb.com/feed/",                            lang: en, category: vendor, weight: 3}
+- {id: crunchydata,     title: "Crunchy Data (Postgres)",         url: "https://www.crunchydata.com/blog/rss.xml",                  lang: en, category: vendor, weight: 3}
+- {id: supabase,        title: "Supabase Blog",                   url: "https://supabase.com/rss.xml",                              lang: en, category: vendor, weight: 2}
+- {id: tigerbeetle,     title: "TigerBeetle Blog",                url: "https://tigerbeetle.com/blog/atom.xml",                     lang: en, category: vendor, weight: 3}
+- {id: materialize,     title: "Materialize Blog",                url: "https://materialize.com/rss.xml",                           lang: en, category: vendor, weight: 2}
+- {id: questdb,         title: "QuestDB Blog",                    url: "https://questdb.com/rss.xml",                               lang: en, category: vendor, weight: 2}
+- {id: tigris,          title: "Tigris Data Blog",                url: "https://www.tigrisdata.com/blog/rss.xml",                   lang: en, category: vendor, weight: 2}
+- {id: dbos,            title: "DBOS Blog",                       url: "https://www.dbos.dev/blog/rss.xml",                         lang: en, category: vendor, weight: 2}
+- {id: mongodb,         title: "MongoDB Blog",                    url: "https://www.mongodb.com/blog/rss",                          lang: en, category: vendor, weight: 2}
+- {id: backblaze,       title: "Backblaze Blog (Drive Stats)",    url: "https://www.backblaze.com/blog/feed/",                      lang: en, category: vendor, weight: 3}
+- {id: storagereview,   title: "StorageReview",                   url: "https://www.storagereview.com/feed",                        lang: en, category: vendor, weight: 2}
+- {id: veeam,           title: "Veeam Blog",                      url: "https://www.veeam.com/blog/feed/",                          lang: en, category: vendor, weight: 2}
+- {id: amd-rocm,        title: "AMD ROCm Blogs",                  url: "https://rocm.blogs.amd.com/blog/atom.xml",                  lang: en, category: vendor, weight: 3}
+- {id: collabora,       title: "Collabora (kernel/Mesa)",         url: "https://www.collabora.com/feed",                            lang: en, category: vendor, weight: 2}
+- {id: qemu,            title: "QEMU Blog",                       url: "https://www.qemu.org/feed.xml",                             lang: en, category: vendor, weight: 3}
+- {id: vmware-vcf,      title: "VMware Cloud Foundation Blog",    url: "https://blogs.vmware.com/cloud-foundation/feed/",           lang: en, category: vendor, weight: 3}
+- {id: opennebula,      title: "OpenNebula Blog",                 url: "https://www.opennebula.io/feed/",                           lang: en, category: vendor, weight: 2}
+- {id: proxmox-forum,   title: "Proxmox Forum (releases)",        url: "https://forum.proxmox.com/forums/-/index.rss",              lang: en, category: community, weight: 2}
+- {id: dd-seclabs,      title: "Datadog Security Labs",           url: "https://securitylabs.datadoghq.com/rss/feed.xml",           lang: en, category: vendor, weight: 4}
+- {id: trailofbits,     title: "Trail of Bits Blog",              url: "https://blog.trailofbits.com/feed/",                        lang: en, category: vendor, weight: 4}
+- {id: socketdev,       title: "Socket.dev Blog",                 url: "https://socket.dev/api/blog/feed.atom",                     lang: en, category: vendor, weight: 3}
+- {id: endorlabs,       title: "Endor Labs Blog",                 url: "https://www.endorlabs.com/blog/rss.xml",                    lang: en, category: vendor, weight: 2}
+- {id: gitguardian,     title: "GitGuardian Blog",                url: "https://blog.gitguardian.com/rss/",                         lang: en, category: vendor, weight: 2}
+- {id: unit42,          title: "Unit 42 (Palo Alto)",             url: "https://unit42.paloaltonetworks.com/feed/",                 lang: en, category: vendor, weight: 3}
+- {id: prismacloud,     title: "Prisma Cloud Blog",               url: "https://www.paloaltonetworks.com/blog/prisma-cloud/feed/",  lang: en, category: vendor, weight: 2}
+- {id: portswigger,     title: "PortSwigger Research",            url: "https://portswigger.net/research/rss",                      lang: en, category: vendor, weight: 2}
+- {id: projectzero,     title: "Google Project Zero",             url: "https://googleprojectzero.blogspot.com/feeds/posts/default", lang: en, category: vendor, weight: 3}
+- {id: google-security, title: "Google Online Security Blog",     url: "https://security.googleblog.com/feeds/posts/default",       lang: en, category: vendor, weight: 4}
+- {id: jfrog,           title: "JFrog Blog",                      url: "https://jfrog.com/blog/feed/",                              lang: en, category: vendor, weight: 2}
+- {id: groundcover,     title: "groundcover (eBPF observability)", url: "https://www.groundcover.com/blog/rss.xml",                 lang: en, category: vendor, weight: 2}
+- {id: dynatrace,       title: "Dynatrace News",                  url: "https://www.dynatrace.com/news/feed/",                      lang: en, category: vendor, weight: 2}
+- {id: newrelic,        title: "New Relic Blog",                  url: "https://newrelic.com/blog/feed",                            lang: en, category: vendor, weight: 2}
+- {id: rootly,          title: "Rootly Blog (incident mgmt)",     url: "https://rootly.com/blog/rss.xml",                           lang: en, category: vendor, weight: 2}
+- {id: vantage,         title: "Vantage Blog (cloud cost)",       url: "https://www.vantage.sh/blog/rss.xml",                       lang: en, category: vendor, weight: 4}
+- {id: castai,          title: "CAST AI Blog (k8s cost)",         url: "https://cast.ai/feed/",                                     lang: en, category: vendor, weight: 3}
+- {id: namespace,       title: "Namespace Blog (CI runners)",     url: "https://www.namespace.so/blog/rss.xml",                     lang: en, category: vendor, weight: 2}
+- {id: circleci,        title: "CircleCI Blog",                   url: "https://circleci.com/blog/feed.xml",                        lang: en, category: vendor, weight: 2}
+- {id: sentry,          title: "Sentry Engineering",              url: "https://blog.sentry.io/feed.xml",                           lang: en, category: vendor, weight: 2}
+- {id: container-sol,   title: "Container Solutions Blog",        url: "https://blog.container-solutions.com/rss.xml",              lang: en, category: vendor, weight: 2}
+- {id: rhel,            title: "Red Hat Enterprise Linux Blog",   url: "https://www.redhat.com/en/rss/blog/channel/red-hat-enterprise-linux", lang: en, category: vendor, weight: 3}
+- {id: pytorch,         title: "PyTorch Blog",                    url: "https://pytorch.org/blog/feed.xml",                         lang: en, category: vendor, weight: 3}
+- {id: huggingface,     title: "Hugging Face Blog",               url: "https://huggingface.co/blog/feed.xml",                      lang: en, category: vendor, weight: 3}
+- {id: llmd,            title: "llm-d Blog",                      url: "https://llm-d.ai/blog/rss.xml",                             lang: en, category: project, weight: 4}
+- {id: togetherai,      title: "Together AI Blog",                url: "https://www.together.ai/blog/rss.xml",                      lang: en, category: vendor, weight: 2}
+- {id: lyft,            title: "Lyft Engineering",                url: "https://eng.lyft.com/feed",                                 lang: en, category: vendor, weight: 3}
+- {id: airbnb,          title: "Airbnb Engineering",              url: "https://medium.com/feed/airbnb-engineering",                lang: en, category: vendor, weight: 2}
+- {id: pinterest,       title: "Pinterest Engineering",           url: "https://medium.com/feed/pinterest-engineering",             lang: en, category: vendor, weight: 2}
+- {id: yelp,            title: "Yelp Engineering",                url: "https://engineeringblog.yelp.com/feed.xml",                 lang: en, category: vendor, weight: 2}
+- {id: aws-whatsnew,    title: "AWS What's New (launches)",       url: "https://aws.amazon.com/about-aws/whats-new/recent/feed/",   lang: en, category: cloud, weight: 4}
+- {id: aws-net,         title: "AWS Networking & Content Delivery", url: "https://aws.amazon.com/blogs/networking-and-content-delivery/feed/", lang: en, category: cloud, weight: 3}
+- {id: aws-storage,     title: "AWS Storage Blog",                url: "https://aws.amazon.com/blogs/storage/feed/",                lang: en, category: cloud, weight: 3}
+- {id: aws-security,    title: "AWS Security Blog",               url: "https://aws.amazon.com/blogs/security/feed/",               lang: en, category: cloud, weight: 3}
+- {id: aws-devops,      title: "AWS DevOps & Developer Productivity", url: "https://aws.amazon.com/blogs/devops/feed/",             lang: en, category: cloud, weight: 3}
+- {id: aws-database,    title: "AWS Database Blog",               url: "https://aws.amazon.com/blogs/database/feed/",               lang: en, category: cloud, weight: 2}
+- {id: aws-hpc,         title: "AWS HPC Blog",                    url: "https://aws.amazon.com/blogs/hpc/feed/",                    lang: en, category: cloud, weight: 3}
+- {id: gcp-relnotes,    title: "Google Cloud Release Notes",      url: "https://cloud.google.com/feeds/gcp-release-notes.xml",      lang: en, category: cloud, weight: 4}
+- {id: gke-relnotes,    title: "GKE Release Notes",               url: "https://cloud.google.com/feeds/gke-release-notes.xml",      lang: en, category: cloud, weight: 5}
+- {id: aks-releases,    title: "Azure AKS Releases",              url: "https://github.com/Azure/AKS/releases.atom",                lang: en, category: cloud, weight: 5}
+- {id: gcp-devs,        title: "Google Cloud — Developers & Practitioners", url: "https://cloudblog.withgoogle.com/topics/developers-practitioners/rss/", lang: en, category: cloud, weight: 3}
+- {id: gcp-systems,     title: "Google Cloud — Systems & Infrastructure", url: "https://cloudblog.withgoogle.com/topics/systems/rss/", lang: en, category: cloud, weight: 4}
+- {id: ovhcloud,        title: "OVHcloud Blog",                   url: "https://blog.ovhcloud.com/feed/",                           lang: en, category: cloud, weight: 2}
+- {id: ms-opensource,   title: "Microsoft Open Source Blog",      url: "https://opensource.microsoft.com/blog/feed/",               lang: en, category: cloud, weight: 2}
+- {id: nextplatform,    title: "The Next Platform",               url: "https://www.nextplatform.com/feed/",                        lang: en, category: media, weight: 4}
+- {id: blocksandfiles,  title: "Blocks & Files (storage)",        url: "https://blocksandfiles.com/feed/",                          lang: en, category: media, weight: 3}
+- {id: servethehome,    title: "ServeTheHome",                    url: "https://www.servethehome.com/feed/",                        lang: en, category: media, weight: 3}
+- {id: dcd,             title: "Data Center Dynamics",            url: "https://www.datacenterdynamics.com/en/rss/",                lang: en, category: media, weight: 3}
+- {id: devopsdotcom,    title: "DevOps.com",                      url: "https://devops.com/feed/",                                  lang: en, category: media, weight: 2}
+- {id: cloudnativenow,  title: "Cloud Native Now",                url: "https://cloudnativenow.com/feed/",                          lang: en, category: media, weight: 2}
+- {id: packetpushers,   title: "Packet Pushers",                  url: "https://packetpushers.net/feed/",                           lang: en, category: media, weight: 3}
+- {id: runtime,         title: "Runtime (Tom Krazit)",            url: "https://www.runtime.news/latest/rss/",                      lang: en, category: media, weight: 3}
+- {id: itnext,          title: "ITNEXT",                          url: "https://itnext.io/feed",                                    lang: en, category: media, weight: 2}
+- {id: tldrsec,         title: "tl;dr sec",                       url: "https://rss.beehiiv.com/feeds/xgTKUmMmUm.xml",              lang: en, category: newsletter, weight: 3}
+- {id: cloudcast,       title: "The Cloudcast",                   url: "https://www.thecloudcast.net/feeds/posts/default",          lang: en, category: newsletter, weight: 3}
+- {id: sedaily,         title: "Software Engineering Daily",      url: "https://softwareengineeringdaily.com/feed/",                lang: en, category: newsletter, weight: 2}
+- {id: oxidefriends,    title: "Oxide and Friends",               url: "https://oxide-and-friends.transistor.fm/rss",               lang: en, category: newsletter, weight: 3}
+- {id: consoledev,      title: "Console.dev",                     url: "https://console.dev/rss.xml",                               lang: en, category: newsletter, weight: 2}
+- {id: yt-cncf,         title: "YouTube — CNCF (KubeCon talks)",  url: "https://www.youtube.com/feeds/videos.xml?channel_id=UCvqbFHwN-nwalWPjPUKpvTA", lang: en, category: newsletter, weight: 4}
+- {id: yt-k8s-community,title: "YouTube — Kubernetes (SIG meetings)", url: "https://www.youtube.com/feeds/videos.xml?channel_id=UCZ2bu0qutTOM0tHYa_jkIwg", lang: en, category: newsletter, weight: 3}
+- {id: yt-lf,           title: "YouTube — Linux Foundation",      url: "https://www.youtube.com/feeds/videos.xml?channel_id=UC5gLmcFuvdGbajs4VL-WU3g", lang: en, category: newsletter, weight: 2}
+- {id: yt-devopstoolkit,title: "YouTube — DevOps Toolkit (Viktor Farcic)", url: "https://www.youtube.com/feeds/videos.xml?channel_id=UCOSojkwOYL-9q9LzzERAihA", lang: en, category: newsletter, weight: 3}
+- {id: yt-kubesimplify, title: "YouTube — Kubesimplify",          url: "https://www.youtube.com/feeds/videos.xml?channel_id=UCi-1nnN0eC9nRleXdZA6ncg", lang: en, category: newsletter, weight: 2}
+- {id: yt-platformeng,  title: "YouTube — PlatformCon / Platform Engineering", url: "https://www.youtube.com/feeds/videos.xml?channel_id=UCKjVI0LawDxHaXSBMBOK1tA", lang: en, category: newsletter, weight: 3}
+- {id: yt-ato,          title: "YouTube — All Things Open",       url: "https://www.youtube.com/feeds/videos.xml?channel_id=UCBhXFK70DbOU15N2BhDQVTg", lang: en, category: newsletter, weight: 2}
+- {id: platformeng-org, title: "PlatformEngineering.org Blog",    url: "https://platformengineering.org/blog/rss.xml",              lang: en, category: newsletter, weight: 3}
+
+- {id: fory,            title: "Apache Fory (蚂蚁 Ant)",         url: "https://fory.apache.org/blog/rss.xml",                       lang: en, category: project, weight: 1}
+- {id: rocketmq-cn,     title: "Apache RocketMQ 博客",           url: "https://rocketmq.apache.org/blog/rss.xml",                   lang: zh, category: project, weight: 1}
+- {id: answer-cn,       title: "Apache Answer (SegmentFault)",  url: "https://answer.apache.org/blog/rss.xml",                     lang: en, category: project, weight: 1}
+- {id: cnblogs,         title: "博客园 (cnblogs) 首页",           url: "https://feed.cnblogs.com/blog/sitehome/rss",                 lang: zh, category: community, weight: 2}
+- {id: solidot,         title: "奇客 Solidot",                   url: "https://www.solidot.org/index.rss",                          lang: zh, category: media, weight: 2}
+- {id: deepin,          title: "deepin (CN distro) News",       url: "https://www.deepin.org/en/feed/",                            lang: en, category: community, weight: 1}

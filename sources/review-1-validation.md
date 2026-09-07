@@ -191,27 +191,50 @@ browser UA, sequential requests with backoff (Reddit rate-limits concurrent
 and it turns out `.rss` isn't fully exempt from rate limiting either, just
 from the outright 403 the JSON API gives).
 
-**25 of 26 subreddits confirmed working** — HTTP 200 with real feed content
-(3–90 KB response bodies, i.e., real items, not empty stubs):
+`community.yaml` lists **28** subreddits.
+
+**27 of 28 confirmed working** — HTTP 200 with real feed content (3–90 KB
+response bodies, i.e. real items, not empty stubs):
 
 kubernetes, devops, sre, platform_engineering, docker, terraform, aws, AZURE,
 googlecloud, openshift, selfhosted, homelab, sysadmin, networking, linux,
 linuxadmin, ExperiencedDevs, dataengineering, LocalLLaMA, rust, golang,
 postgres, ceph, opensource, Proxmox, netsec, devopsish — all exist and
-returned content. (That's 27 listed — `devopsish` and `ceph` subreddits both
-exist too, distinct from the `devopsish`/`ceph` **blog** feed ids in
-feeds.yaml.)
+returned content. (`devopsish` and `ceph` exist as subreddits, distinct from
+the `devopsish`/`ceph` **blog** feed ids in feeds.yaml.)
 
-**1 inconclusive: `kubernetes_ops`.** Its `.rss` endpoint returned HTTP 429
-on every attempt during this run (4 retries with 8/16/24/32s backoff, plus a
-standalone retry after a further 45s wait — still 429). However, the
-subreddit's HTML page (`reddit.com/r/kubernetes_ops/`) returned a clean
-HTTP 200, confirming **the subreddit exists and is not private/banned** —
-this looks like Reddit rate-limiting this specific endpoint harder after
-repeated automated hits from this session's IP during testing, not a real
-failure. Recommend re-verifying `kubernetes_ops` in production with slower
-request pacing (its own feed pull, isolated in time from the other 25)
-before concluding anything is wrong with it.
+**1 unresolved: `kubernetes_ops`** — could not be confirmed either way from
+this egress. What was actually observed:
 
-**No non-existent or private subreddits found.** All 26 configured names are
-real, public subreddits.
+| probe | `kubernetes_ops` | control: `kubernetes` | control: nonexistent sub |
+|---|---|---|---|
+| `top.rss?t=week` | 429 on every attempt (4 tries w/ 8–32s backoff, then 6 more w/ 30s backoff) | 200, 25 entries | **404** |
+| `new.rss` | 429-persist (6 tries) | — | — |
+| `about.json` | 403 (JSON API blocks datacenter egress generally) | — | — |
+| `reddit.com/r/<name>/` HTML | 200, generic 8414-byte JS shell | — | 200, **same** generic 8424-byte shell |
+| `old.reddit.com/r/<name>/` | redirected to login | redirected to login | redirected to login |
+
+Two things this rules out, and one it doesn't:
+
+- **Not simply our IP being rate-limited.** `kubernetes` returned 200 in the
+  *same interleaved run* in which `kubernetes_ops` 429'd six times — the
+  throttling is specific to this subreddit, not blanket egress throttling.
+- **Not confirmed to exist by the HTML page.** A 200 on the HTML URL proves
+  nothing: Reddit serves a near-identical generic shell (8414 vs 8424 bytes)
+  for a subreddit name invented for this test. Any claim of existence based
+  on that 200 is unsound.
+- **Still unknown whether it exists.** The one probe that *does*
+  discriminate — `.rss` — returns 404 for a nonexistent sub but never
+  returned 404 here, only 429. That weakly suggests the name resolves to
+  something real but feed-restricted; it is not proof. `old.reddit` and
+  `about.json` are both unusable from this egress.
+
+Practical consequence either way: **`kubernetes_ops` will yield zero items in
+the digest** as long as its `.rss` returns 429. Recommend pulling it once,
+isolated in time from the other 27, from the production egress; if it still
+429s there, drop it — the catalog already covers the topic via `kubernetes`
+and `devops`.
+
+**No subreddit was found to be nonexistent or private.** 27 of the 28
+configured names are confirmed real and public; the 28th is unresolved as
+described above rather than confirmed either way.

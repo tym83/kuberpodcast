@@ -7,8 +7,9 @@ security:
   # Kubernetes' own machine-readable CVE feed.
   k8s_cve_json: "https://kubernetes.io/docs/reference/issues-security/official-cve-feed/index.json"
   feeds:
-    - {id: k8s-announce,   title: "kubernetes-announce",        url: "https://groups.google.com/forum/feed/kubernetes-announce/msgs/rss.xml?num=50", weight: 5}
-    - {id: k8s-security,   title: "kubernetes-security-announce", url: "https://groups.google.com/forum/feed/kubernetes-security-announce/msgs/rss.xml?num=50", weight: 5}
+    # Google Groups retired its public feeds, so kubernetes-announce and
+    # kubernetes-security-announce are unreachable; the CVE JSON feed above and
+    # the per-repo GitHub advisories below cover the same ground.
     - {id: oss-security,   title: "oss-security (openwall)",    url: "https://www.openwall.com/lists/oss-security/rss.xml", weight: 4}
     - {id: debian-dsa,     title: "Debian Security Advisories", url: "https://www.debian.org/security/dsa", weight: 3}
     - {id: ubuntu-usn,     title: "Ubuntu Security Notices",    url: "https://ubuntu.com/security/notices/rss.xml", weight: 3}

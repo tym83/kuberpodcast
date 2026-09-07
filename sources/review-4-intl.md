@@ -213,7 +213,7 @@ Date of verification run: **2026-09-08**.
 | tweakers | Dutch original tech journalism (their own benchmarks/reviews). Use `tweakers.net/feeds/mixed.xml` — the old FeedBurner URL is frozen at 2025-04. | 200, 40 entries, newest 2026-09-07 |
 | xebia | NL-origin consultancy; content is English but the delivery/platform practice is European. Weight 1. | 200, 10 entries, newest 2026-08-26 |
 
-**Totals: 68 verified additions in the main lists** — 32 Chinese-scene entries (30 new plus 2 replacement fixes for broken draft URLs) against 36 Japanese / Korean / European, i.e. the Chinese share is at half as requested. 8 further verified-but-thin sources are parked in the optional list below.
+**Totals: 68 verified additions in the main lists** — 34 Chinese-scene entries (32 new plus 2 replacement fixes for broken draft URLs) against 34 Japanese / Korean / European, i.e. exactly half the additions are Chinese, as requested. 8 further verified-but-thin sources are parked in the optional list below.
 
 ### Optional breadth (verified, low priority — add only if you want wider national coverage)
 
@@ -293,6 +293,16 @@ Verified account ids and freshness (2026-09-08):
 
 Implementation note: this needs a small `fetch_juejin()` collector alongside `fetch_reddit()` — it cannot go into `feeds.yaml` as-is because `fetch_feeds()` only does GET+feedparser.
 
+### 1b. ByteDance without WeChat: what actually works
+
+ByteDance is the hardest ask, because their three live channels are a Hugo site, a SPA, and a WeChat 公众号:
+
+* **CloudWeGo** — `https://www.cloudwego.io/index.xml` (proposed above). Site-wide Hugo feed; blog posts are the items whose link contains `/blog/`.
+* **GitHub Atom feeds** — never geo-blocked, no auth, dated correctly. Verified: `https://github.com/cloudwego/kitex/releases.atom` → 200, 10 entries, newest 2026-08-27 (v0.14.5). The same pattern works for `bytedance/*` and the rest of `cloudwego/*`; these belong in `releases.yaml` rather than `feeds.yaml`, but they are the only reliable automated ByteDance signal.
+* **juejin 字节跳动技术团队** — the account exists (`1838039172387262`, 453 posts) but has been dormant since 2025-07-21. Do not count on it.
+* **WeChat 字节跳动技术团队** — where they actually publish now. Needs a self-hosted wechat2rss or a paid token (see the blocked table).
+* **Volcano Engine / opensource.bytedance.com** — SPA only, see below.
+
 ### 2. SPA sites with no feed and no server-rendered HTML
 
 Verified: the HTML returned contains no article links and no `__NEXT_DATA__`/JSON island, so these need a headless browser or a reverse-engineered XHR.
@@ -351,8 +361,10 @@ All 18 existing entries were tested. **8 of 11 Chinese entries and 1 of 7 JP/KR 
 |---|---|
 | `kubeedge` (English section) → `kubeedge.io/blog/index.xml` | **HTTP 404** — same Docusaurus mistake as `karmada`. Use `https://kubeedge.io/blog/rss.xml` (200, 37 entries, newest 2026-04-21). |
 | `api7` (English section) → `api7.ai/blog/rss.xml` | **HTTP 404** (so is `/blog/feed.xml`). Replace with `https://apisix.apache.org/blog/rss.xml` (200, 20 entries, newest 2026-08-31) or the zh variant proposed above. |
-| `hetzner` (English section) → `hetzner.com/blog/feed/` | **HTTP 200 but HTML** (36 KB, 0 entries) — silent zero. |
+| `hetzner` (English section) → `hetzner.com/blog/feed/` | **HTTP 200 but HTML** (36 KB, 0 entries) — silent zero. Working URL: `https://www.hetzner.com/blog/rss.xml` (200, 19 entries, newest 2026-09-02) — verified after the fix landed on disk mid-review. |
 | `heise-open` (English section) → `heise.de/rss/heise-atom.xml` | Works (200, 151 entries) but that URL is heise's **general news** feed, not the open-source rubric (`heise-Rubrik-Open-Source.rdf` is 404). The title promises filtering the feed does not do — expect a lot of consumer-tech noise at weight 2. |
+
+> Note: while this review was being written, `feeds.yaml` on disk already picked up several of these fixes (`cloudwego` → `/index.xml`, `karmada` → `/zh/blog/rss.xml`, `kubeedge` → `/blog/rss.xml`, `mercari` → the ja feed, `hetzner` → `/blog/rss.xml`, and the removal of `alibaba-cn`, `higress`, `tencentcloud`, `bytedance-oss`, `cloudnative-to`). The one draft entry still unresolved is **`kubesphere`**, whose feed parses but carries `0001-01-01` dates and therefore contributes nothing.
 
 ### Cross-cutting recommendation
 
