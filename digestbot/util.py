@@ -163,13 +163,36 @@ def to_utc(dt: datetime | None) -> datetime | None:
     return dt.astimezone(timezone.utc)
 
 
+MIN_SANE_YEAR = 2000
+
+
 def parse_struct_time(st) -> datetime | None:
     if not st:
         return None
     try:
-        return datetime(*st[:6], tzinfo=timezone.utc)
+        dt = datetime(*st[:6], tzinfo=timezone.utc)
     except (TypeError, ValueError):
         return None
+    # Hugo templates with an unset date emit 0001-01-01; treat it as no date.
+    return dt if dt.year >= MIN_SANE_YEAR else None
+
+
+def parse_loose_date(value: str | None) -> datetime | None:
+    """Fallback for feeds feedparser cannot date, e.g. an RFC822 stamp with no
+    timezone offset (Grafana). Without this those items are silently dropped."""
+    if not value:
+        return None
+    try:
+        from dateutil import parser as dateparser
+    except ImportError:
+        return None
+    try:
+        dt = dateparser.parse(value, fuzzy=False)
+    except (ValueError, OverflowError, TypeError):
+        return None
+    if dt is None or dt.year < MIN_SANE_YEAR:
+        return None
+    return dt if dt.tzinfo else dt.replace(tzinfo=timezone.utc)
 
 
 def window_bounds(days: int = 7, end: datetime | None = None

@@ -165,11 +165,15 @@ def render(sections, meta: dict, ed: dict) -> str:
 
     # Numbering is continuous so "top 100" is literally true.
     numbered: list[tuple[int, dict, str]] = []
+    per_section: list[tuple[str, list[tuple[int, dict]]]] = []
     n = 0
     for title, group in sections:
+        rows = []
         for item in group:
             n += 1
             numbered.append((n, item, title))
+            rows.append((n, item))
+        per_section.append((title, rows))
 
     headline = [t for t in numbered if t[1].get("headline")]
     headline.sort(key=lambda t: -t[1].get("final", 0))
@@ -196,14 +200,12 @@ def render(sections, meta: dict, ed: dict) -> str:
     out.append("")
 
     angle_top = ed.get("output", {}).get("podcast_angle_top", 20)
-    for title, group in sections:
-        if not group:
+    for title, rows in per_section:
+        if not rows:
             continue
         out.append(f"## {title}")
         out.append("")
-        for num, item, sect in numbered:
-            if sect != title or item not in group:
-                continue
+        for num, item in rows:
             out.append(render_entry(num, item, title, with_angle=num <= angle_top))
             out.append("")
 

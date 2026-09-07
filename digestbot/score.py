@@ -77,7 +77,7 @@ def hamming(a: int, b: int) -> int:
     return bin(a ^ b).count("1")
 
 
-def entity_of(item: dict, vocab: set[str]) -> str:
+def entity_of(item: dict, vocab: list[str]) -> str:
     """(project, major.minor) — the key that stops one release arc eating the digest."""
     if item.get("release"):
         repo = item["release"]["repo"]
@@ -88,7 +88,7 @@ def entity_of(item: dict, vocab: set[str]) -> str:
     text = f"{item.get('title','')} {item.get('summary','')[:300]}".lower()
     found = None
     for name in vocab:
-        if len(name) >= 4 and re.search(rf"\b{re.escape(name)}\b", text):
+        if re.search(rf"\b{re.escape(name)}\b", text):
             found = name
             break
     if not found:
@@ -97,14 +97,16 @@ def entity_of(item: dict, vocab: set[str]) -> str:
     return f"{found}@{m.group(1)}.{m.group(2)}" if m else found
 
 
-def build_vocab(feeds: list[dict], repos: dict) -> set[str]:
+def build_vocab(feeds: list[dict], repos: dict) -> list[str]:
+    """Controlled project vocabulary, longest first so `cluster-api` wins over `api`."""
     vocab = set()
     for group in repos.values():
-        for repo in group.get("list", []):
+        for entry in group.get("list", []):
+            repo = entry["repo"] if isinstance(entry, dict) else entry
             vocab.add(repo.split("/")[-1].lower())
     for f in feeds:
         vocab.add(f["id"].lower().replace("-", ""))
-    return {v for v in vocab if len(v) >= 4}
+    return sorted((v for v in vocab if len(v) >= 4), key=lambda v: (-len(v), v))
 
 
 # ── component scores ─────────────────────────────────────────────────────────
@@ -386,6 +388,7 @@ def select(items: list[dict], ed: dict) -> tuple[list[dict], list[dict]]:
     domain_count: dict[str, int] = defaultdict(int)
     cluster_count: dict[str, int] = defaultdict(int)
     chosen: dict[str, list[dict]] = {k: [] for k in order}
+    by_cluster: dict[str, list[dict]] = defaultdict(list)   # index for _adds_angle
     taken: set[str] = set()
 
     def domain_cap(dom: str) -> int:
@@ -411,7 +414,8 @@ def select(items: list[dict], ed: dict) -> tuple[list[dict], list[dict]]:
         if cluster_count[item["cluster_id"]] >= cfg["cluster"]["max_emitted"]:
             item["reject"] = "cluster_sibling"
             return False
-        if cluster_count[item["cluster_id"]] == 1 and not _adds_angle(item, chosen):
+        if cluster_count[item["cluster_id"]] == 1 and \
+                not _adds_angle(item, by_cluster[item["cluster_id"]]):
             item["reject"] = "cluster_sibling"
             return False
         return True
@@ -420,6 +424,7 @@ def select(items: list[dict], ed: dict) -> tuple[list[dict], list[dict]]:
         item["section"] = key
         item["final"] = round(effective(item), 2)
         chosen[key].append(item)
+        by_cluster[item["cluster_id"]].append(item)
         taken.add(item["id"])
         if item.get("entity"):
             entity_count[item["entity"]] += 1
@@ -500,16 +505,14 @@ def select(items: list[dict], ed: dict) -> tuple[list[dict], list[dict]]:
     return ordered, leftovers
 
 
-def _adds_angle(item: dict, chosen: dict[str, list[dict]]) -> bool:
-    """A cluster's 2nd member earns a slot only if it says something different."""
-    for group in chosen.values():
-        for other in group:
-            if other["cluster_id"] != item["cluster_id"]:
-                continue
-            if other.get("section_key") == item.get("section_key"):
-                return False
-            if (item["base"] + item["bonus"]) < 0.75 * (other["base"] + other["bonus"]):
-                return False
-            if other.get("orig_class") == item.get("orig_class"):
-                return False
+def _adds_angle(item: dict, siblings: list[dict]) -> bool:
+    """A cluster's 2nd member earns a slot only if it says something different:
+    another section, a comparable score, and a different kind of source."""
+    for other in siblings:
+        if other.get("section_key") == item.get("section_key"):
+            return False
+        if (item["base"] + item["bonus"]) < 0.75 * (other["base"] + other["bonus"]):
+            return False
+        if other.get("orig_class") == item.get("orig_class"):
+            return False
     return True

@@ -14,6 +14,7 @@ import feedparser
 from .util import (
     BROWSER_UA,
     canonical_url,
+    parse_loose_date,
     detect_lang,
     domain_of,
     get,
@@ -76,6 +77,10 @@ def fetch_feeds(feeds: list[dict], start, end, workers: int = 16,
             pub = parse_struct_time(
                 getattr(e, "published_parsed", None) or getattr(e, "updated_parsed", None)
             )
+            if pub is None:
+                pub = (parse_loose_date(getattr(e, "published", None))
+                       or parse_loose_date(getattr(e, "updated", None))
+                       or parse_loose_date(getattr(e, "date", None)))
             # Feeds with no usable date are kept only if the feed is small and
             # fresh-by-position; otherwise they poison the freshness guarantee.
             if pub is None or not (start <= pub <= end):
@@ -287,6 +292,7 @@ def fetch_reddit(cfg: dict, start, end) -> list[dict]:
     log.warning("REDDIT_CLIENT_ID/SECRET not set - using public .rss fallback")
     reddit_delay = float(os.getenv("REDDIT_RSS_DELAY", "6"))
     session = new_session(browser_ua=True)
+    consecutive_failures = 0
     for sub in subs:
         # Reddit rate-limits anonymous datacenter traffic hard; pace slowly and
         # back off on 429 rather than losing the whole subreddit.
@@ -299,8 +305,17 @@ def fetch_reddit(cfg: dict, start, end) -> list[dict]:
             time.sleep(5 * (attempt + 1))
             r = None
         if r is None:
+            consecutive_failures += 1
             log.warning("reddit r/%s rss unavailable after retries", sub["name"])
+            # Reddit blocks datacenter egress wholesale rather than per-subreddit.
+            # Once that is clear, stop burning minutes on the remaining listings.
+            if consecutive_failures >= 3:
+                log.error("reddit unreachable from this host - skipping the remaining "
+                          "%d subreddits; set REDDIT_CLIENT_ID/REDDIT_CLIENT_SECRET "
+                          "to use the API instead", len(subs) - subs.index(sub) - 1)
+                break
             continue
+        consecutive_failures = 0
         parsed = feedparser.parse(r.content)
         for rank, e in enumerate(parsed.entries[:40]):
             pub = parse_struct_time(getattr(e, "published_parsed", None)
