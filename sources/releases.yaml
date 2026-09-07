@@ -1,95 +1,296 @@
-# GitHub repos polled for releases published inside the digest window.
-# tier: 1 = headline-worthy on any release; 2 = only minor+ or notable;
-#       3 = only when release notes look substantial.
+# GitHub repositories polled for releases published inside the digest window.
+#
+# `min_bump` is the newsworthiness floor for the repo: a release below it is
+# emitted only when the notes are substantial or carry a CVE / breaking change.
+# `rc: true` lets .0 release candidates through (a k8s 1.35.0-rc.1 is a story;
+# a Grafana RC is not). `mirror_of` suppresses a repo and credits its parent.
+# `changelog_url` marks repos that publish no GitHub Releases at all.
 repos:
   core_kubernetes:
-    tier: 1
-    list: [kubernetes/kubernetes, kubernetes/kubectl, kubernetes-sigs/cluster-api,
-           kubernetes-sigs/gateway-api, kubernetes/autoscaler, kubernetes-sigs/kueue,
-           kubernetes-sigs/karpenter, kubernetes-sigs/descheduler, kubernetes-sigs/kind,
-           kubernetes/minikube, kubernetes-sigs/kustomize, kubernetes-sigs/metrics-server,
-           kubernetes/ingress-nginx, kubernetes-sigs/kubespray]
+    min_bump: patch
+    rc: true
+    list:
+      - {repo: kubernetes/kubernetes, min_bump: 'patch', rc: true}
+      - {repo: kubernetes/kubectl, mirror_of: 'kubernetes/kubernetes'}
+      - {repo: kubernetes-sigs/cluster-api}
+      - {repo: kubernetes-sigs/gateway-api}
+      - {repo: kubernetes/autoscaler}
+      - {repo: kubernetes-sigs/kueue}
+      - {repo: kubernetes-sigs/karpenter}
+      - {repo: kubernetes-sigs/descheduler}
+      - {repo: kubernetes-sigs/kind}
+      - {repo: kubernetes/minikube}
+      - {repo: kubernetes-sigs/kustomize}
+      - {repo: kubernetes-sigs/metrics-server}
+      - {repo: kubernetes/ingress-nginx}
+      - {repo: kubernetes-sigs/kubespray}
   runtime:
-    tier: 1
-    list: [containerd/containerd, opencontainers/runc, cri-o/cri-o, containers/podman,
-           containers/buildah, moby/moby, docker/compose, moby/buildkit, opencontainers/image-spec,
-           youki-dev/youki, kata-containers/kata-containers, firecracker-microvm/firecracker,
-           cloud-hypervisor/cloud-hypervisor, containers/krunvm, google/gvisor]
+    min_bump: patch
+    rc: false
+    list:
+      - {repo: containerd/containerd}
+      - {repo: opencontainers/runc}
+      - {repo: cri-o/cri-o}
+      - {repo: containers/podman}
+      - {repo: containers/buildah}
+      - {repo: moby/moby}
+      - {repo: docker/compose}
+      - {repo: moby/buildkit}
+      - {repo: opencontainers/image-spec}
+      - {repo: youki-dev/youki}
+      - {repo: kata-containers/kata-containers}
+      - {repo: firecracker-microvm/firecracker}
+      - {repo: cloud-hypervisor/cloud-hypervisor}
+      - {repo: containers/krunvm}
+      - {repo: google/gvisor}
   distros:
-    tier: 1
-    list: [k3s-io/k3s, k0sproject/k0s, siderolabs/talos, harvester/harvester, rancher/rancher,
-           okd-project/okd, kubesphere/kubesphere, cozystack/cozystack, deckhouse/deckhouse,
-           kairos-io/kairos, canonical/microk8s, replicatedhq/kots, loft-sh/vcluster]
+    min_bump: minor
+    rc: true
+    list:
+      - {repo: k3s-io/k3s}
+      - {repo: k0sproject/k0s}
+      - {repo: siderolabs/talos, min_bump: 'minor'}
+      - {repo: harvester/harvester}
+      - {repo: rancher/rancher}
+      - {repo: okd-project/okd}
+      - {repo: kubesphere/kubesphere}
+      - {repo: cozystack/cozystack, min_bump: 'patch'}
+      - {repo: deckhouse/deckhouse}
+      - {repo: kairos-io/kairos}
+      - {repo: canonical/microk8s}
+      - {repo: replicatedhq/kots}
+      - {repo: loft-sh/vcluster}
   networking:
-    tier: 1
-    list: [cilium/cilium, cilium/tetragon, projectcalico/calico, istio/istio, envoyproxy/envoy,
-           envoyproxy/gateway, linkerd/linkerd2, kubeovn/kube-ovn, flannel-io/flannel,
-           metallb/metallb, k8snetworkplumbingwg/multus-cni, traefik/traefik, apache/apisix,
-           Kong/kong, haproxy/haproxy, nginx/nginx, coredns/coredns, submariner-io/submariner]
+    min_bump: minor
+    rc: true
+    list:
+      - {repo: cilium/cilium, min_bump: 'patch', rc: true}
+      - {repo: cilium/tetragon}
+      - {repo: projectcalico/calico}
+      - {repo: istio/istio, min_bump: 'patch'}
+      - {repo: envoyproxy/envoy, min_bump: 'patch'}
+      - {repo: envoyproxy/gateway}
+      - {repo: linkerd/linkerd2}
+      - {repo: kubeovn/kube-ovn}
+      - {repo: flannel-io/flannel}
+      - {repo: metallb/metallb}
+      - {repo: k8snetworkplumbingwg/multus-cni}
+      - {repo: traefik/traefik, min_bump: 'major'}
+      - {repo: apache/apisix}
+      - {repo: Kong/kong}
+      - {repo: haproxy/haproxy}
+      - {repo: nginx/nginx, changelog_url: 'https://nginx.org/en/CHANGES'}
+      - {repo: coredns/coredns}
+      - {repo: submariner-io/submariner}
   gitops_cd:
-    tier: 1
-    list: [argoproj/argo-cd, argoproj/argo-workflows, argoproj/argo-rollouts, fluxcd/flux2,
-           helm/helm, crossplane/crossplane, kubevela/kubevela, backstage/backstage,
-           jenkins-x/jx, tektoncd/pipeline, keptn/keptn, spinnaker/spinnaker]
+    min_bump: minor
+    rc: false
+    list:
+      - {repo: argoproj/argo-cd}
+      - {repo: argoproj/argo-workflows}
+      - {repo: argoproj/argo-rollouts}
+      - {repo: fluxcd/flux2}
+      - {repo: helm/helm}
+      - {repo: crossplane/crossplane}
+      - {repo: kubevela/kubevela}
+      - {repo: backstage/backstage}
+      - {repo: jenkins-x/jx}
+      - {repo: tektoncd/pipeline}
+      - {repo: keptn/keptn}
+      - {repo: spinnaker/spinnaker}
   observability:
-    tier: 1
-    list: [prometheus/prometheus, prometheus/alertmanager, thanos-io/thanos, grafana/grafana,
-           grafana/loki, grafana/tempo, grafana/mimir, grafana/beyla, grafana/pyroscope,
-           open-telemetry/opentelemetry-collector, open-telemetry/opentelemetry-operator,
-           jaegertracing/jaeger, VictoriaMetrics/VictoriaMetrics, vectordotdev/vector,
-           fluent/fluent-bit, fluent/fluentd, netdata/netdata, SigNoz/signoz,
-           parca-dev/parca, openobserve/openobserve, coroot/coroot]
+    min_bump: minor
+    rc: false
+    list:
+      - {repo: prometheus/prometheus}
+      - {repo: prometheus/alertmanager}
+      - {repo: thanos-io/thanos}
+      - {repo: grafana/grafana, min_bump: 'major'}
+      - {repo: grafana/loki}
+      - {repo: grafana/tempo}
+      - {repo: grafana/mimir}
+      - {repo: grafana/beyla}
+      - {repo: grafana/pyroscope}
+      - {repo: open-telemetry/opentelemetry-collector}
+      - {repo: open-telemetry/opentelemetry-operator}
+      - {repo: jaegertracing/jaeger}
+      - {repo: VictoriaMetrics/VictoriaMetrics}
+      - {repo: vectordotdev/vector}
+      - {repo: fluent/fluent-bit}
+      - {repo: fluent/fluentd}
+      - {repo: netdata/netdata}
+      - {repo: SigNoz/signoz}
+      - {repo: parca-dev/parca}
+      - {repo: openobserve/openobserve}
+      - {repo: coroot/coroot}
   security:
-    tier: 1
-    list: [kyverno/kyverno, open-policy-agent/gatekeeper, open-policy-agent/opa,
-           falcosecurity/falco, aquasecurity/trivy, anchore/grype, sigstore/cosign,
-           sigstore/policy-controller, external-secrets/external-secrets, cert-manager/cert-manager,
-           bitnami-labs/sealed-secrets, openbao/openbao, hashicorp/vault, kubescape/kubescape,
-           controlplaneio/kubectl-who-can, aquasecurity/kube-bench, in-toto/in-toto,
-           slsa-framework/slsa, ossf/scorecard, chainguard-dev/melange, chainguard-dev/apko]
+    min_bump: patch
+    rc: false
+    list:
+      - {repo: kyverno/kyverno}
+      - {repo: open-policy-agent/gatekeeper}
+      - {repo: open-policy-agent/opa}
+      - {repo: falcosecurity/falco}
+      - {repo: aquasecurity/trivy}
+      - {repo: anchore/grype}
+      - {repo: sigstore/cosign}
+      - {repo: sigstore/policy-controller}
+      - {repo: external-secrets/external-secrets}
+      - {repo: cert-manager/cert-manager}
+      - {repo: bitnami-labs/sealed-secrets}
+      - {repo: openbao/openbao}
+      - {repo: hashicorp/vault}
+      - {repo: kubescape/kubescape}
+      - {repo: controlplaneio/kubectl-who-can}
+      - {repo: aquasecurity/kube-bench}
+      - {repo: in-toto/in-toto}
+      - {repo: slsa-framework/slsa}
+      - {repo: ossf/scorecard}
+      - {repo: chainguard-dev/melange}
+      - {repo: chainguard-dev/apko}
   storage_data:
-    tier: 1
-    list: [rook/rook, longhorn/longhorn, ceph/ceph, minio/minio, openebs/openebs,
-           kubernetes-csi/external-provisioner, vmware-tanzu/velero, kanisterio/kanister,
-           cloudnative-pg/cloudnative-pg, zalando/postgres-operator, percona/percona-server-mongodb-operator,
-           strimzi/strimzi-kafka-operator, apache/kafka, valkey-io/valkey, redis/redis,
-           ClickHouse/ClickHouse, pingcap/tidb, vitessio/vitess, apache/pulsar, nats-io/nats-server,
-           etcd-io/etcd, garethgeorge/backrest, restic/restic]
+    min_bump: minor
+    rc: false
+    list:
+      - {repo: rook/rook}
+      - {repo: longhorn/longhorn}
+      - {repo: ceph/ceph, changelog_url: 'https://docs.ceph.com/en/latest/releases/'}
+      - {repo: minio/minio}
+      - {repo: openebs/openebs}
+      - {repo: kubernetes-csi/external-provisioner}
+      - {repo: vmware-tanzu/velero}
+      - {repo: kanisterio/kanister}
+      - {repo: cloudnative-pg/cloudnative-pg}
+      - {repo: zalando/postgres-operator}
+      - {repo: percona/percona-server-mongodb-operator}
+      - {repo: strimzi/strimzi-kafka-operator}
+      - {repo: apache/kafka, changelog_url: 'https://kafka.apache.org/downloads'}
+      - {repo: valkey-io/valkey}
+      - {repo: redis/redis, changelog_url: 'https://github.com/redis/redis/releases'}
+      - {repo: ClickHouse/ClickHouse}
+      - {repo: pingcap/tidb}
+      - {repo: vitessio/vitess}
+      - {repo: apache/pulsar}
+      - {repo: nats-io/nats-server}
+      - {repo: etcd-io/etcd, min_bump: 'patch'}
+      - {repo: garethgeorge/backrest}
+      - {repo: restic/restic}
   virtualization:
-    tier: 1
-    list: [kubevirt/kubevirt, kubevirt/containerized-data-importer, openstack/nova,
-           proxmox/pve-manager, oVirt/ovirt-engine, virtink/virtink, cloudstack/cloudstack]
+    min_bump: minor
+    rc: true
+    list:
+      - {repo: kubevirt/kubevirt}
+      - {repo: kubevirt/containerized-data-importer}
+      - {repo: openstack/nova, changelog_url: 'https://docs.openstack.org/releasenotes/nova/'}
+      - {repo: proxmox/pve-manager, changelog_url: 'https://pve.proxmox.com/wiki/Roadmap'}
+      - {repo: oVirt/ovirt-engine, changelog_url: 'https://www.ovirt.org/release/'}
+      - {repo: virtink/virtink}
+      - {repo: cloudstack/cloudstack, changelog_url: 'https://github.com/apache/cloudstack/releases'}
   iac_platform:
-    tier: 1
-    list: [hashicorp/terraform, opentofu/opentofu, pulumi/pulumi, hashicorp/packer,
-           hashicorp/nomad, hashicorp/consul, ansible/ansible, saltstack/salt,
-           terragrunt-io/terragrunt, terraform-docs/terraform-docs, aquasecurity/tfsec,
-           bridgecrewio/checkov, infracost/infracost, spacelift-io/spacectl]
+    min_bump: minor
+    rc: false
+    list:
+      - {repo: hashicorp/terraform, min_bump: 'patch'}
+      - {repo: opentofu/opentofu, min_bump: 'patch'}
+      - {repo: pulumi/pulumi}
+      - {repo: hashicorp/packer}
+      - {repo: hashicorp/nomad}
+      - {repo: hashicorp/consul}
+      - {repo: ansible/ansible}
+      - {repo: saltstack/salt, changelog_url: 'https://docs.saltproject.io/en/latest/topics/releases/'}
+      - {repo: terragrunt-io/terragrunt}
+      - {repo: terraform-docs/terraform-docs}
+      - {repo: aquasecurity/tfsec}
+      - {repo: bridgecrewio/checkov}
+      - {repo: infracost/infracost}
+      - {repo: spacelift-io/spacectl}
   devtools:
-    tier: 2
-    list: [derailed/k9s, kubernetes-sigs/headlamp, ahmetb/kubectx, stern/stern,
-           kubernetes-sigs/krew, alexellis/arkade, GoogleContainerTools/skaffold,
-           tilt-dev/tilt, loft-sh/devpod, telepresenceio/telepresence, kubeshark/kubeshark,
-           robusta-dev/holmesgpt, zegl/kube-score, FairwindsOps/polaris, yannh/kubeconform,
-           kubernetes-sigs/kubebuilder, operator-framework/operator-sdk, kubernetes-sigs/kubespray,
-           datreeio/datree, dagger/dagger, earthly/earthly, jetify-com/devbox, cli/cli]
+    min_bump: major
+    rc: false
+    list:
+      - {repo: derailed/k9s, min_bump: 'major'}
+      - {repo: kubernetes-sigs/headlamp}
+      - {repo: ahmetb/kubectx}
+      - {repo: stern/stern}
+      - {repo: kubernetes-sigs/krew}
+      - {repo: alexellis/arkade}
+      - {repo: GoogleContainerTools/skaffold}
+      - {repo: tilt-dev/tilt}
+      - {repo: loft-sh/devpod}
+      - {repo: telepresenceio/telepresence}
+      - {repo: kubeshark/kubeshark}
+      - {repo: robusta-dev/holmesgpt}
+      - {repo: zegl/kube-score}
+      - {repo: FairwindsOps/polaris}
+      - {repo: yannh/kubeconform}
+      - {repo: kubernetes-sigs/kubebuilder}
+      - {repo: operator-framework/operator-sdk}
+      - {repo: datreeio/datree}
+      - {repo: dagger/dagger}
+      - {repo: earthly/earthly}
+      - {repo: jetify-com/devbox}
+      - {repo: cli/cli}
   ai_infra:
-    tier: 1
-    list: [vllm-project/vllm, sgl-project/sglang, ray-project/ray, kubeflow/kubeflow,
-           kserve/kserve, NVIDIA/gpu-operator, NVIDIA/k8s-device-plugin, kubernetes-sigs/dra-example-driver,
-           volcano-sh/volcano, kubeflow/training-operator, ollama/ollama, ggml-org/llama.cpp,
-           triton-inference-server/server, InftyAI/llmaz, substratusai/kubeai,
-           run-ai/genv, huggingface/text-generation-inference]
+    min_bump: minor
+    rc: false
+    list:
+      - {repo: vllm-project/vllm, min_bump: 'patch'}
+      - {repo: sgl-project/sglang}
+      - {repo: ray-project/ray}
+      - {repo: kubeflow/kubeflow}
+      - {repo: kserve/kserve}
+      - {repo: NVIDIA/gpu-operator}
+      - {repo: NVIDIA/k8s-device-plugin}
+      - {repo: kubernetes-sigs/dra-example-driver}
+      - {repo: volcano-sh/volcano}
+      - {repo: kubeflow/training-operator}
+      - {repo: ollama/ollama}
+      - {repo: ggml-org/llama.cpp}
+      - {repo: triton-inference-server/server}
+      - {repo: InftyAI/llmaz}
+      - {repo: substratusai/kubeai}
+      - {repo: run-ai/genv}
+      - {repo: huggingface/text-generation-inference}
   serverless_edge:
-    tier: 2
-    list: [knative/serving, knative/eventing, dapr/dapr, openfaas/faas, nuclio/nuclio,
-           kedacore/keda, kubeedge/kubeedge, openyurtio/openyurt, akri-io/akri,
-           fermyon/spin, bytecodealliance/wasmtime, WasmEdge/WasmEdge, containerd/runwasi]
+    min_bump: minor
+    rc: false
+    list:
+      - {repo: knative/serving}
+      - {repo: knative/eventing}
+      - {repo: dapr/dapr}
+      - {repo: openfaas/faas}
+      - {repo: nuclio/nuclio}
+      - {repo: kedacore/keda}
+      - {repo: kubeedge/kubeedge}
+      - {repo: openyurtio/openyurt}
+      - {repo: akri-io/akri}
+      - {repo: fermyon/spin}
+      - {repo: bytecodealliance/wasmtime}
+      - {repo: WasmEdge/WasmEdge}
+      - {repo: containerd/runwasi}
   registry_supplychain:
-    tier: 2
-    list: [goharbor/harbor, project-zot/zot, distribution/distribution, google/go-containerregistry,
-           dragonflyoss/dragonfly, spegel-org/spegel, oras-project/oras, regclient/regclient]
+    min_bump: minor
+    rc: false
+    list:
+      - {repo: goharbor/harbor}
+      - {repo: project-zot/zot}
+      - {repo: distribution/distribution}
+      - {repo: google/go-containerregistry}
+      - {repo: dragonflyoss/dragonfly}
+      - {repo: spegel-org/spegel}
+      - {repo: oras-project/oras}
+      - {repo: regclient/regclient}
   linux_base:
-    tier: 2
-    list: [systemd/systemd, util-linux/util-linux, torvalds/linux, iovisor/bcc, bpftrace/bpftrace,
-           libbpf/libbpf, NixOS/nixpkgs, coreos/butane, canonical/lxd, incus-project/incus]
+    min_bump: major
+    rc: false
+    list:
+      - {repo: systemd/systemd}
+      - {repo: util-linux/util-linux}
+      - {repo: torvalds/linux, changelog_url: 'https://kernelnewbies.org/LinuxChanges'}
+      - {repo: iovisor/bcc}
+      - {repo: bpftrace/bpftrace}
+      - {repo: libbpf/libbpf}
+      - {repo: NixOS/nixpkgs}
+      - {repo: coreos/butane}
+      - {repo: canonical/lxd}
+      - {repo: incus-project/incus}

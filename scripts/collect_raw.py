@@ -11,7 +11,7 @@ from datetime import datetime, timezone
 
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent.parent))
 
-from digestbot import collect, config, signals as sig  # noqa: E402
+from digestbot import collect, config, signals as sig, state  # noqa: E402
 from digestbot.util import window_bounds  # noqa: E402
 
 
@@ -32,8 +32,9 @@ def main() -> int:
 
     comm = config.community()
     items: list[dict] = []
+    probes: list[dict] = []
     if "feeds" not in skip:
-        items += collect.fetch_feeds(config.feeds(), start, end)
+        items += collect.fetch_feeds(config.feeds(), start, end, probes=probes)
     if "hn" not in skip:
         items += collect.fetch_hackernews(comm.get("hackernews", {}), start, end)
     if "reddit" not in skip:
@@ -58,13 +59,22 @@ def main() -> int:
         curated = sorted(sig.mine_newsletters(sig_cfg.get("newsletter_mining", {}),
                                               start, end))
 
+    health = state.update_health(probes, datetime.now(timezone.utc))
+    broken = [p for p in probes if not p["ok"]]
+    if broken:
+        logging.warning("%d of %d feeds are broken: %s", len(broken), len(probes),
+                        ", ".join(sorted(p["id"] for p in broken)))
+    dead = state.dead_feeds(health)
+    if dead:
+        logging.error("dead feeds (3+ consecutive failures): %s", ", ".join(dead))
+
     out = pathlib.Path(args.out or f"data/raw-{end.date().isoformat()}.json")
     out.parent.mkdir(parents=True, exist_ok=True)
     out.write_text(
         json.dumps(
             {"window_start": start.isoformat(), "window_end": end.isoformat(),
              "collected_at": datetime.now(timezone.utc).isoformat(),
-             "curated_urls": curated, "items": items},
+             "curated_urls": curated, "feed_probes": probes, "items": items},
             ensure_ascii=False, indent=1,
         ),
         encoding="utf-8",

@@ -54,7 +54,10 @@ def _mk(**kw) -> dict:
 
 # ── RSS / Atom ───────────────────────────────────────────────────────────────
 
-def fetch_feeds(feeds: list[dict], start, end, workers: int = 16) -> list[dict]:
+def fetch_feeds(feeds: list[dict], start, end, workers: int = 16,
+                probes: list | None = None) -> list[dict]:
+    """`probes` collects a per-feed health record: a feed that 404s or parses to
+    zero entries must be visible, not silently absent from the digest."""
     session = new_session(browser_ua=True)
     out: list[dict] = []
 
@@ -63,6 +66,9 @@ def fetch_feeds(feeds: list[dict], start, end, workers: int = 16) -> list[dict]:
         if r is None or r.status_code >= 400:
             log.warning("feed %-22s HTTP %s", feed["id"],
                         r.status_code if r is not None else "ERR")
+            if probes is not None:
+                probes.append({"id": feed["id"], "ok": False, "items": 0,
+                               "status": r.status_code if r is not None else None})
             return []
         parsed = feedparser.parse(r.content)
         items = []
@@ -96,7 +102,15 @@ def fetch_feeds(feeds: list[dict], start, end, workers: int = 16) -> list[dict]:
                     summary=summary,
                 )
             )
-        log.info("feed %-22s %2d items in window", feed["id"], len(items))
+        if probes is not None:
+            probes.append({"id": feed["id"], "ok": bool(parsed.entries),
+                           "items": len(items), "status": r.status_code,
+                           "entries": len(parsed.entries)})
+        if not parsed.entries:
+            log.warning("feed %-22s HTTP %s but parsed 0 entries",
+                        feed["id"], r.status_code)
+        else:
+            log.info("feed %-22s %2d items in window", feed["id"], len(items))
         return items
 
     with cf.ThreadPoolExecutor(max_workers=workers) as pool:
@@ -430,14 +444,20 @@ def fetch_releases(groups: dict, start, end, workers: int = 12) -> list[dict]:
     session.headers["Accept"] = "application/vnd.github+json"
     session.headers["X-GitHub-Api-Version"] = "2022-11-28"
 
-    tasks = [
-        (repo, meta.get("tier", 2), group)
-        for group, meta in groups.items()
-        for repo in meta.get("list", [])
-    ]
+    tasks = []
+    for group, meta in groups.items():
+        defaults = {k: v for k, v in meta.items() if k != "list"}
+        for entry in meta.get("list", []):
+            cfg = {"group": group, **defaults,
+                   **(entry if isinstance(entry, dict) else {"repo": entry})}
+            if cfg.get("mirror_of") or cfg.get("changelog_url"):
+                # Mirrors are credited to their parent; repos with no GitHub
+                # Releases are tracked through their changelog, not this poller.
+                continue
+            tasks.append(cfg)
 
-    def one(task) -> list[dict]:
-        repo, tier, group = task
+    def one(cfg) -> list[dict]:
+        repo, group = cfg["repo"], cfg["group"]
         r = get(session, f"https://api.github.com/repos/{repo}/releases",
                 params={"per_page": 10}, timeout=25, retries=1)
         if r is None or r.status_code != 200:
@@ -445,7 +465,13 @@ def fetch_releases(groups: dict, start, end, workers: int = 12) -> list[dict]:
                 log.debug("releases %s HTTP %s", repo, r.status_code)
             return []
         items = []
-        for rel in r.json():
+        # Releases come newest-first; the next entry is the previous release,
+        # which is what tells a patch bump apart from a minor one.
+        payload = [x for x in r.json() if not x.get("draft")]
+        prev_of = {x.get("tag_name"): (payload[i + 1].get("tag_name")
+                                       if i + 1 < len(payload) else None)
+                   for i, x in enumerate(payload)}
+        for rel in payload:
             if rel.get("draft"):
                 continue
             published = rel.get("published_at")
@@ -471,14 +497,16 @@ def fetch_releases(groups: dict, start, end, workers: int = 12) -> list[dict]:
                     source_kind="release",
                     category="release",
                     lang="en",
-                    source_weight={1: 4, 2: 3, 3: 2}.get(tier, 2),
+                    source_weight={"patch": 4, "minor": 3, "major": 3}.get(
+                        cfg.get("min_bump", "minor"), 3),
                     published=pub.isoformat(),
                     summary=body,
                     engagement={"reactions": (rel.get("reactions") or {}).get("total_count", 0)},
                     release={
                         "repo": repo,
                         "group": group,
-                        "tier": tier,
+                        "min_bump": cfg.get("min_bump", "minor"),
+                        "previous_tag": prev_of.get(tag),
                         "tag": tag,
                         "name": name,
                         "prerelease": bool(rel.get("prerelease")),
@@ -493,5 +521,22 @@ def fetch_releases(groups: dict, start, end, workers: int = 12) -> list[dict]:
     with cf.ThreadPoolExecutor(max_workers=workers) as pool:
         for res in pool.map(one, tasks):
             out.extend(res)
-    log.info("github releases %d in window (from %d repos)", len(out), len(tasks))
+    # Stars are only needed for repos that actually shipped; one call each.
+    shipped = sorted({i["release"]["repo"] for i in out})
+
+    def stars(repo: str) -> tuple[str, int]:
+        r = get(session, f"https://api.github.com/repos/{repo}", timeout=20, retries=0)
+        if r is None or r.status_code != 200:
+            return repo, 0
+        return repo, r.json().get("stargazers_count", 0)
+
+    star_map: dict[str, int] = {}
+    if shipped:
+        with cf.ThreadPoolExecutor(max_workers=workers) as pool:
+            star_map = dict(pool.map(stars, shipped))
+    for item in out:
+        item["release"]["stars"] = star_map.get(item["release"]["repo"], 0)
+
+    log.info("github releases %d in window (from %d repos, %d shipped)",
+             len(out), len(tasks), len(shipped))
     return out

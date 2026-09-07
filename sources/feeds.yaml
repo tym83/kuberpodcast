@@ -174,19 +174,96 @@ feeds:
 - {id: cloudflarelearn, title: "Andrew Ayer / agwa",           url: "https://www.agwa.name/blog/rss",                             lang: en, category: person, weight: 2}
 
 # ── Russian-language ─────────────────────────────────────────────────
+# Verified by review-3-russian.md. Note: blog.flant.ru does not resolve,
+# Deckhouse publishes no RSS, and vk.cloud refuses TLS from non-RU IPs.
+
 - {id: habr-devops,     title: "Habr — DevOps",                url: "https://habr.com/ru/rss/hubs/devops/articles/?fl=ru",        lang: ru, category: community, weight: 4}
 - {id: habr-k8s,        title: "Habr — Kubernetes",           url: "https://habr.com/ru/rss/hubs/kubernetes/articles/?fl=ru",    lang: ru, category: community, weight: 5}
 - {id: habr-cloud,      title: "Habr — Cloud services",        url: "https://habr.com/ru/rss/hubs/cloud_services/articles/?fl=ru", lang: ru, category: community, weight: 3}
 - {id: habr-sysadm,     title: "Habr — System administration", url: "https://habr.com/ru/rss/hubs/sys_admin/articles/?fl=ru",     lang: ru, category: community, weight: 3}
 - {id: habr-nix,        title: "Habr — *nix",                  url: "https://habr.com/ru/rss/hubs/nix/articles/?fl=ru",           lang: ru, category: community, weight: 2}
 - {id: habr-infosec,    title: "Habr — Information security",  url: "https://habr.com/ru/rss/hubs/infosecurity/articles/?fl=ru",  lang: ru, category: community, weight: 2}
-- {id: flant,           title: "Флант — блог",                 url: "https://blog.flant.ru/rss/",                                 lang: ru, category: vendor, weight: 4}
-- {id: deckhouse,       title: "Deckhouse Blog",               url: "https://deckhouse.io/blog/index.xml",                        lang: ru, category: vendor, weight: 3}
 - {id: opennet,         title: "OpenNET",                      url: "https://www.opennet.ru/opennews/opennews_all_utf.rss",       lang: ru, category: media, weight: 3}
-- {id: slurm,           title: "Слёрм — блог",                 url: "https://slurm.io/rss/",                                      lang: ru, category: vendor, weight: 2}
-- {id: yandexcloud,     title: "Yandex Cloud Blog",            url: "https://yandex.cloud/ru/blog/rss",                           lang: ru, category: cloud, weight: 3}
-- {id: vkcloud,         title: "VK Cloud Blog",                url: "https://cloud.vk.com/blog/rss/",                             lang: ru, category: cloud, weight: 2}
 - {id: selectel,        title: "Selectel Blog",                url: "https://selectel.ru/blog/feed/",                             lang: ru, category: vendor, weight: 3}
+
+- {id: flant,           title: "Флант — блог",                   url: "https://flant.ru/rss",                                             lang: ru, category: vendor,    weight: 5}
+- {id: flant-habr,      title: "Флант — Habr",                   url: "https://habr.com/ru/rss/companies/flant/articles/",                lang: ru, category: vendor,    weight: 5}
+- {id: deckhouse-rel,   title: "Deckhouse — релизы",             url: "https://github.com/deckhouse/deckhouse/releases.atom",             lang: ru, category: project,   weight: 4}
+- {id: deckhouse-virt,  title: "Deckhouse Virtualization — релизы", url: "https://github.com/deckhouse/virtualization/releases.atom",      lang: ru, category: project,   weight: 4}
+- {id: slurm,           title: "Слёрм — блог",                   url: "https://slurm.io/rss.xml",                                         lang: ru, category: vendor,    weight: 2}
+- {id: slurm-habr,      title: "Слёрм — Habr",                   url: "https://habr.com/ru/rss/companies/slurm/articles/",                lang: ru, category: vendor,    weight: 3}
+- {id: yandexcloud,     title: "Yandex Cloud & Infra — Habr",    url: "https://habr.com/ru/rss/companies/yandex_cloud_and_infra/articles/", lang: ru, category: cloud,   weight: 4}
+- {id: vkcloud,         title: "VK Tech — Habr",                 url: "https://habr.com/ru/rss/companies/vktech/articles/",               lang: ru, category: cloud,    weight: 3}
+- {id: habr-virt,       title: "Habr — Виртуализация",           url: "https://habr.com/ru/rss/hubs/virtualization/articles/?fl=ru",         lang: ru, category: community, weight: 4}
+- {id: habr-itinfra,    title: "Habr — IT-инфраструктура",       url: "https://habr.com/ru/rss/hubs/it-infrastructure/articles/?fl=ru",      lang: ru, category: community, weight: 4}
+- {id: habr-gpgpu,      title: "Habr — GPGPU",                   url: "https://habr.com/ru/rss/hubs/gpgpu/articles/?fl=ru",                  lang: ru, category: community, weight: 4}
+- {id: habr-distsys,    title: "Habr — Распределённые системы",  url: "https://habr.com/ru/rss/hubs/distributed_systems/articles/?fl=ru",    lang: ru, category: community, weight: 3}
+- {id: habr-net,        title: "Habr — Сетевые технологии",      url: "https://habr.com/ru/rss/hubs/network_technologies/articles/?fl=ru",   lang: ru, category: community, weight: 3}
+- {id: habr-storages,   title: "Habr — Хранение данных",         url: "https://habr.com/ru/rss/hubs/storages/articles/?fl=ru",               lang: ru, category: community, weight: 3}
+- {id: habr-pgsql,      title: "Habr — PostgreSQL",              url: "https://habr.com/ru/rss/hubs/postgresql/articles/?fl=ru",             lang: ru, category: community, weight: 3}
+- {id: habr-oss,        title: "Habr — Open source",             url: "https://habr.com/ru/rss/hubs/open_source/articles/?fl=ru",            lang: ru, category: community, weight: 3}
+- {id: habr-cloudcomp,  title: "Habr — Облачные вычисления",     url: "https://habr.com/ru/rss/hubs/cloud_computing/articles/?fl=ru",        lang: ru, category: community, weight: 3}
+- {id: habr-devcloud,   title: "Habr — Облачные сервисы для разработки", url: "https://habr.com/ru/rss/hubs/devcloud/articles/?fl=ru",       lang: ru, category: community, weight: 3}
+- {id: habr-hosting,    title: "Habr — Хостинг",                 url: "https://habr.com/ru/rss/hubs/hosting/articles/?fl=ru",                lang: ru, category: community, weight: 2}
+- {id: habr-micro,      title: "Habr — Микросервисы",            url: "https://habr.com/ru/rss/hubs/microservices/articles/?fl=ru",          lang: ru, category: community, weight: 2}
+- {id: habr-dbadmin,    title: "Habr — Администрирование БД",    url: "https://habr.com/ru/rss/hubs/db_admins/articles/?fl=ru",              lang: ru, category: community, weight: 2}
+- {id: habr-nginx,      title: "Habr — Nginx",                   url: "https://habr.com/ru/rss/hubs/nginx/articles/?fl=ru",                  lang: ru, category: community, weight: 2}
+- {id: habr-backup,     title: "Habr — Резервное копирование",   url: "https://habr.com/ru/rss/hubs/backup/articles/?fl=ru",                 lang: ru, category: community, weight: 2}
+- {id: habr-srvopt,     title: "Habr — Серверная оптимизация",   url: "https://habr.com/ru/rss/hubs/server_side_optimization/articles/?fl=ru", lang: ru, category: community, weight: 2}
+- {id: habr-career,     title: "Habr — Карьера в IT",            url: "https://habr.com/ru/rss/hubs/career/articles/?fl=ru",                 lang: ru, category: community, weight: 1}
+- {id: selectel-habr,   title: "Selectel — Habr",                url: "https://habr.com/ru/rss/companies/selectel/articles/",             lang: ru, category: vendor, weight: 4}
+- {id: orionsoft,       title: "Orion soft (zVirt) — Habr",      url: "https://habr.com/ru/rss/companies/orion_soft/articles/",           lang: ru, category: vendor, weight: 4}
+- {id: yadro,           title: "YADRO — Habr",                   url: "https://habr.com/ru/rss/companies/yadro/articles/",                lang: ru, category: vendor, weight: 4}
+- {id: mws,             title: "MWS (MTS Web Services) — Habr",  url: "https://habr.com/ru/rss/companies/mws/articles/",                  lang: ru, category: cloud,  weight: 3}
+- {id: mts,             title: "МТС — Habr",                     url: "https://habr.com/ru/rss/companies/ru_mts/articles/",               lang: ru, category: vendor, weight: 3}
+- {id: cloudru,         title: "Cloud.ru — Habr",                url: "https://habr.com/ru/rss/companies/cloud_ru/articles/",             lang: ru, category: cloud,  weight: 3}
+- {id: timeweb,         title: "Timeweb Cloud — Habr",           url: "https://habr.com/ru/rss/companies/timeweb/articles/",              lang: ru, category: cloud,  weight: 3}
+- {id: hostkey,         title: "HOSTKEY — Habr",                 url: "https://habr.com/ru/rss/companies/hostkey/articles/",              lang: ru, category: cloud,  weight: 3}
+- {id: rtdc,            title: "Ростелеком ЦОД — Habr",          url: "https://habr.com/ru/rss/companies/rt-dc/articles/",                lang: ru, category: cloud,  weight: 3}
+- {id: ispsystem,       title: "ISPsystem — Habr",               url: "https://habr.com/ru/rss/companies/ispsystem/articles/",            lang: ru, category: vendor, weight: 3}
+- {id: h3llo,           title: "H3LLO.CLOUD — Habr",             url: "https://habr.com/ru/rss/companies/h3llo_cloud/articles/",          lang: ru, category: cloud,  weight: 3}
+- {id: chislitel,       title: "Числитель (Графиня) — Habr",     url: "https://habr.com/ru/rss/companies/chislitellab/articles/",         lang: ru, category: vendor, weight: 3}
+- {id: basis,           title: "Базис — Habr",                   url: "https://habr.com/ru/rss/companies/basis/articles/",                lang: ru, category: vendor, weight: 3}
+- {id: itsumma,         title: "ITSumma — Habr",                 url: "https://habr.com/ru/rss/companies/itsumma/articles/",              lang: ru, category: vendor, weight: 3}
+- {id: vk-habr,         title: "VK — Habr",                      url: "https://habr.com/ru/rss/companies/vk/articles/",                   lang: ru, category: vendor, weight: 2}
+- {id: astralinux,      title: "Astra Linux — Habr",             url: "https://habr.com/ru/rss/companies/astralinux/articles/",           lang: ru, category: vendor, weight: 2}
+- {id: redsoft,         title: "РЕД СОФТ (RED OS) — Habr",       url: "https://habr.com/ru/rss/companies/redsoft/articles/",              lang: ru, category: vendor, weight: 2}
+- {id: cloud4y,         title: "Cloud4Y — Habr",                 url: "https://habr.com/ru/rss/companies/cloud4y/articles/",              lang: ru, category: cloud,  weight: 2}
+- {id: k2tech,          title: "К2Тех — Habr",                   url: "https://habr.com/ru/rss/companies/k2tech/articles/",               lang: ru, category: vendor, weight: 2}
+- {id: croc,            title: "КРОК — Habr",                    url: "https://habr.com/ru/rss/companies/croc/articles/",                 lang: ru, category: vendor, weight: 2}
+- {id: beelinecloud,    title: "beeline cloud — Habr",           url: "https://habr.com/ru/rss/companies/beeline_cloud/articles/",        lang: ru, category: cloud,  weight: 2}
+- {id: ruvds,           title: "RUVDS — Habr",                   url: "https://habr.com/ru/rss/companies/ruvds/articles/",                lang: ru, category: cloud,  weight: 2}
+- {id: ozontech,        title: "Ozon Tech — Habr",               url: "https://habr.com/ru/rss/companies/ozontech/articles/",             lang: ru, category: vendor, weight: 3}
+- {id: avito,           title: "Avito — Habr",                   url: "https://habr.com/ru/rss/companies/avito/articles/",                lang: ru, category: vendor, weight: 3}
+- {id: tbank,           title: "Т-Банк — Habr",                  url: "https://habr.com/ru/rss/companies/tbank/articles/",                lang: ru, category: vendor, weight: 3}
+- {id: 2gis,            title: "2ГИС — Habr",                    url: "https://habr.com/ru/rss/companies/2gis/articles/",                 lang: ru, category: vendor, weight: 3}
+- {id: hh,              title: "hh.ru — Habr",                   url: "https://habr.com/ru/rss/companies/hh/articles/",                   lang: ru, category: vendor, weight: 3}
+- {id: skbkontur,       title: "СКБ Контур — Habr",              url: "https://habr.com/ru/rss/companies/skbkontur/articles/",            lang: ru, category: vendor, weight: 2}
+- {id: x5tech,          title: "X5 Tech — Habr",                 url: "https://habr.com/ru/rss/companies/x5tech/articles/",               lang: ru, category: vendor, weight: 2}
+- {id: lamoda,          title: "Lamoda Tech — Habr",             url: "https://habr.com/ru/rss/companies/lamoda/articles/",               lang: ru, category: vendor, weight: 2}
+- {id: sberbank,        title: "Сбер — Habr",                    url: "https://habr.com/ru/rss/companies/sberbank/articles/",             lang: ru, category: vendor, weight: 2}
+- {id: ontico,          title: "Онтико / HighLoad++ — Habr",     url: "https://habr.com/ru/rss/companies/oleg-bunin/articles/",           lang: ru, category: community, weight: 3}
+- {id: arenadata,       title: "Arenadata — Habr",               url: "https://habr.com/ru/rss/companies/arenadata/articles/",            lang: ru, category: vendor, weight: 3}
+- {id: tantor,          title: "Tantor Labs — Habr",             url: "https://habr.com/ru/rss/companies/tantor/articles/",               lang: ru, category: vendor, weight: 3}
+- {id: postgrespro-habr,title: "Postgres Professional — Habr",   url: "https://habr.com/ru/rss/companies/postgrespro/articles/",          lang: ru, category: vendor, weight: 3}
+- {id: postgrespro,     title: "Postgres Professional — блог",   url: "https://postgrespro.ru/rss",                                       lang: ru, category: vendor, weight: 2}
+- {id: pt,              title: "Positive Technologies — Habr",   url: "https://habr.com/ru/rss/companies/pt/articles/",                   lang: ru, category: vendor, weight: 3}
+- {id: securelist-ru,   title: "Securelist (Kaspersky GReAT)",   url: "https://securelist.ru/feed/",                                      lang: ru, category: vendor, weight: 3}
+- {id: kaspersky-habr,  title: "Kaspersky — Habr",               url: "https://habr.com/ru/rss/companies/kaspersky/articles/",            lang: ru, category: vendor, weight: 2}
+- {id: servernews,      title: "ServerNews — новости",           url: "https://servernews.ru/news/rss",                                   lang: ru, category: media, weight: 4}
+- {id: habr-news,       title: "Хабр — Новости",                 url: "https://habr.com/ru/rss/news/?fl=ru",                              lang: ru, category: media, weight: 3}
+- {id: cnews,           title: "CNews",                          url: "https://www.cnews.ru/inc/rss/news.xml",                            lang: ru, category: media, weight: 2}
+- {id: otus,            title: "OTUS — Habr",                    url: "https://habr.com/ru/rss/companies/otus/articles/",                 lang: ru, category: vendor, weight: 2}
+
+# ── Video: conference talks and vendor channels ─────────────────────
+# YouTube feed pattern needs the externalId, not the @handle; the first
+# <published> in the document is the channel creation date, not a video.
+- {id: yt-flant,        title: "Флант — YouTube",                url: "https://www.youtube.com/feeds/videos.xml?channel_id=UCjmwHCZ-qh3ro7hHTQhqYQg", lang: ru, category: vendor,    weight: 4}
+- {id: yt-slurm,        title: "Слёрм — YouTube",                url: "https://www.youtube.com/feeds/videos.xml?channel_id=UCK5MedKoNJ5aRahfGOIGx6g", lang: ru, category: vendor,    weight: 3}
+- {id: yt-highload,     title: "HighLoad Channel (Онтико)",      url: "https://www.youtube.com/feeds/videos.xml?channel_id=UCwHL6WHUarjGfUM_586me8w", lang: ru, category: community, weight: 4}
+- {id: yt-deflope,      title: "DevOps Deflope (подкаст)",       url: "https://www.youtube.com/feeds/videos.xml?channel_id=UCuf3hhmkOnx2wsWjm3DteDQ", lang: ru, category: newsletter, weight: 3}
+- {id: yt-selectel,     title: "Selectel — YouTube",             url: "https://www.youtube.com/feeds/videos.xml?channel_id=UCVU0Ml1l_Y90wmy5EjWTSng", lang: ru, category: vendor,    weight: 2}
+- {id: yt-avitotech,    title: "AvitoTech — YouTube",            url: "https://www.youtube.com/feeds/videos.xml?channel_id=UCO2w0cpl1wxygHjQH6eEfEg", lang: ru, category: vendor,    weight: 2}
 
 # ── Chinese-language ─────────────────────────────────────────────────
 - {id: alibaba-cn,      title: "阿里云开发者 / 云原生",          url: "https://developer.aliyun.com/rsspage.htm",                   lang: zh, category: vendor, weight: 3}

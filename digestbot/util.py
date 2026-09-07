@@ -90,6 +90,12 @@ def canonical_url(url: str) -> str:
 
     path = p.path or "/"
     path = re.sub(r"/amp/?$", "/", path)
+    # Habr serves the same article under a hub path and a company path; the
+    # bare /articles/<id>/ form is the identity.
+    if host == "habr.com":
+        path = re.sub(r"^/(ru|en)/(?:companies|company)/[^/]+/(?:articles|blog|blogs)/(\d+)",
+                      r"/\1/articles/\2", path)
+        path = re.sub(r"^/(ru|en)/post/(\d+)", r"/\1/articles/\2", path)
     if len(path) > 1:
         path = path.rstrip("/")
     if not path:
