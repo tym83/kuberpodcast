@@ -369,7 +369,7 @@ def classify(item: dict, filters, ed: dict) -> str:
                          if s["key"] == "longform"), 4000)
     if item.get("words", 0) > longform_min or item.get("source_kind") in ("talk", "paper"):
         return "longform"
-    if item.get("source_kind") in ("hn", "reddit", "lobsters") and item.get("thread_is_canonical"):
+    if item.get("source_kind") in ("hn", "reddit", "lobsters"):
         return "community"
     return "deep"
 
@@ -391,12 +391,20 @@ def select(items: list[dict], ed: dict) -> tuple[list[dict], list[dict]]:
     by_cluster: dict[str, list[dict]] = defaultdict(list)   # index for _adds_angle
     taken: set[str] = set()
 
+    def diversity_domain(item: dict) -> str:
+        """github.com hosts hundreds of unrelated projects; counting it as one
+        domain would let three releases exhaust the entire platform's quota."""
+        rel = item.get("release")
+        if rel and rel.get("repo"):
+            return f"github.com/{rel['repo']}"
+        return item.get("domain", "")
+
     def domain_cap(dom: str) -> int:
         return div["domain_cap_overrides"].get(dom, div["domain_cap"])
 
     def effective(item: dict) -> float:
         ent_rank = entity_count[item.get("entity", "")] + 1
-        dom_rank = domain_count[item.get("domain", "")] + 1
+        dom_rank = domain_count[diversity_domain(item)] + 1
         ent_mult = div["entity_mult"].get(ent_rank, div["entity_mult"].get(4, 0.45))
         dom_mult = 1.0 if dom_rank <= 3 else div["domain_mult_after"]
         return (item["base"] + item["bonus"]) * item.get("cluster_decay", 1.0) \
@@ -408,7 +416,8 @@ def select(items: list[dict], ed: dict) -> tuple[list[dict], list[dict]]:
         if entity_count.get(item.get("entity", ""), 0) >= div["entity_cap"] and item.get("entity"):
             item["reject"] = "entity_cap"
             return False
-        if domain_count[item.get("domain", "")] >= domain_cap(item.get("domain", "")):
+        dom = diversity_domain(item)
+        if domain_count[dom] >= domain_cap(dom):
             item["reject"] = "domain_cap"
             return False
         if cluster_count[item["cluster_id"]] >= cfg["cluster"]["max_emitted"]:
@@ -428,17 +437,23 @@ def select(items: list[dict], ed: dict) -> tuple[list[dict], list[dict]]:
         taken.add(item["id"])
         if item.get("entity"):
             entity_count[item["entity"]] += 1
-        domain_count[item.get("domain", "")] += 1
+        domain_count[diversity_domain(item)] += 1
         cluster_count[item["cluster_id"]] += 1
 
-    def fill(key: str, pool: list[dict], quota: int) -> int:
+    def fill(key: str, pool: list[dict], quota: int, relaxed: bool = False) -> int:
         placed = 0
         # Greedy: re-rank after every pick so the diversity multipliers actually bite.
         while placed < quota:
             best, best_val = None, None
             for it in pool:
-                if it["id"] in taken or it.get("section_key") != key:
+                if it["id"] in taken:
                     continue
+                if not relaxed and it.get("section_key") != key:
+                    continue
+                if relaxed and key == "nonenglish" and it.get("lang", "en") == "en":
+                    continue    # the protected bucket is never padded with English
+                if relaxed and it.get("lang", "en") != "en" and key != "nonenglish":
+                    continue    # nor do its members leak out into English sections
                 if not admissible(it):
                     continue
                 val = effective(it)
@@ -481,14 +496,21 @@ def select(items: list[dict], ed: dict) -> tuple[list[dict], list[dict]]:
     # 3. Spill unmet quota into the permitted sections.
     total = sum(len(v) for v in chosen.values())
     target = ed["target_total"]
-    if total < target:
-        for key in ed["spill_order"]:
+    spill_keys = [k for k in ed["spill_order"] if k not in ed.get("no_spill_into", [])]
+    # Round-robin rather than draining the first section: spilling everything
+    # into `deep` would turn a sectioned digest back into one long list.
+    while total < target and spill_keys:
+        progressed = False
+        for key in list(spill_keys):
             if total >= target:
                 break
-            if key in ed.get("no_spill_into", []):
-                continue
-            got = fill(key, items, target - total)
-            total += got
+            if fill(key, items, 1, relaxed=True):
+                total += 1
+                progressed = True
+            else:
+                spill_keys.remove(key)
+        if not progressed:
+            break
 
     # 4. Headline is promotion, not selection.
     flat = [i for k in order for i in chosen[k]]

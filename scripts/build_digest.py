@@ -142,6 +142,12 @@ def main() -> int:
         # benefit of the doubt at a lower bar rather than a silent drop.
         has_text = it.get("words", 0) >= 120 or len(it.get("summary", "")) >= 200
         effective_gate = gate if has_text else min(gate, 0.07)
+        if it.get("lang", "en") != "en":
+            # The topic vocabulary is English-biased by construction, which is the
+            # very bias the protected non-English quota exists to counter. Judging
+            # a Chinese post by how many English keywords it contains would empty
+            # that bucket every week.
+            effective_gate = min(effective_gate, gate / 2)
         if it["components"]["TOP"] < effective_gate and it["source_kind"] != "release":
             rejected["off_topic"] += 1
             it["reject"] = "off_topic"

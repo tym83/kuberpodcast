@@ -70,6 +70,9 @@ def admit(item: dict, start: datetime, end: datetime, store, cfg: dict,
     item["date_provenance"] = provenance
 
     if start <= dt <= end:
+        stale = _republished_check(item, dt, cfg)
+        if stale:
+            return stale
         return _old_link_check(item, cfg, counters)
 
     # Late arrival: published before the window but genuinely new to us.
@@ -85,6 +88,22 @@ def admit(item: dict, start: datetime, end: datetime, store, cfg: dict,
             return _old_link_check(item, cfg, counters)
 
     return "stale"
+
+
+def _republished_check(item: dict, dt, cfg: dict) -> str | None:
+    """Some feeds re-emit old posts with a fresh timestamp. When the URL carries
+    its own date and that date is months older, trust the URL."""
+    m = URL_DATE.search(item.get("canonical_url") or item.get("url", ""))
+    if not m:
+        return None
+    try:
+        url_dt = datetime(int(m.group(1)), int(m.group(2)), int(m.group(3)),
+                          tzinfo=timezone.utc)
+    except ValueError:
+        return None
+    if (dt - url_dt).days > cfg["old_link_days"]:
+        return "stale"
+    return None
 
 
 def _old_link_check(item: dict, cfg: dict, counters: dict) -> str | None:

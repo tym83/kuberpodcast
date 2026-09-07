@@ -150,14 +150,21 @@ tier_a: [kubernetes, k8s, kubelet, kube-apiserver, apiserver, etcd, containerd, 
          "device plugin", "topology manager", cgroup, cgroups, "admission webhook", kyverno,
          gatekeeper, sigstore, cosign, slsa, sbom, "supply chain", postmortem, "root cause",
          outage, "incident review", multi-tenant, multi-tenancy, kubectl, "node pool",
-         kubernetes-сигнал, кубернетес, "оркестрация контейнеров"]
+         кубернетес, кубернетис, "оркестрация контейнеров", "контейнер", "кластер",
+         "кластера", "виртуализац", "отказоустойчив", "мониторинг", "деплой",
+         "инфраструктур", "балансировщик", "нагрузк", "миграц",
+         容器, 集群, 云原生, 虚拟化, 编排, 微服务, 运维, 可观测, 网关, 存储,
+         コンテナ, クラスタ, 仮想化, 監視, 運用, 基盤]
 tier_b: [postgres, postgresql, cloudnative-pg, kafka, clickhouse, valkey, redis, ceph, rook,
          longhorn, minio, velero, restic, nats, vitess, tidb, "linux kernel", systemd,
          io_uring, nvme, rdma, wasm, wasmtime, firecracker, gvisor, kata, kvm, qemu, proxmox,
          openstack, finops, "cost optimization", "capacity planning", "chaos engineering",
          "load balanc", bgp, vxlan, srv6, dpdk, "sr-iov", nixos, "immutable os", gpu, cuda,
          nvlink, infiniband, vllm, sglang, kserve, ray, inference, "kv cache", "model serving",
-         "batch scheduling", harbor, registry, "object storage", raft, consensus, "s3"]
+         "batch scheduling", harbor, registry, "object storage", raft, consensus, "s3",
+         "база данных", "хранилищ", "сеть", "ядро linux", "производительност",
+         数据库, 性能, 内核, 网络, 调度, 缓存, 分布式, 高可用,
+         データベース, 性能, 分散]
 tier_c: [observability, sre, "platform engineering", devops, "developer experience", "ci/cd",
          "on-call", sla, slo, "error budget", microservices, "distributed systems", benchmark,
          latency, throughput, migration, "open source", governance, license, "infrastructure"]
