@@ -13,13 +13,15 @@ import requests
 
 log = logging.getLogger("digestbot")
 
-# Some hosts (rachelbythebay.com, among others) return 429 as soon as two
-# requests arrive at once. Serialising per host costs nothing across a
-# many-host crawl and stops those sources vanishing silently.
+# Some hosts (rachelbythebay.com among them) answer 429 as soon as two requests
+# arrive at once, and then vanish from the digest silently. Throttling every
+# host would be far too slow — habr.com alone accounts for 60+ feeds — so the
+# limit is applied only to hosts that have actually rate-limited us this run.
 _HOST_LOCKS: dict[str, threading.Lock] = {}
 _LOCKS_GUARD = threading.Lock()
-_HOST_MIN_INTERVAL = 0.4
+_HOST_MIN_INTERVAL = 1.5
 _LAST_HIT: dict[str, float] = {}
+_THROTTLED: set[str] = set()
 
 
 def _host_lock(host: str) -> threading.Lock:
@@ -28,6 +30,13 @@ def _host_lock(host: str) -> threading.Lock:
         if lock is None:
             lock = _HOST_LOCKS[host] = threading.Lock()
         return lock
+
+
+def mark_throttled(host: str) -> None:
+    with _LOCKS_GUARD:
+        if host and host not in _THROTTLED:
+            _THROTTLED.add(host)
+            log.info("throttling %s: it rate-limited us", host)
 
 USER_AGENT = (
     "kuberpodcast-digest/1.0 (+https://github.com/tym83/kuberpodcast) "
@@ -70,6 +79,12 @@ def get(session: requests.Session, url: str, *, timeout: int = 25, retries: int 
         **kwargs) -> requests.Response | None:
     """GET with bounded retries and per-host serialisation. Returns None, never raises."""
     host = (urlparse(url).hostname or "").lower()
+    if host not in _THROTTLED:
+        r = _get(session, url, timeout=timeout, retries=retries, **kwargs)
+        if r is not None and r.status_code == 429:
+            mark_throttled(host)
+        return r
+
     with _host_lock(host):
         gap = _HOST_MIN_INTERVAL - (time.monotonic() - _LAST_HIT.get(host, 0.0))
         if gap > 0:
