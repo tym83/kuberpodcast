@@ -16,6 +16,24 @@ log = logging.getLogger("digestbot.state")
 DB_PATH = pathlib.Path("state/emitted.sqlite")
 HEALTH_PATH = pathlib.Path("state/feed_health.json")
 
+# SQLite INTEGER is signed 64-bit; simhash64 is unsigned, so anything with the
+# high bit set overflows on write. Round-trip through a signed representation.
+_SIGN_SHIFT = 1 << 64
+_SIGN_LIMIT = 1 << 63
+
+
+def to_signed(value: int | None) -> int | None:
+    if value is None:
+        return None
+    return value - _SIGN_SHIFT if value >= _SIGN_LIMIT else value
+
+
+def to_unsigned(value: int | None) -> int | None:
+    if value is None:
+        return None
+    return value + _SIGN_SHIFT if value < 0 else value
+
+
 SCHEMA = """
 CREATE TABLE IF NOT EXISTS emitted (
   url_hash     TEXT PRIMARY KEY,
@@ -69,7 +87,7 @@ class Store:
     def recent_simhashes(self, weeks: int = 1) -> list[tuple[int, str]]:
         cutoff = (datetime.now(timezone.utc) - timedelta(weeks=weeks)).date().isoformat()
         return [
-            (r[0], r[1]) for r in self.conn.execute(
+            (to_unsigned(r[0]), r[1]) for r in self.conn.execute(
                 "SELECT simhash, entity FROM emitted "
                 "WHERE digest_date>=? AND simhash IS NOT NULL", (cutoff,))
         ]
@@ -85,7 +103,8 @@ class Store:
 
     def record(self, items: list[dict], digest_date: str) -> None:
         rows = [
-            (it["id"], it.get("norm_title_hash"), it.get("simhash"), it.get("entity"),
+            (it["id"], it.get("norm_title_hash"), to_signed(it.get("simhash")),
+             it.get("entity"),
              digest_date, it.get("section"), it.get("score"),
              it.get("title", "")[:400], it.get("url", ""))
             for it in items
