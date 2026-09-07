@@ -143,8 +143,10 @@ def render(sections, meta: dict, ed: dict) -> str:
 
     out = [f"# Дайджест за {start.date().isoformat()} — {end.date().isoformat()}", ""]
     head = (f"Окно: {start.strftime('%Y-%m-%dT%H:%MZ')} — {end.strftime('%Y-%m-%dT%H:%MZ')} · "
-            f"собрано {meta['n_raw']} кандидатов · "
-            f"уникальных {meta['n_unique']} · отобрано {total}")
+            f"собрано {meta['n_raw']} кандидатов · ")
+    if meta.get("n_unique"):
+        head += f"уникальных {meta['n_unique']} · "
+    head += f"отобрано {total}"
     if total < target:
         head += f"  \n**Отобрано {total} из {target} — порог не понижался.**"
     out.append(head + "  ")
