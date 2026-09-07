@@ -1,0 +1,53 @@
+name: Checks
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  config:
+    name: Source config
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+          cache: pip
+      - run: pip install -r requirements.txt
+      - name: Validate source configs
+        run: python scripts/check_sources.py
+      - name: Byte-compile the pipeline
+        run: python -m compileall -q digestbot scripts
+
+  smoke:
+    name: Pipeline smoke test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+          cache: pip
+      - run: pip install -r requirements.txt
+      # A tiny window over a few sources: proves collect -> build -> render works
+      # end to end without spending a full crawl on every PR.
+      - name: Collect a narrow window
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          python scripts/collect_raw.py --days 3 \
+            --skip reddit,devto,newsletters,governance \
+            --out data/smoke.json
+      - name: Build without the model
+        run: |
+          python scripts/build_digest.py --raw data/smoke.json \
+            --outdir /tmp/smoke --no-enrich --no-state \
+            --fetch-budget 25 --limit 40 --name smoke
+      - name: Show the result
+        run: head -40 /tmp/smoke/smoke.md

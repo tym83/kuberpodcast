@@ -73,8 +73,9 @@ freshness:
   future_drop_days: 7
   cross_week_dedup_weeks: 8
 
-# ── Sections. Quotas sum to target_total. ────────────────────────────────────
-# `headline` is filled by promotion after everything else and consumes no slots.
+# ── Sections ─────────────────────────────────────────────────────────────────
+# `headline` is filled by promotion after everything else and consumes no slots,
+# so the quotas of the remaining sections are what must sum to target_total.
 # Classifier precedence is the order given in `classify_order`.
 classify_order: [incidents, security, releases, nonenglish, ai_infra, ecosystem,
                  watchlist, longform, community, deep]
@@ -91,12 +92,12 @@ sections:
 
   - key: releases
     title: "Релизы, которые важны"
-    quota: 18
+    quota: 20
     min: 10
 
   - key: deep
     title: "Глубокие технические тексты"
-    quota: 16
+    quota: 20
     min: 10
 
   - key: nonenglish
@@ -123,7 +124,7 @@ sections:
 
   - key: ecosystem
     title: "Экосистема, деньги и управление"
-    quota: 7
+    quota: 8
     min: 2
 
   - key: incidents
@@ -141,7 +142,7 @@ sections:
 
   - key: longform
     title: "Длинное чтение и доклады"
-    quota: 3
+    quota: 4
     min: 0
     min_words: 4000
 
