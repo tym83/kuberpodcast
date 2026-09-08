@@ -69,7 +69,7 @@ python -m venv .venv && ./.venv/bin/pip install -r requirements.txt
 ## Расписание
 
 [`.github/workflows/weekly-digest.yml`](.github/workflows/weekly-digest.yml) запускается
-по понедельникам в 06:00 UTC (09:00 МСК), собирает окно за прошедшие 7 дней, создаёт
+по пятницам в 06:00 UTC (09:00 МСК), собирает окно за прошедшие 7 дней, создаёт
 PR и сразу его мёрджит. Ручной запуск — через `workflow_dispatch` с параметрами окна.
 
 ### Секреты
