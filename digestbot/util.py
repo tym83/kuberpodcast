@@ -62,8 +62,13 @@ _TAG = re.compile(r"<[^>]+>")
 _ENTITY = re.compile(r"&(#\d+|#x[0-9a-fA-F]+|[a-zA-Z]+);")
 
 
-def new_session(browser_ua: bool = False) -> requests.Session:
+def new_session(browser_ua: bool = False, pool: int = 32) -> requests.Session:
     s = requests.Session()
+    # The default pool of 10 is smaller than the fetch thread count, so
+    # connections to busy hosts get discarded and reopened for every feed.
+    adapter = requests.adapters.HTTPAdapter(pool_connections=pool, pool_maxsize=pool)
+    s.mount("https://", adapter)
+    s.mount("http://", adapter)
     s.headers.update(
         {
             "User-Agent": BROWSER_UA if browser_ua else USER_AGENT,

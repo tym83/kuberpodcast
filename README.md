@@ -68,16 +68,35 @@ python -m venv .venv && ./.venv/bin/pip install -r requirements.txt
 
 ## Расписание
 
-[`.github/workflows/weekly-digest.yml`](.github/workflows/weekly-digest.yml) запускается
-по пятницам в 06:00 UTC (09:00 МСК), собирает окно за прошедшие 7 дней, создаёт
-PR и сразу его мёрджит. Ручной запуск — через `workflow_dispatch` с параметрами окна.
+Выпуск собирается двумя путями, основной — локальный.
+
+**Локально (основной).** [`scripts/run_local.sh`](scripts/run_local.sh) делает полный
+цикл: собирает, строит, создаёт PR и мёрджит его. Запуск по расписанию — через
+launchd, шаблон в [`contrib/io.kuberpodcast.digest.plist`](contrib/io.kuberpodcast.digest.plist):
+
+```bash
+sed "s|REPO_DIR|$PWD|g" contrib/io.kuberpodcast.digest.plist \
+  > ~/Library/LaunchAgents/io.kuberpodcast.digest.plist
+launchctl bootstrap gui/$(id -u) ~/Library/LaunchAgents/io.kuberpodcast.digest.plist
+launchctl kickstart -k gui/$(id -u)/io.kuberpodcast.digest   # прогнать сейчас
+```
+
+Пятница 09:00 по местному времени. Если машина спала — launchd отработает при
+пробуждении. Секреты читаются из `~/.config/kuberpodcast/env` (формат `KEY=value`),
+логи пишутся в `~/.local/state/kuberpodcast/`.
+
+**GitHub Actions (резерв).** [`.github/workflows/weekly-digest.yml`](.github/workflows/weekly-digest.yml)
+запускается в пятницу в 15:00 UTC и первым делом проверяет, не опубликован ли уже
+дайджест за сегодня. Если локальный прогон отработал — джоба выходит, ничего не
+делая. Это страховка на случай, если машина была выключена. Ручной запуск — через
+`workflow_dispatch` с параметрами окна.
 
 ### Секреты
 
 | Секрет | Обязателен | Зачем |
 |---|---|---|
 | `ANTHROPIC_API_KEY` | нет, но без него комментарии автоматические | Генерация комментариев |
-| `REDDIT_CLIENT_ID` / `REDDIT_CLIENT_SECRET` | нет, но без них Reddit почти не отдаёт данные | Reddit блокирует анонимные запросы из дата-центров; OAuth-приложение типа *script* снимает лимит |
+| `REDDIT_CLIENT_ID` / `REDDIT_CLIENT_SECRET` | практически да | Без них Reddit почти не отдаёт данные — и с раннера, и с локальной машины после нескольких прогонов. Публичный `.rss` не отдаёт ни рейтинг, ни число комментариев, поэтому такие материалы ещё и проигрывают в отборе. OAuth-приложение типа *script* снимает и лимит, и слепоту |
 | `GITHUB_TOKEN` | выдаётся автоматически | GitHub Releases и Security Advisories |
 
 ## Состояние между запусками
