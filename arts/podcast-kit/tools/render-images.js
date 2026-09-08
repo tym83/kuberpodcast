@@ -4,6 +4,10 @@
  *
  *   node tools/render-images.js              — все файлы
  *   node tools/render-images.js apple_podcasts_3000 avatar_512_telegram
+ *   node tools/render-images.js youtube_thumb_1280x720 --ep 01 --lines "ЕСЛИ БЫ|КУБЕР|СЕГОДНЯ"
+ *
+ * --ep    номер выпуска в красном кружке
+ * --lines строки темы через | ; кегль подбирается под ширину автоматически
  *
  * Результат — в out/images/
  *
@@ -30,9 +34,18 @@ const ASSETS = [
   { n: 'youtube_thumb_1280x720',    w: 1280, h:  720, bw: 1280, bh:  720, layout: 'thumb'  },
   { n: 'telegram_post_1280x720',    w: 1280, h:  720, bw: 1280, bh:  720, layout: 'tgpost' },
   { n: 'instagram_story_1080x1920', w: 1080, h: 1920, bw: 1080, bh: 1920, layout: 'story'  },
+  { n: 'episode_cover_1280x720',    w: 1280, h:  720, bw: 1280, bh:  720, layout: 'epcover'},
+  { n: 'episode_square_1080',       w: 1080, h: 1080, bw: 1080, bh: 1080, layout: 'epsquare'},
 ];
 
-const only = process.argv.slice(2);
+const argv = process.argv.slice(2);
+const opts = {};
+const flag = (name) => { const i = argv.indexOf('--' + name); if (i < 0) return null;
+  const v = argv[i + 1]; argv.splice(i, 2); return v; };
+const ep = flag('ep');   if (ep) opts.num = ep;
+const ln = flag('lines'); if (ln) opts.lines = ln.split('|').map(s => s.trim()).filter(Boolean);
+const suffix = flag('suffix') || '';
+const only = argv;
 const list = only.length ? ASSETS.filter(a => only.includes(a.n)) : ASSETS;
 if (!list.length) { console.error('Ничего не выбрано. Имена:', ASSETS.map(a => a.n).join(', ')); process.exit(1); }
 
@@ -45,11 +58,22 @@ if (!list.length) { console.error('Ничего не выбрано. Имена:
   await page.goto('file://' + path.join(ROOT, 'src/pack.html'));
   await page.waitForTimeout(400);
 
+  // фотографии ведущих: отдаём в страницу как data-URI
+  const hostsDir = path.join(ROOT, 'assets', 'hosts');
+  if (fs.existsSync(hostsDir)) {
+    const map = {};
+    for (const f of fs.readdirSync(hostsDir).filter(f => f.endsWith('.png')))
+      map[path.basename(f, '.png')] =
+        'data:image/png;base64,' + fs.readFileSync(path.join(hostsDir, f)).toString('base64');
+    await page.evaluate(m => window.loadHosts(m), map);
+    console.log(`  ведущих загружено: ${Object.keys(map).length}`);
+  }
+
   for (const a of list) {
-    const data = await page.evaluate(a => window.render(a), a);
-    const file = path.join(outD, `${a.n}.png`);
+    const data = await page.evaluate(a => window.render(a), { ...a, opts });
+    const file = path.join(outD, `${a.n}${suffix}.png`);
     fs.writeFileSync(file, Buffer.from(data.split(',')[1], 'base64'));
-    console.log(`  ${a.n}.png  ${a.w}x${a.h}`);
+    console.log(`  ${a.n}${suffix}.png  ${a.w}x${a.h}`);
   }
   await browser.close();
   console.log(`готово: out/images/ (${list.length} шт.)`);
