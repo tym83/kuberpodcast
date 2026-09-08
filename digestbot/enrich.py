@@ -11,6 +11,7 @@ import concurrent.futures as cf
 import json
 import logging
 import os
+import pathlib
 import re
 import textwrap
 
@@ -135,6 +136,23 @@ def _fallback(item: dict) -> None:
     item.setdefault("gloss", "")
 
 
+def _has_credentials() -> bool:
+    """An unset ANTHROPIC_API_KEY does not mean there are no credentials.
+
+    The SDK also reads an OAuth profile written by `ant auth login`, which is
+    the path that needs no static key at all. Checking only the environment
+    would send every run to the fallback comments on a machine that is in fact
+    logged in.
+    """
+    if os.getenv("ANTHROPIC_API_KEY") or os.getenv("ANTHROPIC_AUTH_TOKEN"):
+        return True
+    config_dir = pathlib.Path(
+        os.getenv("ANTHROPIC_CONFIG_DIR") or (pathlib.Path.home() / ".config" / "anthropic")
+    )
+    profile = os.getenv("ANTHROPIC_PROFILE", "default")
+    return (config_dir / "credentials" / f"{profile}.json").is_file()
+
+
 def _lint(entry: Entry, banned: re.Pattern | None) -> bool:
     """True when the entry is usable."""
     if not entry.what.strip() or not entry.why.strip():
@@ -155,7 +173,7 @@ def enrich(items: list[dict], banned: re.Pattern | None = None,
     ranked = sorted(items, key=lambda i: -i.get("final", i.get("score", 0)))
     angle_ids = {i["id"] for i in ranked[:angle_top]}
 
-    if not (os.getenv("ANTHROPIC_API_KEY") or os.getenv("ANTHROPIC_AUTH_TOKEN")):
+    if not _has_credentials():
         log.warning("no Anthropic credentials - falling back to deterministic comments")
         for it in items:
             _fallback(it)
