@@ -2,8 +2,8 @@ name: Weekly digest
 
 on:
   schedule:
-    # Monday 06:00 UTC = 09:00 MSK. Covers the preceding 7 days.
-    - cron: "0 6 * * 1"
+    # Friday 06:00 UTC = 09:00 MSK. Covers the preceding 7 days.
+    - cron: "0 6 * * 5"
   workflow_dispatch:
     inputs:
       days:
