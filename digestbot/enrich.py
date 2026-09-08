@@ -14,6 +14,7 @@ import os
 import pathlib
 import re
 import textwrap
+import threading
 
 from pydantic import BaseModel, Field
 
@@ -21,6 +22,10 @@ log = logging.getLogger("digestbot.enrich")
 
 DEFAULT_MODEL = "claude-opus-5"
 BATCH_SIZE = 8
+
+# Input/output dollars per million tokens, for the run's cost line only.
+PRICES = {"claude-opus-5": (5.0, 25.0), "claude-sonnet-5": (2.0, 10.0),
+          "claude-haiku-4-5": (1.0, 5.0)}
 
 SYSTEM = textwrap.dedent(
     """\
@@ -191,6 +196,9 @@ def enrich(items: list[dict], banned: re.Pattern | None = None,
     model = model or os.getenv("DIGEST_MODEL", DEFAULT_MODEL)
     chunks = [items[i:i + BATCH_SIZE] for i in range(0, len(items), BATCH_SIZE)]
     results: dict[str, Entry] = {}
+    # Token accounting: an issue costs real money, so the run should say how much.
+    usage = {"input": 0, "output": 0, "cache_read": 0, "cache_write": 0, "calls": 0}
+    usage_lock = threading.Lock()
 
     def one(chunk: list[dict]) -> list[Entry]:
         user = ("Материалы недели (JSON). Верни запись для КАЖДОГО id.\n\n"
@@ -207,6 +215,13 @@ def enrich(items: list[dict], banned: re.Pattern | None = None,
                 messages=[{"role": "user", "content": user}],
                 output_format=Batch,
             )
+            u = resp.usage
+            with usage_lock:
+                usage["calls"] += 1
+                usage["input"] += u.input_tokens or 0
+                usage["output"] += u.output_tokens or 0
+                usage["cache_read"] += getattr(u, "cache_read_input_tokens", 0) or 0
+                usage["cache_write"] += getattr(u, "cache_creation_input_tokens", 0) or 0
             if resp.stop_reason == "refusal":
                 log.warning("batch refused: %s", getattr(resp, "stop_details", None))
                 return []
@@ -233,5 +248,12 @@ def enrich(items: list[dict], banned: re.Pattern | None = None,
             filled += 1
         else:
             _fallback(it)
+    price = PRICES.get(model)
+    if price and usage["calls"]:
+        cost = (usage["input"] / 1e6 * price[0] + usage["output"] / 1e6 * price[1]
+                + usage["cache_read"] / 1e6 * price[0] * 0.1)
+        log.info("usage: %d calls, in %s (cached %s), out %s -> ~$%.2f",
+                 usage["calls"], f"{usage['input']:,}", f"{usage['cache_read']:,}",
+                 f"{usage['output']:,}", cost)
     log.info("enriched %d/%d items via %s", filled, len(items), model)
     return items
