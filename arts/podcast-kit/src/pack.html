@@ -133,6 +133,19 @@ function oPlug(sd){
 
 /* ---------- alphabet ---------- */
 const G={
+ '2':{w:0.90,s:[[[0.13,0.24],[0.34,0.02],[0.72,0.07],[0.82,0.35],[0.48,0.63],[0.12,1.0]],[[0.12,1.0],[0.88,0.96]]]},
+ '3':{w:0.88,s:[[[0.13,0.14],[0.46,0.0],[0.8,0.17],[0.58,0.44],[0.33,0.46]],[[0.48,0.45],[0.84,0.61],[0.77,0.9],[0.42,1.0],[0.11,0.87]]]},
+ '4':{w:0.98,s:[[[0.66,0.02],[0.1,0.72],[0.92,0.69]],[[0.68,0.33],[0.66,1.0]]]},
+ '5':{w:0.88,s:[[[0.82,0.04],[0.2,0.06],[0.17,0.44]],[[0.17,0.44],[0.56,0.4],[0.84,0.62],[0.71,0.92],[0.3,1.0],[0.1,0.89]]]},
+ '6':{w:0.92,s:[[[0.78,0.06],[0.42,0.02],[0.16,0.35],[0.14,0.72],[0.4,1.0],[0.72,0.95],[0.84,0.7],[0.62,0.5],[0.24,0.54],[0.15,0.69]]]},
+ '7':{w:0.86,s:[[[0.1,0.06],[0.86,0.02],[0.39,1.0]],[[0.28,0.55],[0.66,0.52]]]},
+ '8':{w:0.92,s:[ell(0.5,0.26,0.31,0.25,12),ell(0.5,0.74,0.39,0.26,12)]},
+ '9':{w:0.92,s:[[[0.22,0.94],[0.58,0.98],[0.84,0.65],[0.86,0.28],[0.6,0.0],[0.28,0.05],[0.16,0.3],[0.38,0.5],[0.76,0.46],[0.85,0.31]]]},
+ 'Й':{w:1.02,s:[[[0.14,0],[0.13,1],[0.87,0],[0.86,1]],[[0.3,-0.17],[0.5,-0.05],[0.71,-0.18]]]},
+ 'Ш':{w:1.34,s:[[[0.1,0],[0.09,0.98],[0.91,0.95],[0.92,0]],[[0.5,0.02],[0.49,0.97]]]},
+ 'Щ':{w:1.44,s:[[[0.09,0],[0.08,0.97],[0.86,0.94],[0.87,0]],[[0.47,0.02],[0.46,0.96]],[[0.86,0.94],[0.93,1.16]]]},
+ 'Ю':{w:1.30,s:[[[0.1,0],[0.09,1]],[[0.1,0.49],[0.43,0.5]],[ell(0.74,0.5,0.29,0.5,13)][0]]},
+ 'Ъ':{w:1.10,s:[[[0.04,0.04],[0.33,0.02]],[[0.28,0.01],[0.27,1]],[[0.27,0.46],[0.78,0.49],[0.97,0.73],[0.78,0.99],[0.26,1]]]},
  'A':{w:1.00,s:[[[0.04,1],[0.5,0],[0.96,1]],[[0.2,0.64],[0.8,0.62]]]},
  'B':{w:0.95,s:[[[0.13,0],[0.12,1]],[[0.13,0.02],[0.6,0.05],[0.76,0.26],[0.58,0.48],[0.13,0.5]],[[0.13,0.5],[0.7,0.55],[0.87,0.76],[0.66,0.98],[0.12,1]]]},
  'C':{w:0.95,s:[[[0.9,0.16],[0.6,0.0],[0.24,0.1],[0.07,0.5],[0.24,0.9],[0.62,1.0],[0.92,0.84]]]},
@@ -321,7 +334,75 @@ banner(w,h){                       /* design 1280x720, safe box 773x211 centred 
   ]);
   lockup(640,348,62,84,29,300,false);
 },
-thumb(w,h){                        /* 1280x720 episode template */
+epsquare(w,h,o){                   /* 1080x1080 обложка выпуска под Telegram */
+  const lines=(o&&o.lines&&o.lines.length)?o.lines:['ТЕМА','ВЫПУСКА'];
+  const num=(o&&o.num)?o.num:'00';
+  paperBg(w,h,19);
+  ctx.save();ctx.globalAlpha=0.5;
+  paint(rectPts(46,46,w-92,h-92,64),true,null,90,{lw:8,ink:'#E0CFA8',amp:4});ctx.restore();
+  sprinkle([
+    {f:oCloud,x:250,y:132,s:0.28,r:-0.06,arg:'#FFFFFF'},
+    {f:oBolt, x:838,y:150,s:0.20,r:-0.2},
+    {f:oGear, x:126,y:470,s:0.20,r:0.25},
+    {f:oRocket,x:960,y:470,s:0.24,r:0.1},
+  ]);
+  const maxW=760, capMax=104, capMin=38;
+  let cap=capMax;
+  while(cap>capMin && lines.some(L=>textW(L,cap,cap*0.17)>maxW)) cap-=2;
+  const lead=cap*1.42;
+  lines.forEach((L,i)=>drawText(L,w/2,250+i*lead,cap,
+    {seed:400+i*100,lw:Math.max(5,Math.round(cap/9.8)),shadow:'#4D96FF',track:cap*0.17}));
+  const under=250+(lines.length-1)*lead+cap*0.34;
+  squiggle(w/2-170,under,w/2+170,under+26,'#FFB627',12);
+  drawText('KUBERNETES COMMUNITY PODCAST',w/2,under+92,26,{seed:600,lw:4,ink:'#3C6E60',track:6});
+  const HP=(o&&o.hostpos)?o.hostpos:[
+    {k:'timur', x:168, y:1086, h:300, r:-4},
+    {k:'sergey',x:412, y:1080, h:332, r:3},
+    {k:'artem', x:676, y:1088, h:308, r:-3},
+    {k:'yulia', x:930, y:1082, h:284, r:4},
+  ];
+  HP.forEach(p=>host(p.k,p.x,p.y,p.h,p.r,p.flip));
+  ctx.save();ctx.translate(952,132);ctx.rotate(0.08);
+  paint(blobPts(0,0,84,13,700,5),true,'#FF5A5F',700,{lw:9});
+  drawText('#'+num,0,20,44,{seed:800,lw:6,ink:'#FFF7E8',track:7});ctx.restore();
+},
+epcover(w,h,o){                    /* 1280x720 обложка выпуска с ведущими */
+  const lines=(o&&o.lines&&o.lines.length)?o.lines:['ТЕМА','ВЫПУСКА'];
+  const num=(o&&o.num)?o.num:'00';
+  paperBg(w,h,17);
+  ctx.save();ctx.globalAlpha=0.5;
+  paint(rectPts(52,52,w-104,h-104,70),true,null,90,{lw:8,ink:'#E0CFA8',amp:4});ctx.restore();
+  sprinkle([
+    {f:oCloud,x:1035,y:300,s:0.30,r:-0.06,arg:'#FFFFFF'},
+    {f:oGear, x:1215,y:395,s:0.22,r:0.25},
+    {f:oBolt, x:960,y:180,s:0.20,r:-0.2},
+    {f:oServer,x:1160,y:215,s:0.26,r:0.08},
+  ]);
+  const maxW=830, capMax=96, capMin=38;
+  let cap=capMax;
+  while(cap>capMin && lines.some(L=>textW(L,cap,cap*0.17)>maxW)) cap-=2;
+  const lead=cap*1.42;
+  lines.forEach((L,i)=>drawText(L,96,150+i*lead,cap,
+    {align:'left',seed:400+i*100,lw:Math.max(5,Math.round(cap/9.8)),shadow:'#4D96FF',track:cap*0.17}));
+  /* Ведущие: разный масштаб и наклон — чтобы читалось как компания, а не как ряд паспортов */
+  const HP=(o&&o.hostpos)?o.hostpos:[
+    {k:'timur', x:185, y:728, h:318, r:-4},
+    {k:'sergey',x:487, y:722, h:352, r:3},
+    {k:'artem', x:800, y:730, h:326, r:-3},
+    {k:'yulia', x:1105,y:724, h:300, r:4},
+  ];
+  HP.forEach(p=>host(p.k,p.x,p.y,p.h,p.r,p.flip));
+  squiggle(100,150+(lines.length-1)*lead+cap*0.28,340,150+(lines.length-1)*lead+cap*0.52,'#FFB627',12);
+  ctx.save();ctx.translate(1152,106);ctx.rotate(0.08);
+  paint(blobPts(0,0,88,13,700,5),true,'#FF5A5F',700,{lw:9});
+  drawText('#'+num,0,22,46,{seed:800,lw:6,ink:'#FFF7E8',track:7});ctx.restore();
+},
+thumb(w,h,o){                      /* 1280x720 episode template */
+  /* Текст выпуска приходит снаружи: o.lines — массив строк, o.num — номер в кружке.
+     Кегль подбирается автоматически под свободную ширину, чтобы длинная тема
+     не залезала на предметы справа. Без параметров рисуется прежний шаблон. */
+  const lines=(o&&o.lines&&o.lines.length)?o.lines:['ТЕМА','ВЫПУСКА'];
+  const num=(o&&o.num)?o.num:'00';
   paperBg(w,h,11);
   ctx.save();ctx.globalAlpha=0.5;
   paint(rectPts(52,52,w-104,h-104,70),true,null,90,{lw:8,ink:'#E0CFA8',amp:4});ctx.restore();
@@ -332,13 +413,18 @@ thumb(w,h){                        /* 1280x720 episode template */
     {f:oRocket,x:1010,y:610,s:0.34,r:0.1},
     {f:oBolt, x:820,y:120,s:0.24,r:-0.2},
   ]);
-  drawText('ТЕМА',110,300,108,{align:'left',seed:400,lw:11,shadow:'#4D96FF',track:18});
-  drawText('ВЫПУСКА',110,430,108,{align:'left',seed:500,lw:11,shadow:'#4D96FF',track:18});
-  squiggle(390,470,470,540,'#FFB627',12);
+  const maxW=840, capMax=108, capMin=40;
+  let cap=capMax;
+  while(cap>capMin && lines.some(L=>textW(L,cap,cap*0.17)>maxW)) cap-=2;
+  const lead=cap*1.42, top=300-(lines.length-2)*lead/2;
+  lines.forEach((L,i)=>drawText(L,110,top+i*lead,cap,
+    {align:'left',seed:400+i*100,lw:Math.max(5,Math.round(cap/9.8)),shadow:'#4D96FF',track:cap*0.17}));
+  const baseY=top+(lines.length-1)*lead;
+  squiggle(390,baseY+40,470,baseY+110,'#FFB627',12);
   drawText('KUBERNETES COMMUNITY PODCAST',110,600,30,{align:'left',seed:600,lw:4,ink:'#3C6E60',track:7});
   ctx.save();ctx.translate(1152,106);ctx.rotate(0.08);
   paint(blobPts(0,0,88,13,700,5),true,'#FF5A5F',700,{lw:9});
-  drawText('#00',0,22,46,{seed:800,lw:6,ink:'#FFF7E8',track:7});ctx.restore();
+  drawText('#'+num,0,22,46,{seed:800,lw:6,ink:'#FFF7E8',track:7});ctx.restore();
 },
 tgpost(w,h){                       /* 1280x720 announcement with the joke */
   paperBg(w,h,13);
@@ -381,12 +467,30 @@ function grainPass(w,h){
   ctx.save();ctx.setTransform(1,0,0,1,0,0);ctx.globalCompositeOperation='multiply';
   ctx.fillStyle=ctx.createPattern(g,'repeat');ctx.fillRect(0,0,w,h);ctx.restore();
 }
+const HOSTS={};
+window.loadHosts=function(map){
+  /* Единственное исключение из правила «никаких картинок»: фотографии ведущих.
+     Вырезанные PNG приходят из assets/hosts/ как data-URI, canvas рисует их
+     поверх нарисованной кодом графики. Всё остальное по-прежнему координаты. */
+  return Promise.all(Object.entries(map).map(([k,src])=>new Promise(res=>{
+    const im=new Image(); im.onload=()=>{HOSTS[k]=im;res();}; im.onerror=()=>res(); im.src=src;
+  })));
+};
+function host(k,x,y,h,rot,flip){
+  const im=HOSTS[k]; if(!im) return;
+  const sc=h/im.height, w=im.width*sc;
+  ctx.save(); ctx.translate(x,y); ctx.rotate((rot||0)*Math.PI/180);
+  if(flip) ctx.scale(-1,1);
+  ctx.drawImage(im,-w/2,-h,w,h);
+  ctx.restore();
+}
+
 window.render=function(a){
   cv.width=a.w;cv.height=a.h;
   ctx.setTransform(1,0,0,1,0,0);
   const k=a.w/a.bw;
   ctx.save();ctx.scale(k,k);
-  LAYOUT[a.layout](a.bw,a.bh);
+  LAYOUT[a.layout](a.bw,a.bh,a.opts||{});
   ctx.restore();
   grainPass(a.w,a.h);
   return cv.toDataURL('image/png');
