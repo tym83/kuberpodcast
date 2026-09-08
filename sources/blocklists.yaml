@@ -117,6 +117,11 @@ reddit_drop_title:
   - '\b(job (hunt|search)|hiring|laid off|layoff|career (advice|change|path))\b'
   - '\b(rate my|roast my|my first|just finished my)\b'
   - '\bhomelab (tour|update|build)\b'
+  # Symptom reports: the classic help-thread shape that carries no question mark.
+  - '\b(keeps?|randomly|suddenly|constantly) (crash|fail|restart|dying|hang|dropp)'
+  - '\b(crashloop|oomkill|won''?t start|not working|stuck (in|at|on)|no longer works)\b'
+  # Study plans and interview prep.
+  - '\b(preparation|roadmap|study plan|learning path|where (do|should) i start)\b'
 reddit_image_hosts: [i.redd.it, imgur.com, i.imgur.com, v.redd.it, preview.redd.it]
 
 # ── job_post ─────────────────────────────────────────────────────────────────

@@ -294,23 +294,44 @@ def _incident_is_first_party(item: dict) -> bool:
     return True
 
 
+# A post's position in a subreddit's weekly top listing, used as the engagement
+# signal when the numbers themselves are unavailable.
+RANK_IS_BUSY = 10
+
+
+def _reddit_is_busy(item: dict) -> bool:
+    """Did this thread draw a crowd?
+
+    The OAuth path reports score and comment count directly. The public .rss
+    fallback reports neither — only the position inside the subreddit's weekly
+    top listing. Treating a missing count as zero silently discarded every
+    self-post, including the discussion threads that are the whole reason for
+    reading Reddit at all.
+    """
+    eng = item.get("engagement", {})
+    score = eng.get("reddit_score")
+    comments = eng.get("reddit_comments")
+    if score is not None or comments is not None:
+        return (comments or 0) >= 120 or (score or 0) >= 80
+    rank = eng.get("reddit_rank")
+    return rank is not None and rank <= RANK_IS_BUSY
+
+
 def _reddit_screen(item: dict, f: Filters) -> str | None:
     eng = item.get("engagement", {})
     flair = (eng.get("reddit_flair") or "").lower()
     title = item.get("title", "")
-    score = eng.get("reddit_score") or 0
-    comments = eng.get("reddit_comments") or 0
 
     if item.get("domain") in f.reddit_images:
         return "not_an_article"
     if flair in f.reddit_flair:
         return "reddit_help"
     # The exception that has to exist: a busy discussion thread is the story.
-    if flair == "discussion" and comments >= 120:
+    if flair == "discussion" and _reddit_is_busy(item):
         return None
     if f.reddit_title and f.reddit_title.search(title):
         return "reddit_help"
     is_self = (item.get("canonical_url") or "").startswith("https://reddit.com/r/")
-    if is_self and comments < 120 and score < 80:
+    if is_self and not _reddit_is_busy(item):
         return "reddit_selfpost"
     return None
