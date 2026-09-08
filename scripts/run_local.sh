@@ -62,13 +62,24 @@ if [ -z "${GITHUB_TOKEN:-}" ] && command -v gh >/dev/null 2>&1; then
   export GITHUB_TOKEN
 fi
 
+# A dry run must not write into the tracked digest folder: it would overwrite
+# a published issue with whatever the trial window produced, and the damage is
+# silent until someone reads the diff.
+OUTDIR=digest
+STATE_ARGS=()
+if [ "$DRY_RUN" = "1" ]; then
+  OUTDIR="$LOG_DIR/dry-run"
+  STATE_ARGS=(--no-state)
+  mkdir -p "$OUTDIR"
+fi
+
 "$PY" scripts/collect_raw.py --days "$DAYS" --out data/raw.json
-"$PY" scripts/build_digest.py --raw data/raw.json --outdir digest \
-      --selection-out "data/selection-$(date -u +%F).json"
+"$PY" scripts/build_digest.py --raw data/raw.json --outdir "$OUTDIR" \
+      "${STATE_ARGS[@]}" --selection-out "data/selection-$(date -u +%F).json"
 
 if [ "$DRY_RUN" = "1" ]; then
-  echo "dry run: built but not committed"
-  git status --short digest state
+  echo "dry run: built into $OUTDIR, nothing tracked was touched"
+  ls -la "$OUTDIR"
   exit 0
 fi
 

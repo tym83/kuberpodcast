@@ -1,0 +1,127 @@
+# Everything the episode pipeline needs to turn a recording into a YouTube page.
+
+whisper:
+  # large-v3-turbo is the fast model of the current generation: roughly eight
+  # times quicker than full large-v3 and still accurate on Russian technical
+  # speech. tiny and base are faster still, but they mangle exactly the words
+  # this podcast is about — "кубернетес", "под", "кластер" — and unusable
+  # transcripts make unusable chapters.
+  model: large-v3-turbo-q5_0
+  model_dir: ~/.cache/whisper-models
+  language: ru
+
+# Terms Whisper reliably mishears. Applied to the transcript before anything
+# else reads it. Keys are matched case-insensitively on word boundaries.
+glossary:
+  Сталос: Talos
+  Талос: Talos
+  "HL": Helm
+  Хелм: Helm
+  Хельм: Helm
+  "Margo CD": Argo CD
+  Арго: Argo
+  Номат: Nomad
+  Номад: Nomad
+  Кубер: Kubernetes
+  Кубернетис: Kubernetes
+  Кубернет: Kubernetes
+  Силиум: Cilium
+  Флакс: Flux
+  Прометис: Prometheus
+  прометис: Prometheus
+  Виктория: VictoriaMetrics
+  Графана: Grafana
+  ЕТЦД: etcd
+  ETCD: etcd
+  ЕТСД: etcd
+  РАФТ: Raft
+  RAFT: Raft
+  РАВ: Raft
+  Опеншифт: OpenShift
+  Бэкстейдж: Backstage
+  Кросс-плейн: Crossplane
+  кросс-плейн: Crossplane
+  Сворм: Swarm
+  Sform: Swarm
+  Мезос: Mesos
+  Борг: Borg
+  Ингресс: Ingress
+  ингрессы: Ingress
+  Истио: Istio
+  СРД: CRD
+  "CRD-шки": CRD
+  Дэвопс: DevOps
+  ДВОПС: DevOps
+  ДСКОПС: DevOps
+  диопс: DevOps
+  двопс: DevOps
+  ИБшник: специалист по ИБ
+  ИБшников: специалистов по ИБ
+  ВБ: Wildberries
+  "инфосистемы Jet": "Инфосистемы Джет"
+  "Инфосистемы Jet": "Инфосистемы Джет"
+  кубстронавт: Kubestronaut
+  васм: WasmEdge
+  ВАСМ: Wasm
+  Юникернел: unikernel
+  СРВ6: SRv6
+  СЕВ: Sealed Secrets
+  барри-веттал: bare metal
+  бари-метал: bare metal
+
+# Whisper was trained on subtitle files, so on trailing silence it sometimes
+# invents translator credits that were never spoken. Lines matching these are
+# dropped from the end of the transcript.
+hallucinations:
+  - 'Субтитры (подогнал|сделал|создавал)'
+  - 'Редактор субтитров'
+  - 'Корректор'
+  - 'Продолжение следует'
+  - 'Спасибо за просмотр'
+  - 'Подписывайтесь на канал'
+  - '^\s*(ПОКА|Пока)!?\s*$'
+
+# ── How chapters are chosen ─────────────────────────────────────────────────
+chapters:
+  # YouTube's own requirements: at least three, the first at 0:00, each at
+  # least ten seconds long, in ascending order. The pipeline enforces these.
+  min_count: 3
+  min_gap_seconds: 25        # below this a chapter list becomes unreadable
+  target_per_hour: 25        # about one chapter every two or three minutes
+  max_title_chars: 70
+
+  rules: |
+    Каждая глава отмечает СМЕНУ ТЕМЫ, а не смену говорящего. Если один
+    вопрос обсуждают восемь минут — это одна глава, даже если высказались
+    четверо.
+
+    Заголовок главы говорит, О ЧЁМ спорят, а не как это называется. Не
+    «Обсуждение сети», а «Проблемы с сетью — это не Kubernetes, это ядро
+    Linux». Слушатель должен по заголовку понять, стоит ли перематывать
+    сюда.
+
+    Где в разговоре есть конфликт мнений — выноси его в заголовок. Спор
+    интереснее согласия и лучше собирает переходы из поиска.
+
+    Не пиши «Продолжение темы», «Часть 2», «Разное», «Вопросы и ответы» —
+    это пустые заголовки, по ним никто не кликает.
+
+    Первая глава всегда 0:00 и всегда про вступление и знакомство.
+    Последняя — про прощание и призыв писать в комментарии.
+
+    Сохраняй регистр названий продуктов: Kubernetes, etcd, OpenShift,
+    Talos, Argo CD. Никакой транслитерации в заголовках.
+
+# ── The page itself ─────────────────────────────────────────────────────────
+description:
+  # YouTube shows the first ~150 characters in search and above the fold, so
+  # the hook has to carry the episode on its own.
+  hook_max_chars: 300
+  topics_count: [5, 8]
+  hashtags: [kubernetes, devops, sre, кубернетес, подкаст, инфраструктура]
+
+  channel: |
+    Kubernetes Community Podcast — разговоры с практикующими инженерами
+    о Kubernetes, инфраструктуре и облаках.
+
+  host: Тимур Тукаев

@@ -6,6 +6,10 @@ __pycache__/
 # Raw crawl output and the full-text cache: large, regenerable, not review material
 data/
 
+# Episode audio: hundreds of megabytes and reproducible from the recording.
+# Transcripts and the finished page are small and worth keeping.
+episodes/*/audio.wav
+
 # state/ is deliberately NOT ignored: the scheduled runner is a fresh machine
 # every week, so cross-week de-duplication only works if emitted.sqlite and
 # feed_health.json travel with the repo.

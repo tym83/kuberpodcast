@@ -105,6 +105,22 @@ def main() -> int:
         if parent and parent not in policy:
             errors.append(f"repo {repo}: mirror_of points at unknown repo {parent}")
 
+    # episode.yaml drives a separate pipeline but breaks the same way.
+    ep_path = pathlib.Path(__file__).resolve().parent.parent / "sources" / "episode.yaml"
+    if ep_path.exists():
+        import yaml
+        ep = yaml.safe_load(ep_path.read_text(encoding="utf-8")) or {}
+        for pattern in ep.get("hallucinations", []):
+            try:
+                re.compile(pattern, re.I | re.U)
+            except re.error as exc:
+                errors.append(f"episode.hallucinations: bad regex {pattern!r} -> {exc}")
+        ch = ep.get("chapters", {})
+        if ch.get("min_gap_seconds", 25) < 10:
+            errors.append("episode.chapters.min_gap_seconds below YouTube's 10s floor")
+        if not ep.get("whisper", {}).get("model"):
+            errors.append("episode.whisper.model is not set")
+
     comm = config.community()
     subs = comm.get("reddit", {}).get("subreddits", [])
     sub_names = Counter(s["name"] for s in subs)
