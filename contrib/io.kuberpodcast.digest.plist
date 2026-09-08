@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Weekly digest, run from this machine every Friday at 09:00 local time.
+
+  Install:
+    cp contrib/io.kuberpodcast.digest.plist ~/Library/LaunchAgents/
+    # replace REPO_DIR below with the absolute path to your checkout first
+    launchctl bootstrap gui/$(id -u) ~/Library/LaunchAgents/io.kuberpodcast.digest.plist
+
+  Check:    launchctl print gui/$(id -u)/io.kuberpodcast.digest
+  Run now:  launchctl kickstart -k gui/$(id -u)/io.kuberpodcast.digest
+  Remove:   launchctl bootout gui/$(id -u)/io.kuberpodcast.digest
+
+  If the machine is asleep or off at the scheduled time, launchd runs the job
+  once as soon as it wakes.
+-->
+<plist version="1.0">
+<dict>
+  <key>Label</key>
+  <string>io.kuberpodcast.digest</string>
+
+  <key>ProgramArguments</key>
+  <array>
+    <string>REPO_DIR/scripts/run_local.sh</string>
+  </array>
+
+  <key>WorkingDirectory</key>
+  <string>REPO_DIR</string>
+
+  <key>StartCalendarInterval</key>
+  <dict>
+    <key>Weekday</key><integer>5</integer>
+    <key>Hour</key><integer>9</integer>
+    <key>Minute</key><integer>0</integer>
+  </dict>
+
+  <key>StandardOutPath</key>
+  <string>/tmp/kuberpodcast.out.log</string>
+  <key>StandardErrorPath</key>
+  <string>/tmp/kuberpodcast.err.log</string>
+
+  <key>ProcessType</key>
+  <string>Background</string>
+  <key>LowPriorityIO</key>
+  <true/>
+</dict>
+</plist>

@@ -1,0 +1,46 @@
+# Sources with no feed of any kind, read through the public surface they do
+# expose. Each has its own fetcher in digestbot/bridges.py.
+
+# ── Telegram ─────────────────────────────────────────────────────────────────
+# Public channels render a read-only preview at t.me/s/<channel>: server-side
+# HTML with datetimes, no key and no login. A channel post is usually a pointer,
+# so the outbound link becomes the item and the post becomes the discussion link.
+telegram:
+  channels:
+    - {name: devopslib,        title: "DevOps Library",        lang: ru, weight: 3, category: community}
+    - {name: linkmeup_podcast, title: "linkmeup (сети)",       lang: ru, weight: 3, category: community}
+    - {name: bashdays,         title: "bashdays",              lang: ru, weight: 3, category: person}
+    - {name: selectel,         title: "Selectel — Telegram",   lang: ru, weight: 3, category: vendor}
+    - {name: itsumma,          title: "ITSumma — Telegram",    lang: ru, weight: 2, category: vendor}
+    - {name: avitotech,        title: "AvitoTech — Telegram",  lang: ru, weight: 2, category: vendor}
+    - {name: seclabnews,       title: "SecurityLab",           lang: ru, weight: 2, category: media}
+
+# ── Bluesky ──────────────────────────────────────────────────────────────────
+# The AppView read API is public and unauthenticated — the only social surface
+# in this space that still is. X has no public read path and the Nitter
+# instances that used to bridge it are gone; Mastodon accounts publish RSS and
+# belong in feeds.yaml instead.
+bluesky:
+  limit: 30
+  accounts:
+    - {handle: kelseyhightower.com, title: "Kelsey Hightower",   weight: 4, category: person}
+    - {handle: cncf.io,             title: "CNCF — Bluesky",     weight: 3, category: foundation}
+    - {handle: kubernetes.io,       title: "Kubernetes — Bluesky", weight: 4, category: foundation}
+    - {handle: thenewstack.io,      title: "The New Stack — Bluesky", weight: 2, category: media}
+
+# ── Google Groups ────────────────────────────────────────────────────────────
+# Google retired the public RSS endpoints in 2024; the group page still ships
+# its conversation list as a server-rendered data island, which is what the
+# fetcher parses. This is where upstream decisions are argued before anyone
+# writes a blog post about them.
+google_groups:
+  # Verified as still receiving traffic. kubernetes-dev@ is NOT here: its last
+  # thread is from January 2022, when the list announced its own migration.
+  groups:
+    - {name: kubernetes-announce,        title: "kubernetes-announce", weight: 5, category: project}
+    - {name: kubernetes-sig-release,     title: "SIG Release",         weight: 4, category: project}
+    - {name: kubernetes-sig-architecture, title: "SIG Architecture",   weight: 4, category: project}
+    - {name: kubernetes-sig-network,     title: "SIG Network",         weight: 4, category: project}
+    - {name: kubernetes-sig-node,        title: "SIG Node",            weight: 4, category: project}
+    - {name: prometheus-users,           title: "prometheus-users",    weight: 3, category: project}
+    - {name: envoy-users,                title: "envoy-users",         weight: 3, category: project}

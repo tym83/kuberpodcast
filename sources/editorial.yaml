@@ -35,6 +35,7 @@ scoring:
     newsletter_link: 6       # a human curator already picked it
     security: 5
     incident: 5
+    ecosystem: 4            # licensing, access, ownership: action-forcing news
     breaking_change: 4
     benchmark_numbers: 3
     cap: 14
@@ -78,10 +79,12 @@ freshness:
 # `headline` is filled by promotion after everything else and consumes no slots,
 # so the quotas of the remaining sections are what must sum to target_total.
 # Classifier precedence is the order given in `classify_order`.
-classify_order: [incidents, security, releases, nonenglish, ai_infra, ecosystem,
-                 watchlist, longform, community, deep]
+classify_order: [incidents, security, releases, russian, nonenglish, concepts,
+                 research, ai_infra, ecosystem, watchlist, longform, community,
+                 deep]
 
-spill_order: [deep, releases, community, nonenglish, ai_infra, ecosystem]
+spill_order: [deep, releases, community, russian, nonenglish, ai_infra, ecosystem,
+              research]
 no_spill_into: [incidents, security, watchlist, headline]
 
 sections:
@@ -93,24 +96,33 @@ sections:
 
   - key: releases
     title: "Релизы, которые важны"
-    quota: 20
+    quota: 16
     min: 10
 
   - key: deep
     title: "Глубокие технические тексты"
-    quota: 20
+    quota: 12
     min: 10
 
+  # Russian is the show's own language, not a diversity quota: it gets a section
+  # of its own, filled before the English pool so it is never crowded out.
+  - key: russian
+    title: "На русском"
+    quota: 10
+    min: 6
+    protected: true
+    langs: [ru]
+
   - key: nonenglish
-    title: "Не на английском"
-    quota: 12
-    min: 8
-    protected: true          # filled before the English pool, never crowded out
-    sub_quotas: {ru: 5, zh: 4, ja: 1, ko: 1, de: 1}
+    title: "На других языках"
+    quota: 8
+    min: 4
+    protected: true
+    sub_quotas: {zh: 4, ja: 2, ko: 1, de: 1}
 
   - key: community
     title: "Дискуссии"
-    quota: 10
+    quota: 9
     min: 5
 
   - key: security
@@ -120,13 +132,28 @@ sections:
 
   - key: ai_infra
     title: "AI-инфраструктура"
-    quota: 8
+    quota: 7
     min: 3
 
   - key: ecosystem
     title: "Экосистема, деньги и управление"
-    quota: 8
+    quota: 7
     min: 2
+
+  # Papers and academic writing: arXiv, research labs, people who publish
+  # measurements rather than announcements.
+  - key: research
+    title: "Исследования и научные работы"
+    quota: 6
+    min: 2
+
+  # First-principles arguments about infrastructure: someone rethinking
+  # orchestration, or saying what is wrong with operating systems. Supply is
+  # thin most weeks, which is exactly why these must not compete on volume.
+  - key: concepts
+    title: "Переосмысление: как всё устроено и почему не так"
+    quota: 6
+    min: 0
 
   - key: incidents
     title: "Инциденты и постмортемы"
@@ -135,7 +162,7 @@ sections:
 
   - key: watchlist
     title: "Слабые сигналы"
-    quota: 5
+    quota: 3
     min: 2
     inverted_engagement: true   # the least-discussed genuinely novel items surface here
     require_orig: primary
@@ -143,7 +170,7 @@ sections:
 
   - key: longform
     title: "Длинное чтение и доклады"
-    quota: 4
+    quota: 3
     min: 0
     min_words: 4000
 

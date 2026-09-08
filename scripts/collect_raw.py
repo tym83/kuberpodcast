@@ -11,7 +11,7 @@ from datetime import datetime, timezone
 
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent.parent))
 
-from digestbot import collect, config, signals as sig, state  # noqa: E402
+from digestbot import bridges as br, collect, config, signals as sig, state  # noqa: E402
 from digestbot.util import window_bounds  # noqa: E402
 
 
@@ -55,6 +55,14 @@ def main() -> int:
         items += sig.fetch_incidents(sig_cfg.get("incidents", {}), start, end)
     if "governance" not in skip:
         items += sig.fetch_governance(sig_cfg.get("governance", {}), start, end)
+
+    bridge_cfg = config.bridges()
+    if "telegram" not in skip:
+        items += br.fetch_telegram(bridge_cfg.get("telegram", {}), start, end)
+    if "bluesky" not in skip:
+        items += br.fetch_bluesky(bridge_cfg.get("bluesky", {}), start, end)
+    if "groups" not in skip:
+        items += br.fetch_google_groups(bridge_cfg.get("google_groups", {}), start, end)
 
     curated: list[str] = []
     if "newsletters" not in skip:

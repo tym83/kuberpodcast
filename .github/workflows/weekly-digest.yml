@@ -2,8 +2,11 @@ name: Weekly digest
 
 on:
   schedule:
-    # Friday 06:00 UTC = 09:00 MSK. Covers the preceding 7 days.
-    - cron: "0 6 * * 5"
+    # Friday 15:00 UTC. This is the fallback: the primary run happens on the
+    # host machine at 09:00 MSK (scripts/run_local.sh), because Reddit answers
+    # a home IP and blocks datacenter egress. If that run already published a
+    # digest for today, the job below exits without doing anything.
+    - cron: "0 15 * * 5"
   workflow_dispatch:
     inputs:
       days:
@@ -43,7 +46,19 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
 
+      - name: Skip if a digest for today already exists
+        id: guard
+        run: |
+          DATE=$(date -u +%F)
+          if [ -f "digest/$DATE.md" ] && [ "${{ inputs.dry_run }}" != "true" ]; then
+            echo "digest/$DATE.md is already published - the local run got there first"
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "skip=false" >> "$GITHUB_OUTPUT"
+          fi
+
       - name: Restore the full-text cache
+        if: steps.guard.outputs.skip != 'true' 
         uses: actions/cache@v4
         with:
           path: data/textcache
@@ -51,6 +66,7 @@ jobs:
           restore-keys: textcache-
 
       - name: Collect sources
+        if: steps.guard.outputs.skip != 'true'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           REDDIT_CLIENT_ID: ${{ secrets.REDDIT_CLIENT_ID }}
@@ -62,6 +78,7 @@ jobs:
             --out data/raw.json
 
       - name: Build digest
+        if: steps.guard.outputs.skip != 'true'
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
         run: |
@@ -71,6 +88,7 @@ jobs:
             --outdir digest
 
       - name: Upload run artifacts
+        if: steps.guard.outputs.skip != 'true'
         uses: actions/upload-artifact@v4
         with:
           name: digest-run
@@ -80,7 +98,7 @@ jobs:
           retention-days: 30
 
       - name: Commit and merge
-        if: ${{ !inputs.dry_run }}
+        if: ${{ !inputs.dry_run && steps.guard.outputs.skip != 'true' }}
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |

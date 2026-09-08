@@ -17,6 +17,11 @@ from datetime import datetime, timedelta
 
 log = logging.getLogger("digestbot.score")
 
+# Sections whose contents are defined by what the item *is*, not by how well it
+# scored. Filling them with leftovers would make the heading a lie.
+MEANINGFUL_SECTIONS = {"incidents", "security", "ecosystem", "research",
+                       "concepts", "watchlist", "longform", "releases"}
+
 STOPWORDS = {
     "a", "an", "the", "and", "or", "of", "to", "in", "on", "for", "with", "at", "by",
     "from", "as", "is", "are", "was", "were", "be", "been", "it", "its", "that",
@@ -235,6 +240,8 @@ def score_item(item: dict, filters, cfg: dict, start, end, inverted_eng: bool = 
         bonus += b["security"]
     if flags.get("incident"):
         bonus += b["incident"]
+    if flags.get("ecosystem"):
+        bonus += b.get("ecosystem", 0)
     if flags.get("breaking_change"):
         bonus += b["breaking_change"]
     if flags.get("benchmark_numbers"):
@@ -357,8 +364,15 @@ def classify(item: dict, filters, ed: dict) -> str:
         return "incidents"
     if item.get("source_kind") == "release":
         return "releases"
+    if item.get("lang", "en") == "ru":
+        return "russian"
     if item.get("lang", "en") != "en":
         return "nonenglish"
+    if item.get("category") == "concepts" or (
+            filters.concepts and filters.concepts.search(item.get("title", ""))):
+        return "concepts"
+    if item.get("category") == "research" or item.get("domain", "").endswith("arxiv.org"):
+        return "research"
     if filters.ai_hits(text) >= 2:
         return "ai_infra"
     if filters.ecosystem and filters.ecosystem.search(text):
@@ -450,10 +464,11 @@ def select(items: list[dict], ed: dict) -> tuple[list[dict], list[dict]]:
                     continue
                 if not relaxed and it.get("section_key") != key:
                     continue
-                if relaxed and key == "nonenglish" and it.get("lang", "en") == "en":
-                    continue    # the protected bucket is never padded with English
-                if relaxed and it.get("lang", "en") != "en" and key != "nonenglish":
-                    continue    # nor do its members leak out into English sections
+                if relaxed and _protected_mismatch(ed, key, it):
+                    continue    # protected buckets are neither padded nor drained
+                if relaxed and key in MEANINGFUL_SECTIONS and \
+                        it.get("section_key") != key:
+                    continue    # these sections mean something; do not pad them
                 if not admissible(it):
                     continue
                 val = effective(it)
@@ -467,28 +482,29 @@ def select(items: list[dict], ed: dict) -> tuple[list[dict], list[dict]]:
             placed += 1
         return placed
 
-    # 1. Protected non-English first, honouring its language sub-quotas.
-    ne = sections.get("nonenglish")
-    if ne:
-        subs = ne.get("sub_quotas", {})
+    # 1. Protected language buckets first, before the English pool can take
+    #    their candidates. Russian has a section of its own; the rest share one.
+    for key in [s["key"] for s in ed["sections"] if s.get("protected")]:
+        sec = sections[key]
+        subs = sec.get("sub_quotas") or {lang: sec["quota"] for lang in sec.get("langs", [])}
         for lang, sub_quota in sorted(subs.items(), key=lambda kv: -kv[1]):
             pool = [i for i in items
-                    if i.get("section_key") == "nonenglish" and i.get("lang") == lang]
+                    if i.get("section_key") == key and i.get("lang") == lang]
             placed = 0
             while placed < sub_quota:
                 cands = [i for i in pool if i["id"] not in taken and admissible(i)
                          and effective(i) >= threshold]
                 if not cands:
                     break
-                best = max(cands, key=effective)
-                take(best, "nonenglish")
+                take(max(cands, key=effective), key)
                 placed += 1
         # Redistribute the shortfall inside the bucket, never outward.
-        fill("nonenglish", items, ne["quota"] - len(chosen["nonenglish"]))
+        fill(key, items, sec["quota"] - len(chosen[key]))
 
     # 2. Everything else in declaration order.
+    protected = {s["key"] for s in ed["sections"] if s.get("protected")}
     for key in order:
-        if key == "nonenglish":
+        if key in protected:
             continue
         sec = sections[key]
         fill(key, items, sec["quota"])
@@ -525,6 +541,20 @@ def select(items: list[dict], ed: dict) -> tuple[list[dict], list[dict]]:
     log.info("selection: %d items (%s)", len(flat),
              ", ".join(f"{k}={len(v)}" for k, v in ordered))
     return ordered, leftovers
+
+
+def _protected_mismatch(ed: dict, key: str, item: dict) -> bool:
+    """True when spilling this item into `key` would break a language bucket."""
+    lang = item.get("lang", "en")
+    for sec in ed["sections"]:
+        if not sec.get("protected"):
+            continue
+        owned = set(sec.get("langs") or sec.get("sub_quotas", {}))
+        if sec["key"] == key:
+            return lang not in owned          # do not pad the bucket with outsiders
+        if lang in owned:
+            return True                       # nor let its members leak elsewhere
+    return False
 
 
 def _adds_angle(item: dict, siblings: list[dict]) -> bool:

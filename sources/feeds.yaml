@@ -106,7 +106,7 @@ feeds:
 - {id: fastly,          title: "Fastly Blog",                  url: "https://www.fastly.com/blog_rss.xml",                           lang: en, category: vendor, weight: 2}
 - {id: spectrocloud,    title: "Spectro Cloud Blog",           url: "https://www.spectrocloud.com/blog/rss.xml",                  lang: en, category: vendor, weight: 2}
 - {id: giantswarm,      title: "Giant Swarm Blog",             url: "https://www.giantswarm.io/blog/rss.xml",                     lang: en, category: vendor, weight: 2}
-- {id: platform9,       title: "Platform9 Blog",               url: "https://platform9.com/blog/feed/",                           lang: en, category: vendor, weight: 2}
+- {id: platform9,       title: "Platform9 Blog",               url: "https://platform9.com/blog/feed/",                           lang: en, category: vendor, weight: 3}
 - {id: nutanix,         title: "Nutanix Blog",                 url: "https://www.nutanix.com/blog.rssfeed.xml",                       lang: en, category: vendor, weight: 2}
 - {id: harness,         title: "Harness Blog",                 url: "https://www.harness.io/blog/rss.xml",                        lang: en, category: vendor, weight: 2}
 - {id: mirantis,        title: "Mirantis Blog",                url: "https://www.mirantis.com/blog/feed/",                             lang: en, category: vendor, weight: 2}
@@ -483,3 +483,48 @@ feeds:
 - {id: cnblogs,         title: "博客园 (cnblogs) 首页",           url: "https://feed.cnblogs.com/blog/sitehome/rss",                 lang: zh, category: community, weight: 2}
 - {id: solidot,         title: "奇客 Solidot",                   url: "https://www.solidot.org/index.rss",                          lang: zh, category: media, weight: 2}
 - {id: deepin,          title: "deepin (CN distro) News",       url: "https://www.deepin.org/en/feed/",                            lang: en, category: community, weight: 1}
+
+# ── Operating systems and the kernel ─────────────────────────────────
+- {id: fedora-mag,      title: "Fedora Magazine",                url: "https://fedoramagazine.org/feed/",                            lang: en, category: project, weight: 3}
+- {id: opensuse-news,   title: "openSUSE News",                  url: "https://news.opensuse.org/feed.xml",                          lang: en, category: project, weight: 3}
+- {id: arch-news,       title: "Arch Linux News",                url: "https://archlinux.org/feeds/news/",                           lang: en, category: project, weight: 2}
+- {id: alpine-news,     title: "Alpine Linux News",              url: "https://alpinelinux.org/atom.xml",                            lang: en, category: project, weight: 3}
+- {id: almalinux,       title: "AlmaLinux Blog",                 url: "https://almalinux.org/blog/index.xml",                        lang: en, category: project, weight: 3}
+- {id: rockylinux,      title: "Rocky Linux",                    url: "https://rockylinux.org/rss.xml",                              lang: en, category: project, weight: 3}
+- {id: freebsd-news,    title: "FreeBSD News",                   url: "https://www.freebsd.org/news/feed.xml",                       lang: en, category: project, weight: 2}
+- {id: kernel-releases, title: "kernel.org releases",            url: "https://www.kernel.org/feeds/kdist.xml",                      lang: en, category: project, weight: 4}
+
+# ── Virtualization platforms ─────────────────────────────────────────
+- {id: incus-news,      title: "Incus / LXC news",               url: "https://discuss.linuxcontainers.org/c/news/13.rss",           lang: en, category: project, weight: 3}
+- {id: xenproject,      title: "Xen Project Blog",               url: "https://xenproject.org/feed/",                                lang: en, category: project, weight: 3}
+- {id: openinfra-super, title: "Superuser (OpenInfra)",          url: "https://superuser.openinfra.org/feed/",                       lang: en, category: foundation, weight: 3}
+
+# ── Networking ───────────────────────────────────────────────────────
+- {id: cisco-blogs,     title: "Cisco Blogs",                    url: "https://blogs.cisco.com/feed",                                lang: en, category: vendor, weight: 2}
+- {id: netboxlabs,      title: "NetBox Labs",                    url: "https://netboxlabs.com/feed/",                                lang: en, category: vendor, weight: 2}
+- {id: sonic-found,     title: "SONiC Foundation",               url: "https://sonicfoundation.dev/feed/",                           lang: en, category: foundation, weight: 3}
+
+# ── Server hardware, silicon, data centres ───────────────────────────
+- {id: semianalysis,    title: "SemiAnalysis",                   url: "https://semianalysis.com/feed/",                              lang: en, category: media, weight: 4}
+- {id: chipsandcheese,  title: "Chips and Cheese",               url: "https://chipsandcheese.com/feed",                             lang: en, category: media, weight: 3}
+- {id: dcknowledge,     title: "Data Center Knowledge",          url: "https://www.datacenterknowledge.com/rss.xml",                 lang: en, category: media, weight: 3}
+- {id: hpcwire,         title: "HPCwire",                        url: "https://www.hpcwire.com/feed/",                               lang: en, category: media, weight: 3}
+- {id: tomshardware,    title: "Tom's Hardware",                 url: "https://www.tomshardware.com/feeds.xml",                      lang: en, category: media, weight: 1}
+
+# ── Research: papers and academic writing on infrastructure ──────────
+- {id: arxiv-infra,     title: "arXiv — распределённые системы, сети, ОС, производительность", url: "https://rss.arxiv.org/rss/cs.DC+cs.NI+cs.OS+cs.PF", lang: en, category: research, weight: 4}
+- {id: morningpaper,    title: "the morning paper",              url: "https://blog.acolyer.org/feed/",                              lang: en, category: research, weight: 3}
+- {id: msresearch,      title: "Microsoft Research",             url: "https://www.microsoft.com/en-us/research/feed/",              lang: en, category: research, weight: 3}
+- {id: fb-datainfra,    title: "Meta — Data Infrastructure",     url: "https://engineering.fb.com/category/data-infrastructure/feed/", lang: en, category: research, weight: 3}
+- {id: sigplan,         title: "SIGPLAN Blog",                   url: "https://blog.sigplan.org/feed/",                              lang: en, category: research, weight: 2}
+
+# ── Concepts: first-principles essays and talks about infrastructure ─
+# The layer that argues about foundations rather than reporting news —
+# someone rethinking orchestration, or explaining what is wrong with
+# operating systems. Rarely fresh weekly, which is why the section is small.
+- {id: hillelwayne,     title: "Hillel Wayne",                    url: "https://www.hillelwayne.com/index.xml",         lang: en, category: concepts, weight: 4}
+- {id: apenwarr,        title: "apenwarr",                        url: "https://apenwarr.ca/log/rss.php",               lang: en, category: concepts, weight: 4}
+- {id: scatteredthought,title: "Scattered Thoughts (Jamie Brandon)", url: "https://www.scattered-thoughts.net/atom.xml", lang: en, category: concepts, weight: 3}
+- {id: tedinski,        title: "Ted Kaminski",                    url: "https://www.tedinski.com/feed.xml",             lang: en, category: concepts, weight: 3}
+- {id: inkandswitch,    title: "Ink & Switch",                    url: "https://www.inkandswitch.com/index.xml",        lang: en, category: concepts, weight: 3}
+- {id: tonsky,          title: "Nikita Prokopov (tonsky)",        url: "https://tonsky.me/atom.xml",                    lang: en, category: concepts, weight: 3}

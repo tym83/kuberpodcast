@@ -21,7 +21,8 @@ seo_listicle:
 # ── vendor_pr ────────────────────────────────────────────────────────────────
 vendor_pr:
   - '\b(named|recognized|positioned) (a|as) .{0,40}\b(leader|visionary|challenger)\b'
-  - '\b(magic quadrant|forrester wave|gartner peer insights|idc marketscape)\b'
+  # Note: a bare mention of Gartner or Forrester is market news and is NOT
+  # dropped — only the vendor's own victory lap, caught by the rule above.
   - '\b(webinar|register (now|today)|save your seat|reserve your spot|book a demo|free trial)\b'
   - '\b(sign up (today|now)|join us (live|for a)|watch on[- ]demand)\b'
   - '\b(sponsor(ed|ship)?|call for (papers|proposals|speakers)|cfp (is )?(open|closes))\b'
@@ -148,6 +149,13 @@ paywall_body:
   - '\bsubscribe to (read|continue)\b'
   - '\bcreate a free account to (read|continue)\b'
   - '\bthis article is for subscribers\b'
+url_blocklist:
+  # Russian advertising law requires paid placements to carry an erid token,
+  # which makes it the most reliable ad marker available in RU channels.
+  - '[?&]erid='
+  - 'docs\\.google\\.com/forms'
+  - '[?&]utm_medium=(?:cpc|paid|banner)'
+
 not_an_article:
   - '(?<!/releases)/(tag|tags|category|categories|topics?|author|search)/'
   - '/page/\d+/?$'
@@ -163,6 +171,10 @@ tier_a: [kubernetes, k8s, kubelet, kube-apiserver, apiserver, etcd, containerd, 
          "device plugin", "topology manager", cgroup, cgroups, "admission webhook", kyverno,
          gatekeeper, sigstore, cosign, slsa, sbom, "supply chain", postmortem, "root cause",
          outage, "incident review", multi-tenant, multi-tenancy, kubectl, "node pool",
+         vmware, vsphere, esxi, "vcenter", broadcom, nutanix, "hyper-v", "vdi",
+         "virtual machine", "виртуализац", "виртуальн", "миграция с vmware",
+         kubecon, cncf, "graduated project", "incubating project", "sandbox project",
+         "sovereign cloud", "суверенн", "импортозамещ", "on-premises", "on-prem",
          кубернетес, кубернетис, "оркестрация контейнеров", "контейнер", "кластер",
          "кластера", "виртуализац", "отказоустойчив", "мониторинг", "деплой",
          "инфраструктур", "балансировщик", "нагрузк", "миграц",
@@ -175,12 +187,45 @@ tier_b: [postgres, postgresql, cloudnative-pg, kafka, clickhouse, valkey, redis,
          "load balanc", bgp, vxlan, srv6, dpdk, "sr-iov", nixos, "immutable os", gpu, cuda,
          nvlink, infiniband, vllm, sglang, kserve, ray, inference, "kv cache", "model serving",
          "batch scheduling", harbor, registry, "object storage", raft, consensus, "s3",
+         glibc, musl, initramfs, dracut, grub, uefi, "secure boot", apparmor, selinux,
+         btrfs, zfs, xfs, ext4, "dm-crypt", lvm, bootc, ostree, "image mode",
+         "immutable", "atomic host", "long-term support", "kernel release",
+         "network interface", switch, router, "top of rack", spine, leaf, "cable",
+         "power usage", "liquid cooling", "immersion cooling", "rack density",
+         "server hardware", cpu, memory, dram, hbm, ssd, "nvme-of", "smartnic", dpu,
+         licensing, "license change", pricing, "price increase", egress, colocation,
+         "data centre", "цод", "дата-центр", capex, opex, "total cost", "vendor lock",
+         "renewal", "subscription", "perpetual license", "support contract",
          "база данных", "хранилищ", "сеть", "ядро linux", "производительност",
          数据库, 性能, 内核, 网络, 调度, 缓存, 分布式, 高可用,
          データベース, 性能, 分散]
 tier_c: [observability, sre, "platform engineering", devops, "developer experience", "ci/cd",
          "on-call", sla, slo, "error budget", microservices, "distributed systems", benchmark,
          latency, throughput, migration, "open source", governance, license, "infrastructure"]
+
+# Titles that argue with a foundation rather than report on one.
+concept_terms:
+  - "rethink(ing)?"
+  - "reimagin(e|ing)"
+  - "considered harmful"
+  - "the case (for|against)"
+  - "what.?s wrong with"
+  - "why .{0,30} is broken"
+  - "we don.?t need"
+  - "in defen[cs]e of"
+  - "the trouble with"
+  - "a new (approach|model|architecture) (to|for)"
+  - "from first principles"
+  - "was a mistake"
+  - "if we (built|designed|rebuilt) .{0,25} today"
+  - "what .{0,20} got wrong"
+  - "a critique of"
+  - "lessons from \\d+ years"
+  - "the next \\d+ years of"
+  - "переосмысл"
+  - "что не так с"
+  - "почему .{0,30} (сломан|не работает|провалил)"
+  - "заново изобрел"
 
 # ── routing vocabularies ─────────────────────────────────────────────────────
 ai_terms: [gpu, cuda, nvlink, nvidia, vllm, sglang, kserve, kubeflow, ray, inference,
@@ -193,6 +238,10 @@ ecosystem_terms: ['\brelicens', '\bbsl\b', 'business source', '\bsspl\b', 'elast
                   'series [a-e]\b', 'graduat(ed|ion)', 'incubat(ing|ion)', 'sandbox project',
                   'archiv(ed|ing) the project', 'joins the cncf', 'donated to the',
                   'steering committee', 'maintainer(s)? (step|leav|resign)', 'layoffs?',
+                  'cuts? (public )?access', 'restrict(s|ed|ing)? access',
+                  'no longer (public|free|available)', 'moves? behind a (login|paywall)',
+                  'closes? (the )?source', 'source[- ]available', 'price (increase|hike)',
+                  'discontinu(es|ed|ing)', 'deprecat(es|ed|ing) the',
                   'licence change', 'license change', 'trademark']
 incident_terms: ['post[- ]?mortem', 'incident report', 'root cause', '\brca\b', 'outage',
                  'degraded (service|performance)', 'service disruption',
