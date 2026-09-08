@@ -149,6 +149,13 @@ paywall_body:
   - '\bsubscribe to (read|continue)\b'
   - '\bcreate a free account to (read|continue)\b'
   - '\bthis article is for subscribers\b'
+url_blocklist:
+  # Russian advertising law requires paid placements to carry an erid token,
+  # which makes it the most reliable ad marker available in RU channels.
+  - '[?&]erid='
+  - 'docs\\.google\\.com/forms'
+  - '[?&]utm_medium=(?:cpc|paid|banner)'
+
 not_an_article:
   - '(?<!/releases)/(tag|tags|category|categories|topics?|author|search)/'
   - '/page/\d+/?$'

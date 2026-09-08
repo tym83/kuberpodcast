@@ -41,6 +41,10 @@ def signals() -> dict:
     return _load("signals.yaml")
 
 
+def bridges() -> dict:
+    return _load("bridges.yaml")
+
+
 def repo_policy() -> dict:
     """Flatten releases.yaml into repo -> policy, so filters can consult per-repo rules."""
     out: dict[str, dict] = {}
