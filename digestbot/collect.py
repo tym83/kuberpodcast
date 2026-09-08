@@ -302,7 +302,10 @@ def fetch_reddit(cfg: dict, start, end) -> list[dict]:
     # Fallback: public .rss listings. Ordered by score but scores are not exposed,
     # so rank inside the weekly top listing is used as the engagement proxy.
     log.warning("REDDIT_CLIENT_ID/SECRET not set - using public .rss fallback")
-    reddit_delay = float(os.getenv("REDDIT_RSS_DELAY", "6"))
+    # Reddit rate-limits anonymous requests per IP. Ten seconds between
+    # subreddits is slow but collects most of them; the alternative is OAuth,
+    # which lifts the limit and also returns the scores .rss withholds.
+    reddit_delay = float(os.getenv("REDDIT_RSS_DELAY", "10"))
     session = new_session(browser_ua=True)
     consecutive_failures = 0
     total_failures = 0
@@ -310,12 +313,12 @@ def fetch_reddit(cfg: dict, start, end) -> list[dict]:
         # Reddit rate-limits anonymous datacenter traffic hard; pace slowly and
         # back off on 429 rather than losing the whole subreddit.
         r = None
-        for attempt in range(2):
+        for attempt in range(3):
             r = get(session, f"https://www.reddit.com/r/{sub['name']}/top/.rss",
                     params={"t": "week"}, timeout=20, retries=0)
             if r is not None and r.status_code == 200:
                 break
-            time.sleep(4 * (attempt + 1))
+            time.sleep(6 * (attempt + 1))
             r = None
         if r is None:
             consecutive_failures += 1
@@ -323,7 +326,7 @@ def fetch_reddit(cfg: dict, start, end) -> list[dict]:
             log.warning("reddit r/%s rss unavailable after retries", sub["name"])
             # Reddit blocks datacenter egress wholesale rather than per-subreddit.
             # Once that is clear, stop burning minutes on the remaining listings.
-            if consecutive_failures >= 4 or total_failures >= 10:
+            if consecutive_failures >= 6 or total_failures >= 14:
                 log.error("reddit unreachable from this host - skipping the remaining "
                           "%d subreddits; set REDDIT_CLIENT_ID/REDDIT_CLIENT_SECRET "
                           "to use the API instead", len(subs) - subs.index(sub) - 1)
