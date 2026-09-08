@@ -1,0 +1,17 @@
+{
+  "name": "kubernetes-community-podcast-kit",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Графика и заставки подкаста Kubernetes Community Podcast: всё рисуется кодом на canvas",
+  "scripts": {
+    "images": "node tools/render-images.js",
+    "video": "node tools/render-video.js kids",
+    "video:noir": "node tools/render-video.js styles noir",
+    "video:garage": "node tools/render-video.js styles garage",
+    "video:postpunk": "node tools/render-video.js styles postpunk",
+    "smoke": "node tools/render-video.js kids --frames 20"
+  },
+  "devDependencies": {
+    "playwright": "^1.47.0"
+  }
+}
