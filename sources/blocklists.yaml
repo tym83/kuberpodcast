@@ -203,6 +203,30 @@ tier_c: [observability, sre, "platform engineering", devops, "developer experien
          "on-call", sla, slo, "error budget", microservices, "distributed systems", benchmark,
          latency, throughput, migration, "open source", governance, license, "infrastructure"]
 
+# Titles that argue with a foundation rather than report on one.
+concept_terms:
+  - "rethink(ing)?"
+  - "reimagin(e|ing)"
+  - "considered harmful"
+  - "the case (for|against)"
+  - "what.?s wrong with"
+  - "why .{0,30} is broken"
+  - "we don.?t need"
+  - "in defen[cs]e of"
+  - "the trouble with"
+  - "a new (approach|model|architecture) (to|for)"
+  - "from first principles"
+  - "was a mistake"
+  - "if we (built|designed|rebuilt) .{0,25} today"
+  - "what .{0,20} got wrong"
+  - "a critique of"
+  - "lessons from \\d+ years"
+  - "the next \\d+ years of"
+  - "переосмысл"
+  - "что не так с"
+  - "почему .{0,30} (сломан|не работает|провалил)"
+  - "заново изобрел"
+
 # ── routing vocabularies ─────────────────────────────────────────────────────
 ai_terms: [gpu, cuda, nvlink, nvidia, vllm, sglang, kserve, kubeflow, ray, inference,
            "kv cache", "model serving", mig, dra, "device plugin", llm, "training cluster",

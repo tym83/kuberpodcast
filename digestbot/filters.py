@@ -79,6 +79,7 @@ class Filters:
         self.security = compile_list(cfg.get("security_terms"))
         self.breaking = compile_list(cfg.get("breaking_terms"))
         self.benchmark = compile_list(cfg.get("benchmark_terms"))
+        self.concepts = compile_list(cfg.get("concept_terms"))
         self.comment_banned = compile_list(cfg.get("comment_banned"))
 
     # ── term counting ────────────────────────────────────────────────────────

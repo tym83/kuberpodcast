@@ -20,7 +20,7 @@ log = logging.getLogger("digestbot.score")
 # Sections whose contents are defined by what the item *is*, not by how well it
 # scored. Filling them with leftovers would make the heading a lie.
 MEANINGFUL_SECTIONS = {"incidents", "security", "ecosystem", "research",
-                       "watchlist", "longform", "releases"}
+                       "concepts", "watchlist", "longform", "releases"}
 
 STOPWORDS = {
     "a", "an", "the", "and", "or", "of", "to", "in", "on", "for", "with", "at", "by",
@@ -368,6 +368,9 @@ def classify(item: dict, filters, ed: dict) -> str:
         return "russian"
     if item.get("lang", "en") != "en":
         return "nonenglish"
+    if item.get("category") == "concepts" or (
+            filters.concepts and filters.concepts.search(item.get("title", ""))):
+        return "concepts"
     if item.get("category") == "research" or item.get("domain", "").endswith("arxiv.org"):
         return "research"
     if filters.ai_hits(text) >= 2:

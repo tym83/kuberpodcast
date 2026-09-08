@@ -517,3 +517,14 @@ feeds:
 - {id: msresearch,      title: "Microsoft Research",             url: "https://www.microsoft.com/en-us/research/feed/",              lang: en, category: research, weight: 3}
 - {id: fb-datainfra,    title: "Meta — Data Infrastructure",     url: "https://engineering.fb.com/category/data-infrastructure/feed/", lang: en, category: research, weight: 3}
 - {id: sigplan,         title: "SIGPLAN Blog",                   url: "https://blog.sigplan.org/feed/",                              lang: en, category: research, weight: 2}
+
+# ── Concepts: first-principles essays and talks about infrastructure ─
+# The layer that argues about foundations rather than reporting news —
+# someone rethinking orchestration, or explaining what is wrong with
+# operating systems. Rarely fresh weekly, which is why the section is small.
+- {id: hillelwayne,     title: "Hillel Wayne",                    url: "https://www.hillelwayne.com/index.xml",         lang: en, category: concepts, weight: 4}
+- {id: apenwarr,        title: "apenwarr",                        url: "https://apenwarr.ca/log/rss.php",               lang: en, category: concepts, weight: 4}
+- {id: scatteredthought,title: "Scattered Thoughts (Jamie Brandon)", url: "https://www.scattered-thoughts.net/atom.xml", lang: en, category: concepts, weight: 3}
+- {id: tedinski,        title: "Ted Kaminski",                    url: "https://www.tedinski.com/feed.xml",             lang: en, category: concepts, weight: 3}
+- {id: inkandswitch,    title: "Ink & Switch",                    url: "https://www.inkandswitch.com/index.xml",        lang: en, category: concepts, weight: 3}
+- {id: tonsky,          title: "Nikita Prokopov (tonsky)",        url: "https://tonsky.me/atom.xml",                    lang: en, category: concepts, weight: 3}

@@ -79,8 +79,9 @@ freshness:
 # `headline` is filled by promotion after everything else and consumes no slots,
 # so the quotas of the remaining sections are what must sum to target_total.
 # Classifier precedence is the order given in `classify_order`.
-classify_order: [incidents, security, releases, russian, nonenglish, research,
-                 ai_infra, ecosystem, watchlist, longform, community, deep]
+classify_order: [incidents, security, releases, russian, nonenglish, concepts,
+                 research, ai_infra, ecosystem, watchlist, longform, community,
+                 deep]
 
 spill_order: [deep, releases, community, russian, nonenglish, ai_infra, ecosystem,
               research]
@@ -95,12 +96,12 @@ sections:
 
   - key: releases
     title: "Релизы, которые важны"
-    quota: 18
+    quota: 16
     min: 10
 
   - key: deep
     title: "Глубокие технические тексты"
-    quota: 16
+    quota: 12
     min: 10
 
   # Russian is the show's own language, not a diversity quota: it gets a section
@@ -145,6 +146,14 @@ sections:
     title: "Исследования и научные работы"
     quota: 6
     min: 2
+
+  # First-principles arguments about infrastructure: someone rethinking
+  # orchestration, or saying what is wrong with operating systems. Supply is
+  # thin most weeks, which is exactly why these must not compete on volume.
+  - key: concepts
+    title: "Переосмысление: как всё устроено и почему не так"
+    quota: 6
+    min: 0
 
   - key: incidents
     title: "Инциденты и постмортемы"

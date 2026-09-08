@@ -19,7 +19,7 @@ VALID_LANGS = {"en", "ru", "zh", "ja", "ko", "de", "fr", "es", "pt", "pl",
                "nl", "it", "tr", "multi"}
 VALID_CATEGORIES = {"foundation", "project", "vendor", "cloud", "media",
                     "newsletter", "person", "community", "security", "incident",
-                    "research"}
+                    "research", "concepts"}
 
 
 def main() -> int:
