@@ -83,7 +83,31 @@ def deduplicate(items: list[dict]) -> list[dict]:
                 _merge(primary, other)
         out.append(primary)
 
-    log.info("dedup: %d raw -> %d unique by canonical URL", len(items), len(out))
+    before = len(out)
+    out = _collapse_identical_titles(out)
+    log.info("dedup: %d raw -> %d unique (%d collapsed by title)",
+             len(items), len(out), before - len(out))
+    return out
+
+
+def _collapse_identical_titles(items: list[dict]) -> list[dict]:
+    """Same normalised title from the same source is the same thing said twice —
+    GitHub issue feeds in particular repeat a title across separate issues."""
+    from .score import norm_title
+
+    seen: dict[tuple[str, str], dict] = {}
+    out = []
+    for it in items:
+        key = (it.get("source_id", ""), norm_title(it.get("title", "")))
+        if not key[1]:
+            out.append(it)
+            continue
+        first = seen.get(key)
+        if first is None:
+            seen[key] = it
+            out.append(it)
+        else:
+            _merge(first, it)
     return out
 
 

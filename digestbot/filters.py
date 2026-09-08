@@ -23,6 +23,26 @@ PR_CTA = re.compile(r"/(pricing|demo|signup|sign-up|contact-sales|get-started|tr
 MOJIBAKE = re.compile(r"Ð[°-¿]|Ñ[\x80-\xbf]|â€|ï¿½")
 
 
+SHORT_TERM = 5
+
+
+def _term_matchers(terms: list[str]) -> list:
+    """Short terms need word boundaries; long ones are cheaper as substrings.
+
+    Without this, `mig` matches "migration" and `dra` matches "dramatically",
+    so any post about migrating anything counted as two AI-infrastructure hits
+    and was routed into that section.
+    """
+    out = []
+    for raw_term in terms:
+        t = str(raw_term).lower()
+        if len(t) < SHORT_TERM or not t.replace("-", "").replace(" ", "").isalnum():
+            out.append(re.compile(rf"(?<!\w){re.escape(t)}(?!\w)", re.I | re.U))
+        else:
+            out.append(t)
+    return out
+
+
 def compile_list(patterns) -> re.Pattern | None:
     if not patterns:
         return None
@@ -50,10 +70,10 @@ class Filters:
         self.paywall_body = compile_list(cfg.get("paywall_body"))
         self.not_article = compile_list(cfg.get("not_an_article"))
 
-        self.tier_a = [t.lower() for t in cfg.get("tier_a", [])]
-        self.tier_b = [t.lower() for t in cfg.get("tier_b", [])]
-        self.tier_c = [t.lower() for t in cfg.get("tier_c", [])]
-        self.ai_terms = [t.lower() for t in cfg.get("ai_terms", [])]
+        self.tier_a = _term_matchers(cfg.get("tier_a", []))
+        self.tier_b = _term_matchers(cfg.get("tier_b", []))
+        self.tier_c = _term_matchers(cfg.get("tier_c", []))
+        self.ai_terms = _term_matchers(cfg.get("ai_terms", []))
         self.ecosystem = compile_list(cfg.get("ecosystem_terms"))
         self.incident = compile_list(cfg.get("incident_terms"))
         self.security = compile_list(cfg.get("security_terms"))
@@ -63,8 +83,9 @@ class Filters:
 
     # ── term counting ────────────────────────────────────────────────────────
     @staticmethod
-    def _count(terms: list[str], text: str) -> int:
-        return sum(1 for t in terms if t in text)
+    def _count(terms, text: str) -> int:
+        return sum(1 for t in terms if (t.search(text) if hasattr(t, "search")
+                                        else t in text))
 
     def tier_hits(self, text: str) -> tuple[int, int, int]:
         t = text.lower()
@@ -273,6 +294,8 @@ def screen(item: dict, f: Filters, repo_cfg: dict, ed: dict) -> tuple[str | None
         flags["breaking_change"] = True
     if f.benchmark and f.benchmark.search(text) and re.search(r"\d", text):
         flags["benchmark_numbers"] = True
+    if f.ecosystem and f.ecosystem.search(f"{title}\n{body[:1200]}"):
+        flags["ecosystem"] = True
     return None, flags
 
 

@@ -239,7 +239,19 @@ def render_short(sections, meta: dict, count: int = 15) -> str:
         if len(line) > 200:
             line = line[:197].rstrip() + "…"
         url = item.get("canonical_url") or item["url"]
-        out.append(f"{n}. **[{_clean_title(item['title'])}]({url})** — {line}")
+        # Whose material this is matters as much as the headline when the list
+        # is read aloud or pasted into show notes.
+        source = item.get("source_title") or item.get("source_id") or ""
+        domain = item.get("domain") or ""
+        if source and domain and domain.split(".")[0].lower() not in source.lower():
+            source = f"{source} · {domain}"
+        elif not source:
+            source = domain
+        lang = item.get("lang", "en")
+        if lang not in ("en", "ru"):
+            source += f" · {LANG_LABEL.get(lang, lang.upper())}"
+        out.append(f"{n}. **[{_clean_title(item['title'])}]({url})**  \n"
+                   f"   <sub>{source}</sub> — {line}")
     out.append("")
     return "\n".join(out)
 
