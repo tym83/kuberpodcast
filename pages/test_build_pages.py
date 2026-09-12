@@ -5,6 +5,7 @@ from pathlib import Path
 import tempfile
 import unittest
 from urllib.parse import unquote, urljoin, urlsplit
+import xml.etree.ElementTree as etree
 
 from scripts.build_pages import build, discover_weeks, render_markdown
 
@@ -166,6 +167,70 @@ literal: <script>alert(1)</script>
             if "href" in attrs:
                 self.assertEqual(urlsplit(attrs["href"]).scheme, "https")
         self.assertIn("<sub>source</sub>", rendered)
+
+    def test_news_fields_are_separate_without_losing_inline_content(self):
+        rendered = render_markdown('''## Раздел
+
+### 1. Новость
+`release` · Источник · **[example.org](https://example.org/story)**
+**Что внутри:** Текст с `kubectl get pods` и [ссылкой](https://example.org/details).
+**Почему важно:** Не терять **выделение** и русский текст.
+**Подкаст-угол:** Обсудить обновление.
+`теги: k8s, release` · `score 77`
+
+Обычный абзац
+с переносом.
+
+```text
+**Почему важно:** это код
+### 2. Это тоже код
+```
+
+### 2. Следующая новость
+`blog` · Другой источник
+**Что внутри:** Второй материал.
+**Почему важно:** Другое последствие.
+
+## Следующий раздел
+
+Отдельный текст.
+''')
+        root = etree.fromstring(f"<div>{rendered}</div>")
+        entries = root.findall("section")
+        self.assertEqual(len(entries), 2)
+        first = entries[0]
+        fields = {p.get("class"): p for p in first.findall("p") if p.get("class")}
+        self.assertEqual(set(fields), {"news-meta", "news-body", "news-impact", "news-angle", "news-footer"})
+        self.assertEqual(fields["news-meta"].find("strong/a").get("href"), "https://example.org/story")
+        self.assertEqual(fields["news-body"].find("code").text, "kubectl get pods")
+        self.assertEqual(fields["news-body"].find("a").get("href"), "https://example.org/details")
+        self.assertIn("выделение", "".join(fields["news-impact"].itertext()))
+        self.assertIn("score 77", "".join(fields["news-footer"].itertext()))
+        self.assertIn("Обычный абзац\nс переносом.", "".join(first.itertext()))
+        self.assertEqual(first.find("pre/code").text,
+                         "**Почему важно:** это код\n### 2. Это тоже код\n")
+        self.assertEqual(root[-1].text, "Отдельный текст.")
+        self.assertEqual(entries[1].find("h3").get("id"), "2-следующая-новость")
+
+    def test_issue_statistics_remain_available(self):
+        rendered = render_markdown("# Выпуск\n\nОкно: неделя · собрано 200 материалов\n\n## Новости")
+        root = etree.fromstring(f"<div>{rendered}</div>")
+        details = root.find("details")
+        self.assertEqual(details.get("class"), "issue-details")
+        self.assertIn("Сводка выпуска", details.find("summary").text)
+        self.assertIn("собрано 200 материалов", details.find("p").text)
+
+    def test_excerpt_asterisks_do_not_consume_the_next_field(self):
+        rendered = render_markdown('''### 1. Consul
+`release` · Источник
+**Что внутри:** Настройка Proxy.Upstreams[*].Config.
+**Почему важно:** Исправляет права.
+**Подкаст-угол:** Обсудить обновление.
+''')
+        root = etree.fromstring(f"<div>{rendered}</div>")
+        entry = root.find("section")
+        self.assertIn("Proxy.Upstreams[*].Config.", "".join(entry.itertext()))
+        self.assertEqual(entry.find("p[@class='news-impact']/strong").text, "Почему важно:")
 
     def test_rebuild_is_deterministic_and_removes_stale_views(self):
         self.write("2026-09-11.md")
