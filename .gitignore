@@ -3,6 +3,9 @@
 __pycache__/
 *.pyc
 
+# Generated GitHub Pages site
+_site/
+
 # Raw crawl output and the full-text cache: large, regenerable, not review material
 data/
 

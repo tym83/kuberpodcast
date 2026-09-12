@@ -33,6 +33,27 @@ python -m venv .venv && ./.venv/bin/pip install -r requirements.txt
 Готовые дайджесты лежат в [`digest/`](digest/). Каждую неделю туда автоматически
 добавляется новый файл `digest/<дата>.md`.
 
+## Web archive
+
+Weekly digests are available as a human-readable GitHub Pages archive:
+
+https://opsmon.github.io/kuberpodcast/
+
+Build and check the archive locally (no news collection or API credentials needed):
+
+```bash
+python -m venv .venv
+./.venv/bin/pip install -r requirements-pages.txt
+./.venv/bin/python -m unittest discover -s pages -p 'test_*.py' -v
+./.venv/bin/python scripts/build_pages.py --input digest --output _site
+```
+
+Open `_site/index.html` in a browser. Relative links also work under `/kuberpodcast/`.
+The `Pages` workflow deploys changes on `main`, and also runs after a successful
+`Weekly digest` workflow because its `GITHUB_TOKEN` push cannot trigger another
+push workflow. Enable **Settings → Pages → Build and deployment → Source:
+GitHub Actions** once after merging.
+
 ## Что внутри дайджеста
 
 | Файл | Что это |
