@@ -156,8 +156,13 @@ def document(title: str, body: str, root: str = "") -> str:
       <span>Kuberpodcast</span>
     </a>
     <p>Kubernetes / DevOps Weekly Digest</p>
+    <img class="float float-cloud" src="{root}objects/cloud.svg" alt="" aria-hidden="true">
+    <img class="float float-rocket" src="{root}objects/rocket.svg" alt="" aria-hidden="true">
+    <img class="float float-gear" src="{root}objects/gear.svg" alt="" aria-hidden="true">
   </header>
+  <span class="rule" aria-hidden="true"></span>
   <main id="main">{body}</main>
+  <span class="rule" aria-hidden="true"></span>
   <footer>Weekly reading for the Kubernetes &amp; DevOps community.</footer>
 </body>
 </html>
@@ -179,7 +184,10 @@ def archive(source: Path, weeks: list[date]) -> str:
              f'<p class="eyebrow" id="latest">Latest / Свежий выпуск</p><h1>{time_tag(latest)}</h1>'
              '<p class="latest-note" lang="ru">Что произошло в инфраструктуре — '
              'и почему это важно для тех, кто её строит.</p>'
-             f'{archive_links(source, latest)}</section>', '<h2>Archive</h2>']
+             f'{archive_links(source, latest)}'
+             '<img class="sticker" src="objects/db.svg" alt="" aria-hidden="true">'
+             '</section>',
+             '<h2 class="with-mark">Archive</h2>']
     current_year = None
     for week in weeks:
         if week.year != current_year:
@@ -237,6 +245,11 @@ def build(source: Path, output: Path) -> int:
         destination.write_text(content, encoding="utf-8")
     shutil.copyfile(STYLE, output / "style.css")
     shutil.copyfile(STYLE.with_name("brand-mark.svg"), output / "brand-mark.svg")
+    # The brand objects, exported from the kit that draws the openers. Copied
+    # wholesale so adding one to the kit needs no change here.
+    objects = STYLE.with_name("objects")
+    if objects.is_dir():
+        shutil.copytree(objects, output / "objects", dirs_exist_ok=True)
     # Remove obsolete generated views on rebuild, never unrelated output files.
     for path in (output / "weeks").glob("*/**/index.html"):
         relative = path.relative_to(output)
