@@ -145,3 +145,46 @@ footer { color: var(--muted); font-size: 0.75rem; padding: 24px 0 40px; border-t
     --shadow: #101710;
   }
 }
+
+/* ── Brand objects ─────────────────────────────────────────────────────────
+   The kit's own drawings, exported from the code that draws the openers:
+   arts/podcast-kit → `node tools/export-svg.js` → pages/objects/. Keeping one
+   source means the site cannot drift away from the video. Everything here is
+   decoration: each element is aria-hidden and carries no meaning a reader
+   needs. */
+
+.site-header { position: relative; padding-top: 18px; border-bottom: 0; }
+
+/* The opener drifts objects across the screen; the header borrows three of
+   them, faint enough never to compete with the wordmark. */
+.float { position: absolute; pointer-events: none; }
+.float-cloud  { width: 116px; top: 4px;  right: 18px;  transform: rotate(-4deg); opacity: .55; }
+.float-rocket { width: 50px;  top: 86px; right: 190px; transform: rotate(12deg); opacity: .4; }
+.float-gear   { width: 42px;  top: 22px; right: 156px; transform: rotate(-9deg); opacity: .35; }
+
+/* A straight line is the one thing this brand never draws. */
+.site-footer, footer { border-top: 0; }
+.rule { display: block; width: 100%; height: 12px; margin: 24px 0; border: 0;
+        background: center / 100% 100% no-repeat url("objects/rule.svg"); }
+
+/* An object instead of a bullet on a section heading. */
+h2.with-mark { display: flex; align-items: center; gap: 14px; }
+h2.with-mark::before { content: ""; width: 38px; height: 38px; flex: none;
+  background: center / contain no-repeat url("objects/terminal.svg"); }
+
+/* Parked on the card like a sticker, the way the openers leave an object. */
+.latest { position: relative; overflow: visible; }
+.latest .sticker { position: absolute; width: 72px; right: 22px; bottom: -30px;
+  transform: rotate(8deg); pointer-events: none; }
+
+@media (max-width: 640px) {
+  .float-rocket, .float-gear { display: none; }
+  .float-cloud { width: 74px; opacity: .35; }
+  .latest .sticker { width: 54px; right: 12px; bottom: -22px; }
+}
+
+/* The drawings are dark ink on paper; on a dark ground they need lifting. */
+@media (prefers-color-scheme: dark) {
+  .float, .latest .sticker { filter: invert(1) hue-rotate(180deg); opacity: .3; }
+  .rule, h2.with-mark::before { filter: invert(1) hue-rotate(180deg); }
+}
