@@ -36,6 +36,7 @@ const ASSETS = [
   { n: 'instagram_story_1080x1920', w: 1080, h: 1920, bw: 1080, bh: 1920, layout: 'story'  },
   { n: 'episode_cover_1280x720',    w: 1280, h:  720, bw: 1280, bh:  720, layout: 'epcover'},
   { n: 'episode_square_1080',       w: 1080, h: 1080, bw: 1080, bh: 1080, layout: 'epsquare'},
+  { n: 'episode_podcast_3000',      w: 3000, h: 3000, bw: 1080, bh: 1080, layout: 'epsquare'},
 ];
 
 const argv = process.argv.slice(2);

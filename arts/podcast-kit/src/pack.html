@@ -350,16 +350,16 @@ epsquare(w,h,o){                   /* 1080x1080 обложка выпуска п
   let cap=capMax;
   while(cap>capMin && lines.some(L=>textW(L,cap,cap*0.17)>maxW)) cap-=2;
   const lead=cap*1.42;
-  lines.forEach((L,i)=>drawText(L,w/2,250+i*lead,cap,
+  lines.forEach((L,i)=>drawText(L,w/2,268+i*lead,cap,
     {seed:400+i*100,lw:Math.max(5,Math.round(cap/9.8)),shadow:'#4D96FF',track:cap*0.17}));
-  const under=250+(lines.length-1)*lead+cap*0.34;
+  const under=268+(lines.length-1)*lead+cap*0.34;
   squiggle(w/2-170,under,w/2+170,under+26,'#FFB627',12);
   drawText('KUBERNETES COMMUNITY PODCAST',w/2,under+92,26,{seed:600,lw:4,ink:'#3C6E60',track:6});
   const HP=(o&&o.hostpos)?o.hostpos:[
-    {k:'timur', x:168, y:1086, h:300, r:-4},
-    {k:'sergey',x:412, y:1080, h:332, r:3},
-    {k:'artem', x:676, y:1088, h:308, r:-3},
-    {k:'yulia', x:930, y:1082, h:284, r:4},
+    {k:'timur', x:166, y:1088, h:342, r:-4},
+    {k:'sergey',x:414, y:1082, h:378, r:3},
+    {k:'artem', x:680, y:1090, h:352, r:-3},
+    {k:'yulia', x:934, y:1084, h:324, r:4},
   ];
   HP.forEach(p=>host(p.k,p.x,p.y,p.h,p.r,p.flip));
   ctx.save();ctx.translate(952,132);ctx.rotate(0.08);
