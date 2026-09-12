@@ -25,7 +25,6 @@ on:
 
 permissions:
   contents: write
-  pull-requests: write
 
 concurrency:
   group: weekly-digest
@@ -97,35 +96,31 @@ jobs:
             data/*.json
           retention-days: 30
 
-      - name: Commit and merge
+      - name: Commit and push
         if: ${{ !inputs.dry_run && steps.guard.outputs.skip != 'true' }}
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           set -euo pipefail
           if [ -z "$(git status --porcelain digest)" ]; then
             echo "No new digest produced - nothing to commit."
             exit 0
           fi
-          FILE=$(git status --porcelain digest | awk '{print $NF}' | head -1)
+          # Match the dated file, not whatever git happens to list first:
+          # README.md sorts ahead of it and used to name the commit "README".
+          FILE=$(git status --porcelain digest | awk '{print $NF}' \
+                 | grep -E '[0-9]{4}-[0-9]{2}-[0-9]{2}\.md$' | head -1)
           DATE=$(basename "$FILE" .md)
-          BRANCH="digest/$DATE-${GITHUB_RUN_ID}"
 
           git config user.name  "kuberpodcast-bot"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git checkout -b "$BRANCH"
           # state/ travels with the repo: the runner is new every week, so
           # cross-week de-duplication depends on it being committed.
           git add digest state
           git commit --signoff -m "chore(digest): weekly digest $DATE" \
                                 -m "Automated run of the weekly collector over the preceding 7 days."
-          git push origin "$BRANCH"
 
-          PR_URL=$(gh pr create \
-            --base main --head "$BRANCH" \
-            --title "chore(digest): weekly digest $DATE" \
-            --body "Automated weekly digest for \`$DATE\`, produced by \`.github/workflows/weekly-digest.yml\`.")
-
-          # Merged straight away: the digest is append-only and reviewed after the fact.
-          gh pr merge "$PR_URL" --squash --delete-branch \
-            || gh pr merge "$PR_URL" --squash --delete-branch --admin
+          # Straight to main. The digest is append-only generated content that
+          # was merged unreviewed anyway, and opening a pull request needs the
+          # repository to let Actions create one - a permission it withholds,
+          # which is what silently stranded the 2026-09-11 run on a branch.
+          git pull --rebase origin main
+          git push origin HEAD:main
