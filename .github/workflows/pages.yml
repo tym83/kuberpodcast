@@ -1,0 +1,64 @@
+name: Pages
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'digest/**'
+      - 'scripts/build_pages.py'
+      - 'pages/**'
+      - 'requirements-pages.txt'
+      - '.github/workflows/pages.yml'
+  workflow_dispatch:
+  # The fallback pushes with GITHUB_TOKEN, which cannot trigger push workflows.
+  # Observe its completion without changing the existing generation pipeline.
+  workflow_run:
+    workflows: [Weekly digest]
+    types: [completed]
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    if: >-
+      github.ref == 'refs/heads/main' &&
+      (github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          # The weekly run's head_sha predates the digest commit it pushes.
+          ref: main
+          persist-credentials: false
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: requirements-pages.txt
+      - run: pip install -r requirements-pages.txt
+      - run: python -m unittest discover -s pages -p 'test_*.py' -v
+      - run: python scripts/build_pages.py --input digest --output _site
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v5
