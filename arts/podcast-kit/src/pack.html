@@ -152,7 +152,7 @@ const G={
  'D':{w:0.98,s:[[[0.13,0],[0.12,1]],[[0.13,0.01],[0.62,0.07],[0.88,0.42],[0.72,0.87],[0.12,1]]]},
  'E':{w:0.88,s:[[[0.16,0],[0.13,1]],[[0.16,0.02],[0.86,0.0]],[[0.15,0.5],[0.72,0.47]],[[0.13,1],[0.87,0.97]]]},
  'H':{w:1.00,s:[[[0.14,0],[0.13,1]],[[0.87,0],[0.86,1]],[[0.14,0.53],[0.87,0.5]]]},
- 'I':{w:0.34,s:[[[0.5,0],[0.47,1]]]},
+ 'I':{w:0.52,s:[[[0.5,0.03],[0.47,0.98]],[[0.24,0.02],[0.76,0.0]],[[0.22,1],[0.78,0.98]]]},
  'K':{w:0.95,s:[[[0.15,0],[0.14,1]],[[0.88,0.02],[0.17,0.56]],[[0.32,0.45],[0.92,1]]]},
  'M':{w:1.18,s:[[[0.06,1],[0.15,0],[0.5,0.64],[0.85,0],[0.94,1]]]},
  'N':{w:1.02,s:[[[0.13,1],[0.14,0],[0.87,1],[0.86,0]]]},
@@ -189,7 +189,17 @@ const G={
 };
 const ALIAS={'К':'K','Е':'E','Ё':'E','Т':'T','С':'C','Р':'P','Н':'H','О':'O','А':'A','М':'M','Х':'X'};
 function gl(ch){return G[ch]||G[ALIAS[ch]]||G[' '];}
-function textW(str,cap,track){let t=0;for(const ch of str)t+=gl(ch).w*cap+track;return t-track;}
+/* Кернинг: поправка к просвету для конкретной пары букв, в долях кегля.
+   Ровный трекинг разваливает короткие сочетания — «AI» читается как два
+   несвязанных знака, пока их не стянуть. Ширину строки считаем с той же
+   поправкой, иначе центрирование уедет. */
+const KERN={'AI':-0.05,'AV':-0.12,'AY':-0.12,'AT':-0.10,'TA':-0.10,'LT':-0.08,'С ':0.50,'C ':0.50};
+function kern(a,b){return (KERN[a+b]||0);}
+function textW(str,cap,track){
+  const A=[...str];let t=0;
+  A.forEach((ch,i)=>{t+=gl(ch).w*cap+track+(i+1<A.length?kern(ch,A[i+1])*cap:0);});
+  return t-track;
+}
 function drawText(str,cx,cy,cap,opt){
   opt=opt||{};
   const track=opt.track!==undefined?opt.track:cap*0.16;
@@ -213,7 +223,7 @@ function drawText(str,cx,cy,cap,opt){
       });
       ctx.restore();
     }
-    x+=g.w*cap+track;
+    x+=g.w*cap+track+kern(ch,[...str][i+1]||'')*cap;
   });
 }
 function drawPoop(cx,cy,S,sd,ink,glow,fill){
@@ -361,7 +371,9 @@ epsquare(w,h,o){                   /* 1080x1080 обложка выпуска п
     {k:'artem', x:680, y:1090, h:352, r:-3},
     {k:'yulia', x:934, y:1084, h:324, r:4},
   ];
-  HP.forEach(p=>host(p.k,p.x,p.y,p.h,p.r,p.flip));
+  /* Состав приходит снаружи: позиции в макете постоянны, люди меняются. */
+  const KEYS=(o&&o.hosts&&o.hosts.length)?o.hosts:null;
+  HP.forEach((p,i)=>host(KEYS?(KEYS[i]||p.k):p.k,p.x,p.y,p.h,p.r,p.flip));
   ctx.save();ctx.translate(952,132);ctx.rotate(0.08);
   paint(blobPts(0,0,84,13,700,5),true,'#FF5A5F',700,{lw:9});
   drawText('#'+num,0,20,44,{seed:800,lw:6,ink:'#FFF7E8',track:7});ctx.restore();
@@ -391,7 +403,9 @@ epcover(w,h,o){                    /* 1280x720 обложка выпуска с 
     {k:'artem', x:800, y:730, h:326, r:-3},
     {k:'yulia', x:1105,y:724, h:300, r:4},
   ];
-  HP.forEach(p=>host(p.k,p.x,p.y,p.h,p.r,p.flip));
+  /* Состав приходит снаружи: позиции в макете постоянны, люди меняются. */
+  const KEYS=(o&&o.hosts&&o.hosts.length)?o.hosts:null;
+  HP.forEach((p,i)=>host(KEYS?(KEYS[i]||p.k):p.k,p.x,p.y,p.h,p.r,p.flip));
   squiggle(100,150+(lines.length-1)*lead+cap*0.28,340,150+(lines.length-1)*lead+cap*0.52,'#FFB627',12);
   ctx.save();ctx.translate(1152,106);ctx.rotate(0.08);
   paint(blobPts(0,0,88,13,700,5),true,'#FF5A5F',700,{lw:9});
