@@ -4,7 +4,11 @@
 </head><body>
 <canvas id="c" width="1080" height="1080"></canvas>
 <script>
-const cv=document.getElementById('c'), ctx=cv.getContext('2d');
+const cv=document.getElementById('c');
+// `ctx` is reassignable so tools can swap in a recording context and get the
+// same shapes out as vectors — the site reuses these objects as SVG.
+let ctx=cv.getContext('2d');
+window.__withCtx=(c,fn)=>{const prev=ctx;ctx=c;try{fn();}finally{ctx=prev;}};
 const INK='#33241B', PAPER='#FFF7E8';
 
 /* ---------- helpers ---------- */
