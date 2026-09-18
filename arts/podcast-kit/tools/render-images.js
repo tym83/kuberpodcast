@@ -46,6 +46,9 @@ const flag = (name) => { const i = argv.indexOf('--' + name); if (i < 0) return 
 const ep = flag('ep');   if (ep) opts.num = ep;
 const ln = flag('lines'); if (ln) opts.lines = ln.split('|').map(s => s.trim()).filter(Boolean);
 const suffix = flag('suffix') || '';
+// Кто в кадре и в каком порядке. Состав меняется от выпуска к выпуску, а
+// позиции в макете остаются те же, поэтому список — параметр, а не константа.
+const hosts = flag('hosts'); if (hosts) opts.hosts = hosts.split(',').map(s => s.trim()).filter(Boolean);
 const only = argv;
 const list = only.length ? ASSETS.filter(a => only.includes(a.n)) : ASSETS;
 if (!list.length) { console.error('Ничего не выбрано. Имена:', ASSETS.map(a => a.n).join(', ')); process.exit(1); }
@@ -59,15 +62,27 @@ if (!list.length) { console.error('Ничего не выбрано. Имена:
   await page.goto('file://' + path.join(ROOT, 'src/pack.html'));
   await page.waitForTimeout(400);
 
-  // фотографии ведущих: отдаём в страницу как data-URI
-  const hostsDir = path.join(ROOT, 'assets', 'hosts');
+  // Фотографии ведущих: отдаём в страницу как data-URI. Вырезки выпуска лежат
+  // в своей папке assets/hosts/ep<N>/ — иначе новый выпуск затирает старый и
+  // его обложка перестаёт пересобираться.
+  // Номер выпуска пишут и как «2», и как «02», поэтому ищем обе формы.
+  const epDirs = ep ? [`ep${ep}`, `ep${String(Number(ep)).padStart(2, '0')}`, `ep${Number(ep)}`]
+                      .map(d => path.join(ROOT, 'assets', 'hosts', d)) : [];
+  const hostsDir = epDirs.find(d => fs.existsSync(d)) || path.join(ROOT, 'assets', 'hosts');
   if (fs.existsSync(hostsDir)) {
     const map = {};
     for (const f of fs.readdirSync(hostsDir).filter(f => f.endsWith('.png')))
       map[path.basename(f, '.png')] =
         'data:image/png;base64,' + fs.readFileSync(path.join(hostsDir, f)).toString('base64');
     await page.evaluate(m => window.loadHosts(m), map);
-    console.log(`  ведущих загружено: ${Object.keys(map).length}`);
+    console.log(`  ведущих загружено: ${Object.keys(map).length} из ${path.relative(ROOT, hostsDir)}`);
+    if (opts.hosts) {
+      const missing = opts.hosts.filter(h => !map[h]);
+      if (missing.length) {
+        console.error(`нет вырезок: ${missing.join(', ')}. Есть: ${Object.keys(map).join(', ')}`);
+        process.exit(1);
+      }
+    }
   }
 
   for (const a of list) {

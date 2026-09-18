@@ -6,6 +6,7 @@
  *   node tools/render-video.js styles noir
  *   node tools/render-video.js styles garage --crf 20
  *   node tools/render-video.js kids --frames 30      (быстрый тест: только 30 кадров)
+ *   node tools/render-video.js kids --episode 2      (номер выпуска в титрах)
  *
  * Кадры кладутся в out/frames/<имя>/, готовое видео — в out/<имя>.mp4
  */
@@ -29,11 +30,15 @@ if (!SCENES[scene]) {
   process.exit(1);
 }
 
-const name    = theme ? `${scene}-${theme}` : scene;
-const framesD = path.join(ROOT, 'out', 'frames', name);
-const outFile = path.join(ROOT, 'out', `${name}.mp4`);
 const crf     = flag('crf', '18');
 const limit   = flag('frames', null);
+const episode = flag('episode', null);
+
+// The episode number is part of the name: two issues are two files, not one
+// file overwritten by whichever render ran last.
+const name    = (theme ? `${scene}-${theme}` : scene) + (episode ? `-ep${episode}` : '');
+const framesD = path.join(ROOT, 'out', 'frames', name);
+const outFile = path.join(ROOT, 'out', `${name}.mp4`);
 
 (async () => {
   fs.mkdirSync(framesD, { recursive: true });
@@ -51,6 +56,12 @@ const limit   = flag('frames', null);
       process.exit(1);
     }
     await page.evaluate(t => window.setTheme(t), theme);
+  }
+
+  if (episode) {
+    // The number lives in the scene as a parameter, so a new issue is a flag
+    // rather than an edit to the drawing.
+    await page.evaluate(n => window.setEpisode(n), episode);
   }
 
   const total = limit ? Number(limit) : await page.evaluate(() => window.TOTAL || 510);

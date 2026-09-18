@@ -196,6 +196,16 @@ def enforce_chapter_rules(chapters: list[dict], duration: float,
         title = " ".join(str(ch.get("title", "")).split())
         if not title or t > duration:
             continue
+        # The length limit is in the config, so it is enforced here rather than
+        # left to the model to honour. YouTube does not reject a long title, it
+        # truncates it in the player - which is the same silent failure as a
+        # chapter list it refuses to show at all.
+        limit = cfg.get("max_title_chars", 70)
+        if len(title) > limit:
+            cut = title[:limit].rsplit(" ", 1)[0]
+            log.info("глава %s: заголовок укорочен с %d до %d знаков",
+                     ch.get("time"), len(title), len(cut))
+            title = cut
         cleaned.append({"seconds": t, "title": title})
 
     cleaned.sort(key=lambda c: c["seconds"])
